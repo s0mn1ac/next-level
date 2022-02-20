@@ -1,0 +1,7 @@
+{
+  "name": "next-level",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

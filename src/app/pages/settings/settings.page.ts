@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-settings',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsPage implements OnInit {
 
-  constructor() { }
+  public languageSelected: string;
+
+  constructor(private translocoService: TranslocoService) { }
 
   ngOnInit() {
+    this.getActiveLanguage();
+  }
+
+  public onClickChangeLanguageButton(event: any): void {
+    this.translocoService.setActiveLang(event?.detail?.value);
+  }
+
+  private getActiveLanguage(): void {
+    this.languageSelected = this.translocoService.getActiveLang();
   }
 
 }

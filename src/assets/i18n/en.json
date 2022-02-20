@@ -1,8 +1,27 @@
 {
+
     "menu": {
         "title": "Menu",
         "profile": "Profile",
         "settings": "Settings",
         "information": "Information"
+    },
+    
+    "profile": {
+        "title": "Profile"
+    },
+
+    "settings": {
+        "title": "Settings",
+        "languages": {
+            "language": "Language",
+            "spanish": "Spanish",
+            "english": "English"
+        }
+    },
+
+    "information": {
+        "title": "Information"
     }
+
 }

@@ -1,9 +1,13 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>settings</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header section="settings"></app-header>
 
-<ion-content>
+<ion-content *transloco="let t">
+
+  <ion-item>
+    <ion-label> {{ t('settings.languages.language') }} </ion-label>
+    <ion-select value="language" (ionChange)="onClickChangeLanguageButton($event)" [(ngModel)]="languageSelected">
+      <ion-select-option value="es"> {{ t('settings.languages.spanish') }} </ion-select-option>
+      <ion-select-option value="en"> {{ t('settings.languages.english') }} </ion-select-option>
+    </ion-select>
+  </ion-item>
 
 </ion-content>

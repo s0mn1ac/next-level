@@ -1,8 +1,27 @@
 {
+
     "menu": {
         "title": "Menú",
         "profile": "Perfil",
         "settings": "Ajustes",
         "information": "Información"
+    },
+
+    "profile": {
+        "title": "Perfil"
+    },
+
+    "settings": {
+        "title": "Ajustes",
+        "languages": {
+            "language": "Idioma",
+            "spanish": "Español",
+            "english": "Inglés"
+        }
+    },
+
+    "information": {
+        "title": "Información"
     }
+
 }

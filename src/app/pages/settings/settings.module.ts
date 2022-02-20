@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { SettingsPageRoutingModule } from './settings-routing.module';
 
 import { SettingsPage } from './settings.page';
+import { TranslocoModule } from '@ngneat/transloco';
+import { ComponentsModule } from 'src/app/shared/modules/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SettingsPageRoutingModule
+    SettingsPageRoutingModule,
+    TranslocoModule,
+    ComponentsModule
   ],
   declarations: [SettingsPage]
 })

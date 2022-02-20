@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +7,6 @@ import { TranslocoService } from '@ngneat/transloco';
 })
 export class HomePage {
 
-  constructor(private translocoService: TranslocoService) {}
-
-  public onClickChangeLanguageButton(language: string): void {
-    this.translocoService.setActiveLang(language);
-  }
+  constructor() {}
 
 }

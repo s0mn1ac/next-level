@@ -1,1 +1,4 @@
-{}
+{
+    "start": "Start",
+    "hello": "Hello world!"
+}

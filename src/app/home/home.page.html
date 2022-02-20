@@ -1,8 +1,16 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      {{ "start" | transloco }}
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onClickChangeLanguageButton('es')">
+        ES
+      </ion-button>
+      <ion-button (click)="onClickChangeLanguageButton('en')">
+        EN
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -14,7 +22,6 @@
   </ion-header>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <strong> {{ "hello" | transloco }} </strong>
   </div>
 </ion-content>

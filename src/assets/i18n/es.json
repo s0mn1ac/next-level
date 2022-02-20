@@ -1,4 +1,8 @@
 {
-    "start": "Inicio",
-    "hello": "¡Hola mundo!"
+    "menu": {
+        "title": "Menú",
+        "profile": "Perfil",
+        "settings": "Ajustes",
+        "information": "Información"
+    }
 }

@@ -1,0 +1,17 @@
+<ion-menu side="start" menuId="first" contentId="main" *transloco="let t">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title> {{ t('menu.title') }} </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-menu-toggle *ngFor="let menuItem of menuItems">
+        <ion-item [routerLink]="menuItem.redirectTo" detail>
+            <ion-icon slot="start" color="primary" [name]="menuItem.icon"></ion-icon>
+            <ion-label> {{ t('menu.' + menuItem.name) }} </ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+</ion-menu>

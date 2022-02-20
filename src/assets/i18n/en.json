@@ -1,4 +1,8 @@
 {
-    "start": "Start",
-    "hello": "Hello world!"
+    "menu": {
+        "title": "Menu",
+        "profile": "Profile",
+        "settings": "Settings",
+        "information": "Information"
+    }
 }

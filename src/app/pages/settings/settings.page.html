@@ -2,12 +2,22 @@
 
 <ion-content *transloco="let t">
 
-  <ion-item>
-    <ion-label> {{ t('settings.languages.language') }} </ion-label>
-    <ion-select value="language" (ionChange)="onClickChangeLanguageButton($event)" [(ngModel)]="languageSelected">
-      <ion-select-option value="es"> {{ t('settings.languages.spanish') }} </ion-select-option>
-      <ion-select-option value="en"> {{ t('settings.languages.english') }} </ion-select-option>
-    </ion-select>
-  </ion-item>
+  <ion-list>
+
+    <ion-item lines="full">
+      <ion-icon slot="start" name="moon"></ion-icon>
+      <ion-label> {{ t('settings.darkMode') }} </ion-label>
+      <ion-toggle id="themeToggle" slot="end" [(ngModel)]="isDarkModeEnabled" (ionChange)="onChangeDarkMode()"></ion-toggle>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label> {{ t('settings.languages.language') }} </ion-label>
+      <ion-select value="language" (ionChange)="onClickChangeLanguageButton($event)" [(ngModel)]="languageSelected">
+        <ion-select-option value="es"> {{ t('settings.languages.spanish') }} </ion-select-option>
+        <ion-select-option value="en"> {{ t('settings.languages.english') }} </ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+  </ion-list>
 
 </ion-content>

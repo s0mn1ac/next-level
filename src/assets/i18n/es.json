@@ -13,6 +13,7 @@
 
     "settings": {
         "title": "Ajustes",
+        "darkMode": "Modo oscuro",
         "languages": {
             "language": "Idioma",
             "spanish": "Español",

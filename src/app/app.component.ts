@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { TranslocoService } from '@ngneat/transloco';
 import { Subscription } from 'rxjs';
 import { DarkModeService } from './shared/services/dark-mode.service';
+import { LanguageService } from './shared/services/language.service';
+import { ThemeService } from './shared/services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -9,24 +12,45 @@ import { DarkModeService } from './shared/services/dark-mode.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
+  private languageSubscription$: Subscription;
   private darkModeSubscription$: Subscription;
+  private themeSubscription$: Subscription;
 
-  constructor(private darkModeService: DarkModeService) { }
+  private themes: string[] = ['red', 'orange', 'yellow', 'green', 'blue'];
+
+  constructor(
+    private translocoService: TranslocoService,
+    private languageService: LanguageService,
+    private darkModeService: DarkModeService,
+    private themeService: ThemeService
+  ) { }
 
   ngOnInit(): void {
     this.initializeDarkModeSubscription();
   }
 
   ngOnDestroy(): void {
+    this.languageSubscription$?.unsubscribe();
     this.darkModeSubscription$?.unsubscribe();
+    this.themeSubscription$?.unsubscribe();
   }
 
   private initializeDarkModeSubscription(): void {
-    this.darkModeSubscription$ = this.darkModeService.darkModeObservable.subscribe((value: boolean) => this.setTheme(value));
+    this.languageSubscription$ = this.languageService.languageObservable.subscribe((value: string) => this.setLanguage(value));
+    this.darkModeSubscription$ = this.darkModeService.darkModeObservable.subscribe((value: boolean) => this.setDarkMode(value));
+    this.themeSubscription$ = this.themeService.themeObservable.subscribe((value: string) => this.setTheme(value));
   }
 
-  private setTheme(isDarkModeEnabled): void {
+  private setLanguage(languageSelected: string): void {
+    this.translocoService.setActiveLang(languageSelected);
+  }
+
+  private setDarkMode(isDarkModeEnabled: boolean): void {
     document.body.classList.toggle('dark', isDarkModeEnabled);
+  }
+
+  private setTheme(themeSelected: string): void {
+    this.themes?.forEach((theme: string) => document.body.classList.toggle(theme, themeSelected === theme));
   }
 
 }

@@ -4,30 +4,44 @@
 
   <ion-list>
 
+    <ion-list-header> Color principal de la aplicación </ion-list-header>
+
     <ion-item>
       <ion-button (click)="onChangeTheme('red')" expand="block" shape="round" color="red">
-        Rojo
+        {{ t('settings.colors.red') }}
       </ion-button>
       <ion-button (click)="onChangeTheme('orange')" expand="block" shape="round" color="orange">
-        Naranja
+        {{ t('settings.colors.orange') }}
       </ion-button>
       <ion-button (click)="onChangeTheme('yellow')" expand="block" shape="round" color="yellow">
-        Amarillo
+        {{ t('settings.colors.yellow') }}
       </ion-button>
       <ion-button (click)="onChangeTheme('green')" expand="block" shape="round" color="green">
-        Verde
+        {{ t('settings.colors.green') }}
       </ion-button>
       <ion-button (click)="onChangeTheme('blue')" expand="block" shape="round" color="blue">
-        Azul
+        {{ t('settings.colors.blue') }}
       </ion-button>
     </ion-item>
+
+  </ion-list>
+
+  <ion-list>
+
+    <ion-list-header> Tema </ion-list-header>
 
     <ion-item lines="full">
       <ion-icon slot="start" name="moon"></ion-icon>
       <ion-label> {{ t('settings.darkMode') }} </ion-label>
       <ion-toggle id="themeToggle" slot="end" [(ngModel)]="isDarkModeEnabled" (ionChange)="onChangeDarkMode()"></ion-toggle>
     </ion-item>
-  
+
+  </ion-list>
+
+  <ion-list>
+
+    <ion-list-header> Idioma </ion-list-header>
+
     <ion-item>
       <ion-label> {{ t('settings.languages.language') }} </ion-label>
       <ion-select value="language" (ionChange)="onChangeLanguage($event)" [(ngModel)]="languageSelected">
@@ -35,7 +49,7 @@
         <ion-select-option value="en"> {{ t('settings.languages.english') }} </ion-select-option>
       </ion-select>
     </ion-item>
-    
-  </ion-list>
 
+  </ion-list>
+    
 </ion-content>

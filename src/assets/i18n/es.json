@@ -18,6 +18,13 @@
             "language": "Idioma",
             "spanish": "Español",
             "english": "Inglés"
+        },
+        "colors": {
+            "red": "Rojo",
+            "orange": "Naranja",
+            "yellow": "Amarillo",
+            "green": "Verde",
+            "blue": "Azul"
         }
     },
 

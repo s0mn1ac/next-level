@@ -28,7 +28,6 @@ export class SettingsPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.getActiveLanguage();
     this.initializeLanguageSubscription();
     this.initializeDarkModeSubscription();
     this.initializeThemeSubscription();
@@ -48,8 +47,8 @@ export class SettingsPage implements OnInit, OnDestroy {
     this.darkModeService.onChangeDarkModeValue(this.isDarkModeEnabled);
   }
 
-  private getActiveLanguage(): void {
-    this.languageSelected = this.translocoService.getActiveLang();
+  public onChangeTheme(theme: string): void {
+    this.themeService.onChangeThemeValue(theme);
   }
 
   private initializeLanguageSubscription(): void {

@@ -2,6 +2,10 @@
 // http://ionicframework.com/docs/theming/
 
 @import './red.scss';
+@import './orange.scss';
+@import './yellow.scss';
+@import './green.scss';
+@import './blue.scss';
 
 /** Ionic CSS Variables **/
 :root {
@@ -76,6 +80,41 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  --ion-color-red: #F94144;
+	--ion-color-red-rgb: 249,65,68;
+	--ion-color-red-contrast: #ffffff;
+	--ion-color-red-contrast-rgb: 255,255,255;
+	--ion-color-red-shade: #db393c;
+	--ion-color-red-tint: #fa5457;
+
+  --ion-color-orange: #F3722C;
+	--ion-color-orange-rgb: 243,114,44;
+	--ion-color-orange-contrast: #000000;
+	--ion-color-orange-contrast-rgb: 0,0,0;
+	--ion-color-orange-shade: #d66427;
+	--ion-color-orange-tint: #f48041;
+
+  --ion-color-yellow: #F9C74F;
+	--ion-color-yellow-rgb: 249,199,79;
+	--ion-color-yellow-contrast: #000000;
+	--ion-color-yellow-contrast-rgb: 0,0,0;
+	--ion-color-yellow-shade: #dbaf46;
+	--ion-color-yellow-tint: #facd61;
+
+  --ion-color-green: #43AA8B;
+	--ion-color-green-rgb: 67,170,139;
+	--ion-color-green-contrast: #000000;
+	--ion-color-green-contrast-rgb: 0,0,0;
+	--ion-color-green-shade: #3b967a;
+	--ion-color-green-tint: #56b397;
+
+  --ion-color-blue: #277DA1;
+	--ion-color-blue-rgb: 39,125,161;
+	--ion-color-blue-contrast: #ffffff;
+	--ion-color-blue-contrast-rgb: 255,255,255;
+	--ion-color-blue-shade: #226e8e;
+	--ion-color-blue-tint: #3d8aaa;
 }
 
 /*

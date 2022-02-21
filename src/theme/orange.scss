@@ -1,0 +1,17 @@
+body.orange {
+    --ion-color-primary: #F3722C !important;
+	--ion-color-primary-rgb: 243,114,44 !important;
+	--ion-color-primary-contrast: #000000 !important;
+	--ion-color-primary-contrast-rgb: 0,0,0 !important;
+	--ion-color-primary-shade: #d66427 !important;
+	--ion-color-primary-tint: #f48041 !important;
+}
+
+.ion-color-orange {
+    --ion-color-base: var(--ion-color-orange) !important;
+    --ion-color-base-rgb: var(--ion-color-orange-rgb) !important;
+    --ion-color-contrast: var(--ion-color-orange-contrast) !important;
+    --ion-color-contrast-rgb: var(--ion-color-orange-contrast-rgb) !important;
+    --ion-color-shade: var(--ion-color-orange-shade) !important;
+    --ion-color-tint: var(--ion-color-orange-tint) !important;
+}

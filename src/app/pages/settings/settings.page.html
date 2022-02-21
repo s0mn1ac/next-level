@@ -4,6 +4,24 @@
 
   <ion-list>
 
+    <ion-item>
+      <ion-button (click)="onChangeTheme('red')" expand="block" shape="round" color="red">
+        Rojo
+      </ion-button>
+      <ion-button (click)="onChangeTheme('orange')" expand="block" shape="round" color="orange">
+        Naranja
+      </ion-button>
+      <ion-button (click)="onChangeTheme('yellow')" expand="block" shape="round" color="yellow">
+        Amarillo
+      </ion-button>
+      <ion-button (click)="onChangeTheme('green')" expand="block" shape="round" color="green">
+        Verde
+      </ion-button>
+      <ion-button (click)="onChangeTheme('blue')" expand="block" shape="round" color="blue">
+        Azul
+      </ion-button>
+    </ion-item>
+
     <ion-item lines="full">
       <ion-icon slot="start" name="moon"></ion-icon>
       <ion-label> {{ t('settings.darkMode') }} </ion-label>

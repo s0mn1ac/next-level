@@ -1,0 +1,17 @@
+body.yellow {
+    --ion-color-primary: #F9C74F !important;
+	--ion-color-primary-rgb: 249,199,79 !important;
+	--ion-color-primary-contrast: #000000 !important;
+	--ion-color-primary-contrast-rgb: 0,0,0 !important;
+	--ion-color-primary-shade: #dbaf46 !important;
+	--ion-color-primary-tint: #facd61 !important;
+}
+
+.ion-color-yellow {
+    --ion-color-base: var(--ion-color-yellow) !important;
+    --ion-color-base-rgb: var(--ion-color-yellow-rgb) !important;
+    --ion-color-contrast: var(--ion-color-yellow-contrast) !important;
+    --ion-color-contrast-rgb: var(--ion-color-yellow-contrast-rgb) !important;
+    --ion-color-shade: var(--ion-color-yellow-shade) !important;
+    --ion-color-tint: var(--ion-color-yellow-tint) !important;
+}

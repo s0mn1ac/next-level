@@ -1,0 +1,17 @@
+body.blue {
+    --ion-color-primary: #277DA1 !important;
+	--ion-color-primary-rgb: 39,125,161 !important;
+	--ion-color-primary-contrast: #ffffff !important;
+	--ion-color-primary-contrast-rgb: 255,255,255 !important;
+	--ion-color-primary-shade: #226e8e !important;
+	--ion-color-primary-tint: #3d8aaa !important;
+}
+
+.ion-color-blue {
+    --ion-color-base: var(--ion-color-blue) !important;
+    --ion-color-base-rgb: var(--ion-color-blue-rgb) !important;
+    --ion-color-contrast: var(--ion-color-blue-contrast) !important;
+    --ion-color-contrast-rgb: var(--ion-color-blue-contrast-rgb) !important;
+    --ion-color-shade: var(--ion-color-blue-shade) !important;
+    --ion-color-tint: var(--ion-color-blue-tint) !important;
+}

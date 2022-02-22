@@ -2,4 +2,70 @@
 
 <ion-content *transloco="let t">
 
+    <ion-list>
+        
+        <ion-item routerLink="email" lines="full">
+            <ion-icon slot="start" color="primary" name="mail-outline"></ion-icon>
+            <ion-label> {{ t('profile.changeEmail') }} </ion-label>
+        </ion-item>
+
+        <ion-item routerLink="password" lines="full">
+            <ion-icon slot="start" color="primary" name="key-outline"></ion-icon>
+            <ion-label> {{ t('profile.changePassword') }} </ion-label>
+        </ion-item>
+
+        <ion-item lines="full" id="trigger-log-out-modal">
+            <ion-icon slot="start" color="danger" name="log-out-outline"></ion-icon>
+            <ion-label color="danger"> {{ t('profile.logOut.title') }} </ion-label>
+        </ion-item>
+
+        <ion-item lines="full" id="trigger-delete-accoount-modal">
+            <ion-icon slot="start" color="danger" name="trash-outline"></ion-icon>
+            <ion-label color="danger"> {{ t('profile.deleteAccount.title') }} </ion-label>
+        </ion-item>
+
+    </ion-list>
+
+    <ion-modal [breakpoints]="breakpoints" [initialBreakpoint]="initialBreakpoint" trigger="trigger-delete-accoount-modal">
+        
+        <ng-template>
+
+            <ion-content>
+
+                <ion-item class="modal-item" lines="none">
+                    <ion-label class="ion-text-center" text-wrap>
+                        <ion-icon slot="start" name="trash-outline" size="large" color="danger"></ion-icon>
+                        <h2> {{ t('profile.deleteAccount.deleteAccountHeader') }} </h2>
+                        <p> {{ t('profile.deleteAccount.deleteAccountBody') }} </p>
+                        <ion-button mode="ios" size="large" expand="block" color="danger"> {{ t('buttons.delete') }} </ion-button>
+                    </ion-label>
+                </ion-item>
+
+            </ion-content>
+
+        </ng-template>
+
+    </ion-modal>
+
+    <ion-modal [breakpoints]="breakpoints" [initialBreakpoint]="initialBreakpoint" trigger="trigger-log-out-modal">
+        
+        <ng-template>
+
+            <ion-content>
+
+                <ion-item class="modal-item" lines="none">
+                    <ion-label class="ion-text-center" text-wrap>
+                        <ion-icon slot="start" name="log-out-outline" size="large" color="danger"></ion-icon>
+                        <h2> {{ t('profile.logOut.logOutHeader') }} </h2>
+                        <p> {{ t('profile.logOut.logOutBody') }} </p>
+                        <ion-button mode="ios" size="large" expand="block" color="danger"> {{ t('buttons.logOut') }} </ion-button>
+                    </ion-label>
+                </ion-item>
+
+            </ion-content>
+
+        </ng-template>
+
+    </ion-modal>
+
 </ion-content>

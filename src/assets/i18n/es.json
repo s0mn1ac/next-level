@@ -12,10 +12,27 @@
         "information": "Información"
     },
 
+    "buttons": {
+        "delete": "Eliminar",
+        "logOut": "Cerrar sesión"
+    },
+
     "profile": {
         "title": "Perfil",
         "welcome": "Bienvenido, {{name}}",
-        "user": "@{{user}}"
+        "user": "@{{user}}",
+        "changePassword": "Cambiar contraseña",
+        "changeEmail": "Cambiar dirección de correo electrónico",
+        "logOut": {
+            "title": "Cerrar sesión",
+            "logOutHeader": "¿Quieres cerrar la sesión?",
+            "logOutBody": "Esperamos volver a verte muy pronto. Recuerda guardar tu contraseña en un lugar seguro para evitar olvidos."
+        },
+        "deleteAccount": {
+            "title": "Eliminar cuenta",
+            "deleteAccountHeader": "¿Quieres eliminar la cuenta?",
+            "deleteAccountBody": "Ten presente que este cambio es irreversible. En cuanto lo hagas, ¡no habrá vuelta a trás!"
+        }
     },
 
     "board": {

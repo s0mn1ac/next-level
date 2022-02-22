@@ -11,11 +11,28 @@
         "settings": "Settings",
         "information": "Information"
     },
+
+    "buttons": {
+        "delete": "Delete",
+        "logOut": "Log out"
+    },
     
     "profile": {
         "title": "Profile",
         "welcome": "Welcome, {{name}}",
-        "user": "@{{user}}"
+        "user": "@{{user}}",
+        "changePassword": "Change password",
+        "changeEmail": "Change email address",
+        "logOut": {
+            "title": "Log out",
+            "logOutHeader": "Do you want to log out?",
+            "logOutBody": "We hope to see you again very soon. Remember to keep your password in a safe place to prevent it from being forgotten."
+        },
+        "deleteAccount": {
+            "deleteAccount": "Delete account",
+            "deleteAccountHeader": "Do you want to delete the account?",
+            "deleteAccountBody": "Keep in mind that this change is irreversible. Once you do it, there is no going back!"
+        }
     },
 
     "board": {

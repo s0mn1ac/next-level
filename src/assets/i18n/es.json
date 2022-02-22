@@ -1,14 +1,41 @@
 {
 
     "menu": {
-        "title": "Menú",
+        "title": "Next Level!",
         "profile": "Perfil",
+        "board": "Mi tablón",
+        "library": "Biblioteca",
+        "played": "Jugados",
+        "pending": "Pendientes",
+        "lists": "Todas mis listas",
         "settings": "Ajustes",
         "information": "Información"
     },
 
     "profile": {
-        "title": "Perfil"
+        "title": "Perfil",
+        "welcome": "Bienvenido, {{name}}",
+        "user": "@{{user}}"
+    },
+
+    "board": {
+        "title": "Mi tablón"
+    },
+
+    "library": {
+        "title": "Biblioteca"
+    },
+
+    "played": {
+        "title": "Jugados"
+    },
+
+    "pending": {
+        "title": "Pendientes"
+    },
+
+    "lists": {
+        "title": "Todas mis listas"
     },
 
     "settings": {

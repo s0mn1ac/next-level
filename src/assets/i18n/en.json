@@ -1,14 +1,41 @@
 {
 
     "menu": {
-        "title": "Menu",
+        "title": "Next Level!",
         "profile": "Profile",
+        "board": "My board",
+        "library": "Library",
+        "played": "Played",
+        "pending": "Pending",
+        "lists": "All my lists",
         "settings": "Settings",
         "information": "Information"
     },
     
     "profile": {
-        "title": "Profile"
+        "title": "Profile",
+        "welcome": "Welcome, {{name}}",
+        "user": "@{{user}}"
+    },
+
+    "board": {
+        "title": "My board"
+    },
+
+    "library": {
+        "title": "Library"
+    },
+
+    "played": {
+        "title": "Played"
+    },
+
+    "pending": {
+        "title": "Pending"
+    },
+
+    "lists": {
+        "title": "All my lists"
     },
 
     "settings": {

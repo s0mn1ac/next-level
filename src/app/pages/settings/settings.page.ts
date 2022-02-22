@@ -47,8 +47,8 @@ export class SettingsPage implements OnInit, OnDestroy {
     this.darkModeService.onChangeDarkModeValue(this.isDarkModeEnabled);
   }
 
-  public onChangeTheme(theme: string): void {
-    this.themeService.onChangeThemeValue(theme);
+  public onChangeTheme(event: any): void {
+    this.themeService.onChangeThemeValue(event?.detail?.value);
   }
 
   private initializeLanguageSubscription(): void {

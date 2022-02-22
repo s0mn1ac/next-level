@@ -13,9 +13,11 @@
 
     "settings": {
         "title": "Settings",
+        "appColor": "Application main color",
+        "appTheme": "Theme",
+        "appLanguage": "Language",
         "darkMode": "Dark mode",
         "languages": {
-            "language": "Language",
             "spanish": "Spanish",
             "english": "English"
         },

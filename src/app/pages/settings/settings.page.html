@@ -4,31 +4,42 @@
 
   <ion-list>
 
-    <ion-list-header> Color principal de la aplicación </ion-list-header>
+    <ion-list-header> {{ t('settings.appColor') }} </ion-list-header>
 
-    <ion-item>
-      <ion-button (click)="onChangeTheme('red')" expand="block" shape="round" color="red">
-        {{ t('settings.colors.red') }}
-      </ion-button>
-      <ion-button (click)="onChangeTheme('orange')" expand="block" shape="round" color="orange">
-        {{ t('settings.colors.orange') }}
-      </ion-button>
-      <ion-button (click)="onChangeTheme('yellow')" expand="block" shape="round" color="yellow">
-        {{ t('settings.colors.yellow') }}
-      </ion-button>
-      <ion-button (click)="onChangeTheme('green')" expand="block" shape="round" color="green">
-        {{ t('settings.colors.green') }}
-      </ion-button>
-      <ion-button (click)="onChangeTheme('blue')" expand="block" shape="round" color="blue">
-        {{ t('settings.colors.blue') }}
-      </ion-button>
-    </ion-item>
+    <ion-radio-group name="theme" [value]="themeSelected" (ionChange)="onChangeTheme($event)">
+
+      <ion-item lines="full">
+        <ion-label color="red"> {{ t('settings.colors.red') }} </ion-label>
+        <ion-radio value="red" color="red"></ion-radio>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label color="orange"> {{ t('settings.colors.orange') }} </ion-label>
+        <ion-radio value="orange" color="orange"></ion-radio>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label color="yellow"> {{ t('settings.colors.yellow') }} </ion-label>
+        <ion-radio value="yellow" color="yellow"></ion-radio>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label color="green"> {{ t('settings.colors.green') }} </ion-label>
+        <ion-radio value="green" color="green"></ion-radio>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label color="blue"> {{ t('settings.colors.blue') }} </ion-label>
+        <ion-radio value="blue" color="blue"></ion-radio>
+      </ion-item>
+
+    </ion-radio-group>
 
   </ion-list>
 
   <ion-list>
 
-    <ion-list-header> Tema </ion-list-header>
+    <ion-list-header> {{ t('settings.appTheme') }} </ion-list-header>
 
     <ion-item lines="full">
       <ion-icon slot="start" name="moon"></ion-icon>
@@ -40,15 +51,21 @@
 
   <ion-list>
 
-    <ion-list-header> Idioma </ion-list-header>
+    <ion-list-header> {{ t('settings.appLanguage') }} </ion-list-header>
 
-    <ion-item>
-      <ion-label> {{ t('settings.languages.language') }} </ion-label>
-      <ion-select value="language" (ionChange)="onChangeLanguage($event)" [(ngModel)]="languageSelected">
-        <ion-select-option value="es"> {{ t('settings.languages.spanish') }} </ion-select-option>
-        <ion-select-option value="en"> {{ t('settings.languages.english') }} </ion-select-option>
-      </ion-select>
-    </ion-item>
+    <ion-radio-group name="language" [value]="languageSelected" (ionChange)="onChangeLanguage($event)">
+
+      <ion-item lines="full">
+        <ion-label> {{ t('settings.languages.spanish') }} </ion-label>
+        <ion-radio value="es"></ion-radio>
+      </ion-item>
+      
+      <ion-item lines="full">
+        <ion-label> {{ t('settings.languages.english') }} </ion-label>
+        <ion-radio value="en"></ion-radio>
+      </ion-item>
+
+    </ion-radio-group>
 
   </ion-list>
     

@@ -19,7 +19,7 @@ export class EmailPage implements OnInit {
   private initForm(): void {
     this.changeEmailForm = this.formBuilder.group({
       newEmailAddress: new FormControl(null, Validators.compose([Validators.required, Validators.email])),
-      confirmPassword: new FormControl(null, Validators.compose([Validators.required, Validators.minLength(8)])),
+      confirmPassword: new FormControl(null, Validators.compose([Validators.required, Validators.minLength(8)]))
     });
   }
 

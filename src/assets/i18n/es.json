@@ -33,6 +33,11 @@
             "newEmailAddress": "Nueva dirección de correo",
             "confirmPassword": "Confirmar contraseña"
         },
+        "changeUser": {
+            "title": "Cambiar usuario y nombre",
+            "name": "Nombre completo",
+            "user": "Usuario"
+        },
         "logOut": {
             "title": "Cerrar sesión",
             "logOutHeader": "¿Quieres cerrar la sesión?",

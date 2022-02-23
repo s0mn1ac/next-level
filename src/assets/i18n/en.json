@@ -33,6 +33,11 @@
             "newEmailAddress": "New email address",
             "confirmPassword": "Confirm password"
         },
+        "changeUser": {
+            "title": "Change user and name",
+            "name": "Full name",
+            "user": "User"
+        },
         "logOut": {
             "title": "Log out",
             "logOutHeader": "Do you want to log out?",

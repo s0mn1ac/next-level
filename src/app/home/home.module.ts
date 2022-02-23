@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { TranslocoModule } from '@ngneat/transloco';
+import { ComponentsModule } from '../shared/modules/components.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { TranslocoModule } from '@ngneat/transloco';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    TranslocoModule
+    TranslocoModule,
+    ComponentsModule
   ],
   declarations: [HomePage]
 })

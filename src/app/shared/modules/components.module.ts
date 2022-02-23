@@ -4,16 +4,19 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { TranslocoModule } from '@ngneat/transloco';
 import { HeaderComponent } from 'src/app/components/header/header.component';
+import { ListComponent } from 'src/app/components/list/list.component';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    MenuComponent
+    MenuComponent,
+    ListComponent
   ],
   exports: [
     HeaderComponent,
-    MenuComponent
+    MenuComponent,
+    ListComponent
   ],
   imports: [
     CommonModule,

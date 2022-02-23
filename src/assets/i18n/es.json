@@ -30,7 +30,7 @@
         },
         "changeEmail": {
             "title": "Cambiar correo electrónico",
-            "newEmailAddress": "Nueva dirección de correo electrónico",
+            "newEmailAddress": "Nueva dirección de correo",
             "confirmPassword": "Confirmar contraseña"
         },
         "logOut": {

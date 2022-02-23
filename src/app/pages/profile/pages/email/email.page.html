@@ -14,18 +14,22 @@
 
 <ion-content class="ion-padding" *transloco="let t">
 
-  <ion-item fill="outline">
-    <ion-icon slot="start" name="mail-outline"></ion-icon>
-    <ion-label position="floating"> {{ t('profile.changeEmail.newEmailAddress') }} </ion-label>
-    <ion-input type="email"></ion-input>
-  </ion-item>
+  <form [formGroup]="changeEmailForm">
 
-  <ion-item  fill="outline" class="password-item">
-    <ion-icon slot="start" name="key-outline"></ion-icon>
-    <ion-label position="floating"> {{ t('profile.changeEmail.confirmPassword') }} </ion-label>
-    <ion-input type="password"></ion-input>
-  </ion-item>
+    <ion-item fill="outline">
+      <ion-icon slot="start" name="mail-outline"></ion-icon>
+      <ion-label position="floating"> {{ t('profile.changeEmail.newEmailAddress') }} </ion-label>
+      <ion-input type="email" formControlName="newEmailAddress"></ion-input>
+    </ion-item>
+  
+    <ion-item  fill="outline" class="password-item">
+      <ion-icon slot="start" name="key-outline"></ion-icon>
+      <ion-label position="floating"> {{ t('profile.changeEmail.confirmPassword') }} </ion-label>
+      <ion-input type="password" formControlName="confirmPassword"></ion-input>
+    </ion-item>
+  
+    <ion-button mode="ios" expand="block" [disabled]="changeEmailForm.invalid"> {{ t('buttons.confirm') }} </ion-button>
 
-  <ion-button mode="ios" expand="block"> {{ t('buttons.confirm') }} </ion-button>
+  </form>
 
 </ion-content>

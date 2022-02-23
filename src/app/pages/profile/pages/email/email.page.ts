@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-email',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmailPage implements OnInit {
 
-  constructor() { }
+  public changeEmailForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.initForm();
+  }
+
+  private initForm(): void {
+    this.changeEmailForm = this.formBuilder.group({
+      newEmailAddress: new FormControl(null, Validators.compose([Validators.required, Validators.email])),
+      confirmPassword: new FormControl(null, Validators.compose([Validators.required, Validators.minLength(8)])),
+    });
   }
 
 }

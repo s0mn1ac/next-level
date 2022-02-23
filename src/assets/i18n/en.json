@@ -14,15 +14,25 @@
 
     "buttons": {
         "delete": "Delete",
-        "logOut": "Log out"
+        "logOut": "Log out",
+        "confirm": "Confirm"
     },
     
     "profile": {
         "title": "Profile",
         "welcome": "Welcome, {{name}}",
         "user": "@{{user}}",
-        "changePassword": "Change password",
-        "changeEmail": "Change email address",
+        "changePassword": {
+            "title": "Change password",
+            "currentPassword": "Current password",
+            "newPassword": "New password",
+            "confirmPassword": "Confirm password"
+        },
+        "changeEmail": {
+            "title": "Change email address",
+            "newEmailAddress": "New email address",
+            "confirmPassword": "Confirm password"
+        },
         "logOut": {
             "title": "Log out",
             "logOutHeader": "Do you want to log out?",

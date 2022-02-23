@@ -14,15 +14,25 @@
 
     "buttons": {
         "delete": "Eliminar",
-        "logOut": "Cerrar sesión"
+        "logOut": "Cerrar sesión",
+        "confirm": "Confirmar"
     },
 
     "profile": {
         "title": "Perfil",
         "welcome": "Bienvenido, {{name}}",
         "user": "@{{user}}",
-        "changePassword": "Cambiar contraseña",
-        "changeEmail": "Cambiar dirección de correo electrónico",
+        "changePassword": {
+            "title": "Cambiar contraseña",
+            "currentPassword": "Contraseña actual",
+            "newPassword": "Nueva contraseña",
+            "confirmPassword": "Confirmar contraseña"
+        },
+        "changeEmail": {
+            "title": "Cambiar correo electrónico",
+            "newEmailAddress": "Nueva dirección de correo electrónico",
+            "confirmPassword": "Confirmar contraseña"
+        },
         "logOut": {
             "title": "Cerrar sesión",
             "logOutHeader": "¿Quieres cerrar la sesión?",

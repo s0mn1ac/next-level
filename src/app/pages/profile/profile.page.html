@@ -4,6 +4,20 @@
 
     <ion-list>
         
+        <div class="avatar-image-container">
+            <ion-avatar>
+                <img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg">
+            </ion-avatar>
+
+            <ion-item lines="none">
+                <ion-label class="ion-text-center" text-wrap>
+                    <h2> Fulanito Fulánez Fulánez </h2>
+                    <p> {{ t('profile.user', { user: 'fulanito' }) }} </p>
+                </ion-label>
+            </ion-item>
+
+        </div>
+        
         <ion-item routerLink="email" lines="full">
             <ion-icon slot="start" color="primary" name="mail-outline"></ion-icon>
             <ion-label> {{ t('profile.changeEmail.title') }} </ion-label>

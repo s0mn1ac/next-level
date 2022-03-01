@@ -15,6 +15,7 @@
   "dependencies": {
     "@angular/common": "~13.0.0",
     "@angular/core": "~13.0.0",
+    "@angular/fire": "^7.2.1",
     "@angular/forms": "~13.0.0",
     "@angular/platform-browser": "~13.0.0",
     "@angular/platform-browser-dynamic": "~13.0.0",
@@ -27,6 +28,7 @@
     "@ionic/angular": "^6.0.0",
     "@ngneat/transloco": "^3.1.4",
     "ajv": "^6.12.6",
+    "firebase": "^9.6.7",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

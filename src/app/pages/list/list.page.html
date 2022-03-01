@@ -1,0 +1,85 @@
+<ion-header *transloco="let t">
+
+  <ion-toolbar color="primary">
+    
+    <ion-buttons slot="start">
+      <ion-menu-button menu="first" *ngIf="!isInEditMode"></ion-menu-button>
+      <ion-button (click)="onClickCancelButton()" *ngIf="isInEditMode">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title> {{ id }} </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="onClickDeleteButton()" *ngIf="!isInEditMode" color="danger">
+        <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
+      </ion-button>
+      <ion-button (click)="onClickEditButton()" *ngIf="!isInEditMode">
+        <ion-icon slot="icon-only" name="create"></ion-icon>
+      </ion-button>
+      <ion-button (click)="onClickCancelButton()" *ngIf="isInEditMode">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content *transloco="let t">
+
+  <ion-grid>
+
+    <ion-row>
+
+      <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" *ngFor="let game of games">
+
+        <!-- <app-game-card-simple [game]="game"></app-game-card-simple> -->
+
+        <ion-card>
+
+          <img class="background-image" [src]="game?.image" [alt]="game.name" />
+
+          <ion-card-header>
+            <ion-card-subtitle>
+              <div class="card-subtitle">
+                <div class="parent-platforms">
+                  <img [src]="parentPlatform.image" *ngFor="let parentPlatform of game?.parentPlatforms" [alt]="parentPlatform.name" />
+                </div>
+                <div class="scores">
+                  <div class="own-score" [ngClass]="game?.score.color"> {{ game?.score.value }} </div>
+                  <div class="metascore" [ngClass]="game?.metascore.color"> {{ game?.metascore.value }} </div>
+                </div>
+              </div>
+            </ion-card-subtitle>
+            <ion-card-title> {{ game?.name }} </ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content>
+
+            <ion-button expand="block" shape="round"> {{ t('buttons.' + game?.status) }} </ion-button>
+
+          </ion-card-content>
+
+        </ion-card>
+        
+      </ion-col>
+
+    </ion-row>
+
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+
+    <ion-fab-button (click)="onClickAddButton()" *ngIf="!isInEditMode">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-button (click)="onClickSaveButton()" *ngIf="isInEditMode">
+      <ion-icon name="save"></ion-icon>
+    </ion-fab-button>
+
+  </ion-fab>
+
+</ion-content>

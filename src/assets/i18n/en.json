@@ -15,7 +15,10 @@
     "buttons": {
         "delete": "Delete",
         "logOut": "Log out",
-        "confirm": "Confirm"
+        "confirm": "Confirm",
+        "pending": "Pending",
+        "playing": "Playing",
+        "completed": "Completed"
     },
     
     "profile": {

@@ -1,0 +1,28 @@
+<div class="game-card-simple-layout">
+
+  <div class="game-card-simple-container">
+
+    <div class="game-image-container">
+      <img src="https://m.media-amazon.com/images/I/81QvUXy2qpL._AC_SX466_.jpg" />
+    </div>
+
+    <div class="game-info-container">
+
+      <div class="info-container">
+        <label> {{ game?.name }} </label>
+        <div class="subtitle-container">
+          <label class="console"> Switch </label>
+          <img src="https://rating.pegi.info/assets/images/games/age_threshold_icons/3.png" />
+        </div>
+      </div>
+
+      <ion-button mode="ios" size="small" (click)="onClickChangeButtonStatus()" expand="block" [color]="statusButtonColor"> {{ statusButtonValue }} </ion-button>
+      <!-- <div class="status-container">
+        <label class="emoji"> 😀 </label>
+      </div> -->
+
+    </div>
+
+  </div>
+
+</div>

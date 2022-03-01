@@ -18,7 +18,21 @@
         "confirm": "Confirm",
         "pending": "Pending",
         "playing": "Playing",
-        "completed": "Completed"
+        "completed": "Completed",
+        "signUp": "Sign up",
+        "signIn": "Sign in",
+        "signOut": "Sign out"
+    },
+
+    "signUp": {
+        "email": "Email",
+        "password": "Password",
+        "confirmPassword": "Confirm password"
+    },
+
+    "signIn": {
+        "email": "Email",
+        "password": "Password"
     },
     
     "profile": {

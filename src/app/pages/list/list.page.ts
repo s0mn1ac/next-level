@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Game } from 'src/app/shared/models/game.model';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { GameService } from 'src/app/shared/services/game.service';
 
 @Component({
@@ -20,7 +19,7 @@ export class ListPage implements OnInit, OnDestroy {
 
   public isInEditMode = false;
 
-  constructor(private activatedRoute: ActivatedRoute, private gameService: GameService, private authService: AuthService) { }
+  constructor(private activatedRoute: ActivatedRoute, private gameService: GameService) { }
 
   ngOnInit() {
     this.initParamsSubscription();
@@ -49,7 +48,6 @@ export class ListPage implements OnInit, OnDestroy {
 
   public onClickDeleteButton(): void {
     //
-    this.authService.signUp('test@nextlevel.com', '123456');
   }
 
   private initParamsSubscription(): void {

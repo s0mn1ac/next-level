@@ -66,7 +66,7 @@
 
     </ion-modal>
 
-    <ion-modal mode="md" [breakpoints]="breakpoints" [initialBreakpoint]="initialBreakpoint" trigger="trigger-log-out-modal">
+    <ion-modal #logOutModal mode="md" [breakpoints]="breakpoints" [initialBreakpoint]="initialBreakpoint" trigger="trigger-log-out-modal">
         
         <ng-template>
 
@@ -77,7 +77,9 @@
                         <ion-icon slot="start" name="log-out-outline" size="large" color="danger"></ion-icon>
                         <h2> {{ t('profile.logOut.logOutHeader') }} </h2>
                         <p> {{ t('profile.logOut.logOutBody') }} </p>
-                        <ion-button mode="ios" size="large" expand="block" color="danger"> {{ t('buttons.logOut') }} </ion-button>
+                        <ion-button mode="ios" size="large" expand="block" color="danger" (click)="onClickLogOutButton(logOutModal)">
+                            {{ t('buttons.logOut') }}
+                        </ion-button>
                     </ion-label>
                 </ion-item>
 

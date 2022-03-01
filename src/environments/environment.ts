@@ -6,13 +6,13 @@ export const environment = {
   production: false,
   firebase: {
     apiKey: 'AIzaSyDIC6mKJODXjH9-RmIIfzm8vcdPrmU_P88',
-    authDomain: 'xxxxxxxxxxxxxxxxxxxxxxxx',
+    authDomain: 'next-level-application.firebaseapp.com',
     databaseURL: 'https://next-level-application-default-rtdb.europe-west1.firebasedatabase.app',
     projectId: 'next-level-application',
-    storageBucket: 'xxxxxxxx',
-    messagingSenderId: 'xxxxxx',
-    appId: 'xxxxx',
-    measurementId: 'xxxxxxxxxxxxxxxx'
+    storageBucket: 'next-level-application.appspot.com',
+    messagingSenderId: '409413970565',
+    appId: '1:409413970565:web:0b2f8e3a897e69a9ba57ec',
+    measurementId: 'G-EQJBX6DFFR'
   }
 };
 

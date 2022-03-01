@@ -1,0 +1,28 @@
+<ion-content class="ion-padding" *transloco="let t">
+
+  <form [formGroup]="signInForm">
+
+    <ion-item fill="outline">
+      <ion-icon slot="start" name="mail-outline"></ion-icon>
+      <ion-label position="floating"> {{ t('signUp.email') }} </ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+
+
+    <ion-item  fill="outline" class="password-item">
+      <ion-icon slot="start" name="key-outline"></ion-icon>
+      <ion-label position="floating"> {{ t('signUp.password') }} </ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+  
+    <ion-button mode="ios" expand="block" [disabled]="signInForm.invalid" (click)="onClickSignInButton()">
+      {{ t('buttons.signIn') }}
+    </ion-button>
+  
+    <ion-button mode="ios" expand="block" routerLink="/sign-up">
+      {{ t('buttons.signUp') }}
+    </ion-button>
+
+  </form>
+
+</ion-content>

@@ -18,7 +18,21 @@
         "confirm": "Confirmar",
         "pending": "Pendiente",
         "playing": "Jugando",
-        "completed": "Completado"
+        "completed": "Completado",
+        "signUp": "Crear cuenta",
+        "signIn": "Iniciar sesión",
+        "signOut": "Cerrar sesión"
+    },
+
+    "signUp": {
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "confirmPassword": "Confirmar contraseña"
+    },
+
+    "signIn": {
+        "email": "Correo electrónico",
+        "password": "Contraseña"
     },
 
     "profile": {

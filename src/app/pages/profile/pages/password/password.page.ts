@@ -35,7 +35,6 @@ export class PasswordPage implements OnInit {
   }
 
   private validateMatchingPasswords(formControl: FormControl): any {
-    console.log(formControl.value);
     return formControl.value === this.changePasswordForm?.get('newPassword')?.value ? null : { notMatchingPasswords: false };
   }
 

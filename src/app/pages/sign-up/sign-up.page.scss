@@ -1,0 +1,20 @@
+ion-item {
+
+    &.password-item {
+        margin-top: 1rem;
+    }
+
+    ion-label.label-floating {
+        padding: 0px 6px;
+        background: var(--ion-background-color) !important;
+    }
+
+    ion-input {
+        --padding-start: 8px;
+        --padding-top: 16px;
+    }
+}
+
+ion-button {
+    margin-top: 2rem;
+}

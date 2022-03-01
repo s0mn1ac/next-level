@@ -25,6 +25,7 @@
     },
 
     "signUp": {
+        "name": "Name",
         "email": "Email",
         "password": "Password",
         "confirmPassword": "Confirm password"

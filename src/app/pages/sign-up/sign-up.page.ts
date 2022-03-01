@@ -18,13 +18,15 @@ export class SignUpPage implements OnInit {
   }
 
   public onClickSignUpButton(): void {
+    const name: string = this.signUpForm.get('name').value;
     const email: string = this.signUpForm.get('email').value;
     const password: string = this.signUpForm.get('password').value;
-    this.authService.signUp(email, password);
+    this.authService.signUp(email, password, name);
   }
 
   private initForm(): void {
     this.signUpForm = this.formBuilder.group({
+      name: new FormControl(null, Validators.compose([Validators.required])),
       email: new FormControl(null, Validators.compose([Validators.required, Validators.email])),
       password: new FormControl(null, Validators.compose([Validators.required, Validators.minLength(8)])),
       confirmPassword: new FormControl(null, Validators.compose([

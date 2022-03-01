@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { User } from 'src/app/shared/interfaces/user.interface';
 import { MenuItemModel } from 'src/app/shared/models/menu-item.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { MenuService } from './menu.service';
 
 @Component({
@@ -8,18 +10,31 @@ import { MenuService } from './menu.service';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, OnDestroy {
+
+  public userSubscription$: Subscription;
+
+  public user: User;
 
   public menuItems: MenuItemModel[];
 
-  constructor(private menuService: MenuService) { }
+  constructor(private menuService: MenuService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.initUserSubscription();
     this.buildMenuItems();
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription$?.unsubscribe();
   }
 
   private async buildMenuItems(): Promise<void> {
     this.menuItems = await this.menuService.getMenuItems();
+  }
+
+  private initUserSubscription(): void {
+    this.userSubscription$ = this.authService.userObservable?.subscribe((user: User) => this.user = user);
   }
 
 }

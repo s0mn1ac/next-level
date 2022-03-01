@@ -6,13 +6,13 @@
         
         <div class="avatar-image-container">
             <ion-avatar>
-                <img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg">
+                <img [src]="user?.photoURL" />
             </ion-avatar>
 
             <ion-item lines="none">
                 <ion-label class="ion-text-center" text-wrap>
-                    <h2> Fulanito Fulánez Fulánez </h2>
-                    <p> {{ t('profile.user', { user: 'fulanito' }) }} </p>
+                    <h2> {{ user?.displayName }} </h2>
+                    <p> {{ user?.email }} </p>
                 </ion-label>
             </ion-item>
 

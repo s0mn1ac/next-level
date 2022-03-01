@@ -9,11 +9,11 @@
     <ion-menu-toggle>
       <ion-item routerLink="profile" lines="none" color="primary">
         <ion-avatar slot="start">
-          <img src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg">
+          <img [src]="user?.photoURL" />
         </ion-avatar>
         <ion-label>
-          <h2> {{ t('profile.welcome', { name: 'Fulanito' }) }} </h2>
-          <p> {{ t('profile.user', { user: 'fulanito' }) }} </p>
+          <h2> {{ user?.displayName }} </h2>
+          <p> {{ user?.email }} </p>
         </ion-label>
       </ion-item>
     </ion-menu-toggle>

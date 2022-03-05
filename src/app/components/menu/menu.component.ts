@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable, Subscription } from 'rxjs';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { MenuItemModel } from 'src/app/shared/models/menu-item.model';
@@ -21,17 +22,12 @@ export class MenuComponent implements OnInit, OnDestroy {
   constructor(private menuService: MenuService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.getStoredUser();
     this.initUserSubscription();
     this.buildMenuItems();
   }
 
   ngOnDestroy(): void {
     this.userSubscription$?.unsubscribe();
-  }
-
-  private getStoredUser(): void {
-    // this.user = this.authService.getStoredUser();
   }
 
   private initUserSubscription(): void {

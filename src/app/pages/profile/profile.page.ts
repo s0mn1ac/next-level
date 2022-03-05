@@ -21,7 +21,6 @@ export class ProfilePage implements OnInit, OnDestroy {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.getStoredUser();
     this.initUserSubscription();
   }
 
@@ -32,10 +31,6 @@ export class ProfilePage implements OnInit, OnDestroy {
   public onClickLogOutButton(logOutModal: IonModal): void {
     logOutModal.dismiss();
     this.authService.signOut();
-  }
-
-  private getStoredUser(): void {
-    // this.user = this.authService.getStoredUser();
   }
 
   private initUserSubscription(): void {

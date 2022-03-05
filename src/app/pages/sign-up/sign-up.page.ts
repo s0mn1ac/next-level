@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import firebase from 'firebase/compat/app';
 
 @Component({
   selector: 'app-sign-up',
@@ -17,11 +18,15 @@ export class SignUpPage implements OnInit {
     this.initForm();
   }
 
-  public onClickSignUpButton(): void {
+  public async onClickSignUpButton(): Promise<void> {
     const name: string = this.signUpForm.get('name').value;
     const email: string = this.signUpForm.get('email').value;
     const password: string = this.signUpForm.get('password').value;
-    this.authService.signUp(email, password, name);
+    await this.authService.signUp(email, password);
+    await this.authService.updateUserProfile(name, 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg');
+    const user: firebase.User = await this.authService.getCurrentUser();
+    await this.authService.initUserStructure(user.uid);
+    await this.authService.generateUserDefaultLists(user.uid);
   }
 
   private initForm(): void {

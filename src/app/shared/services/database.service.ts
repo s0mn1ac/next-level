@@ -24,6 +24,10 @@ export class DatabaseService {
     this.userFireList = db.list(this.dbPath);
   }
 
+  public generateUserStructure(uid: string, userStructure: UserStructure): any {
+    return this.userFireList.set(uid, userStructure);
+  }
+
   getAll(): AngularFireList<UserStructure> {
     return this.userFireList;
   }

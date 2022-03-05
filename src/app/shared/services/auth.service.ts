@@ -3,7 +3,6 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs/operators';
 import { User } from '../interfaces/user.interface';
 import { List } from '../models/list.model';
 import { UserStructure } from '../models/user-structure.model';
@@ -16,7 +15,7 @@ export class AuthService {
 
   public userBehavior = new BehaviorSubject<User>(null);
 
-  public readonly userObservable: Observable<User> = this.userBehavior.asObservable().pipe(distinctUntilChanged());
+  public readonly userObservable: Observable<User> = this.userBehavior.asObservable();
 
   private userData: any;
 
@@ -28,39 +27,47 @@ export class AuthService {
     private databaseService: DatabaseService
   ) {
     this.angularFireAuth.authState.subscribe((user) => {
+      const userData: User = { uid: user.uid, email: user.email, displayName: user.displayName, photoURL: user.photoURL };
+      this.userBehavior.next(userData);
+      console.log('storeUser', user);
+
       if (user) {
+        console.log('STORE');
         this.userData = user;
         localStorage.setItem('nextLevelUser', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('nextLevelUser'));
+        // JSON.parse(localStorage.getItem('nextLevelUser'));
       } else {
         localStorage.setItem('nextLevelUser', 'null');
-        JSON.parse(localStorage.getItem('nextLevelUser'));
+        // JSON.parse(localStorage.getItem('nextLevelUser'));
       }
     });
   }
 
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('nextLevelUser'));
-    const userData: User = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL
-    };
-    this.userBehavior.next(userData);
+    console.log('isLoggedIn', user);
     return user !== null;
   }
 
   public async signUp(email: string, password: string, name: string): Promise<void> {
     return this.angularFireAuth.createUserWithEmailAndPassword(email, password).then((result) => {
       // this.sendVerificationMail();
+
       this.ngZone.run(() => {
         this.router.navigate(['home']); // TODO: Cambiar por página de inicio
       });
-      this.initUserStructure(result.user.uid);
-      this.generateUserDefaultLists(result.user.uid);
-      this.setUserData(result.user);
-      this.updateUserProfile(result.user, name);
+
+      const userData: User = {
+        uid: result.user.uid,
+        email: result.user.email,
+        displayName: name,
+        photoURL: 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg'
+      };
+
+      this.initUserStructure(userData.uid);
+      this.generateUserDefaultLists(userData.uid);
+      this.updateUserProfile(result.user, userData);
+      this.setUserData(userData);
     }).catch((error) => {
       window.alert(error.message); // TODO: Cambiar las alertas por TOAST
     });
@@ -68,10 +75,19 @@ export class AuthService {
 
   public async signIn(email: string, password: string): Promise<void> {
     return this.angularFireAuth.signInWithEmailAndPassword(email, password).then((result) => {
+
       this.ngZone.run(() => {
         this.router.navigate(['home']); // TODO: Cambiar por página de inicio
       });
-      this.setUserData(result.user);
+
+      const userData: User = {
+        uid: result.user.uid,
+        email: result.user.email,
+        displayName: result.user.displayName,
+        photoURL: result.user.photoURL
+      };
+
+      this.setUserData(userData);
     }).catch((error) => {
       window.alert(error.message); // TODO: Cambiar las alertas por TOAST
     });
@@ -95,25 +111,22 @@ export class AuthService {
       });
   }
 
-  private updateUserProfile(user: any, name: string): void {
+  public getStoredUser(): User {
+    const user: any = JSON.parse(localStorage.getItem('nextLevelUser'));
+    return user !== null ? { uid: user.uid, email: user.email, displayName: user.displayName, photoURL: user.photoURL } : null;
+  }
+
+  private updateUserProfile(user, userData: User): void {
     user.updateProfile({
-      displayName: name,
-      photoURL: 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg'
+      displayName: userData.displayName,
+      photoURL: userData.photoURL
     });
   }
 
-  private async setUserData(user: any): Promise<void> {
-    const userRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(`users/${user.uid}`);
-    const userData: User = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL
-    };
+  private async setUserData(userData: User): Promise<void> {
+    const userRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(`users/${userData.uid}`);
     this.userBehavior.next(userData);
-    return userRef.set(userData, {
-      merge: true,
-    });
+    return userRef.set(userData, { merge: true });
   }
 
   private async sendVerificationMail(): Promise<void> {
@@ -123,9 +136,7 @@ export class AuthService {
   }
 
   private initUserStructure(uid: string): void {
-    const userStructure: UserStructure = new UserStructure();
-    userStructure.id = uid;
-    this.databaseService.create(uid, userStructure);
+    this.databaseService.create(uid, new UserStructure(uid));
   }
 
   private generateUserDefaultLists(uid: string): void {

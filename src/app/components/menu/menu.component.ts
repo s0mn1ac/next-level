@@ -21,6 +21,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   constructor(private menuService: MenuService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.getStoredUser();
     this.initUserSubscription();
     this.buildMenuItems();
   }
@@ -29,12 +30,16 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.userSubscription$?.unsubscribe();
   }
 
-  private async buildMenuItems(): Promise<void> {
-    this.menuItems = await this.menuService.getMenuItems();
+  private getStoredUser(): void {
+    // this.user = this.authService.getStoredUser();
   }
 
   private initUserSubscription(): void {
     this.userSubscription$ = this.authService.userObservable?.subscribe((user: User) => this.user = user);
+  }
+
+  private async buildMenuItems(): Promise<void> {
+    this.menuItems = await this.menuService.getMenuItems();
   }
 
 }

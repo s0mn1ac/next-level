@@ -24,6 +24,12 @@
         "signOut": "Cerrar sesión"
     },
 
+    "loadingScreens": {
+        "uploadingUserProfilePicture": "Subiendo nueva imagen de perfil",
+        "signingUp": "Registrando",
+        "signingIn": "Iniciando sesión"
+    },
+
     "signUp": {
         "name": "Nombre",
         "email": "Correo electrónico",

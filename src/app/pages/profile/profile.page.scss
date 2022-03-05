@@ -4,6 +4,31 @@ div.avatar-image-container {
     justify-content: center;
     align-items: center;
     padding-top: 1rem;
+
+    ion-avatar {
+        position: relative;
+
+        input.input-file {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        ion-button.custom-button {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0000005E;
+            color: #FFFFFF;
+            border-radius: 100%;
+        }
+    }
 }
 
 ion-item.modal-item ion-label {

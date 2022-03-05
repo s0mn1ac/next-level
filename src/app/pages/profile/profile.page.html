@@ -5,8 +5,13 @@
     <ion-list>
         
         <div class="avatar-image-container">
+
             <ion-avatar>
                 <img [src]="user?.photoURL" />
+                <input #fileInput type="file" class="input-file" (change)="selectFile($event)" />
+                <ion-button class="custom-button" size="large" fill="clear" shape="round" (click)="fileInput.click()">
+                    <ion-icon slot="icon-only" name="camera-reverse-outline"></ion-icon>
+                </ion-button>
             </ion-avatar>
 
             <ion-item lines="none">

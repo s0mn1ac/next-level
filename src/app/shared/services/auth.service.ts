@@ -8,6 +8,9 @@ import { List } from '../models/list.model';
 import { UserStructure } from '../models/user-structure.model';
 import { DatabaseService } from './database.service';
 import firebase from 'firebase/compat/app';
+import { FileUpload } from '../models/file-upload.model';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { finalize } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +26,7 @@ export class AuthService implements OnDestroy {
   constructor(
     private angularFirestore: AngularFirestore,
     private angularFireAuth: AngularFireAuth,
+    private angularFireStorage: AngularFireStorage,
     private router: Router,
     private ngZone: NgZone,
     private databaseService: DatabaseService
@@ -105,6 +109,30 @@ export class AuthService implements OnDestroy {
       localStorage.setItem('next-level-user', JSON.stringify(userData));
       this.userBehavior.next(userData);
     });
+  }
+
+  public async updateUserProfilePicture(photoURL: string): Promise<void> {
+    return await (await this.angularFireAuth.currentUser).updateProfile({ photoURL }).then(() => {
+      const userData: User = JSON.parse(localStorage.getItem('next-level-user'));
+      userData.photoURL = photoURL;
+      localStorage.setItem('next-level-user', JSON.stringify(userData));
+      this.userBehavior.next(userData);
+    });
+  }
+
+  public uploadUserProfilePicture(fileUpload: FileUpload): Observable<number> {
+    const filePath = `/profilePictures/${fileUpload.file.name}`;
+    const storageRef = this.angularFireStorage.ref(filePath);
+    const uploadTask = this.angularFireStorage.upload(filePath, fileUpload.file);
+    uploadTask.snapshotChanges().pipe(
+    finalize(() => {
+      storageRef.getDownloadURL().subscribe(downloadURL => {
+        fileUpload.url = downloadURL;
+        fileUpload.name = fileUpload.file.name;
+        this.updateUserProfilePicture(fileUpload.url);
+      });
+    })).subscribe();
+    return uploadTask.percentageChanges();
   }
 
   public initUserStructure(uid: string): void {

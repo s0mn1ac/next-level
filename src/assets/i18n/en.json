@@ -1,5 +1,9 @@
 {
 
+    "errorCodes": {
+        "authEmailAlreadyInUse": "Email address is already in use"
+    },
+
     "menu": {
         "title": "Next level!",
         "profile": "Profile",

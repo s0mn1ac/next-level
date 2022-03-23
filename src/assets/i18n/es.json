@@ -1,5 +1,9 @@
 {
 
+    "errorCodes": {
+        "authEmailAlreadyInUse": "El email introducido ya está en uso"
+    },
+
     "menu": {
         "title": "Next level!",
         "profile": "Perfil",

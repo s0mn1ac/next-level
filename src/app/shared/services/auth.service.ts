@@ -11,6 +11,7 @@ import firebase from 'firebase/compat/app';
 import { FileUpload } from '../models/file-upload.model';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,8 @@ export class AuthService implements OnDestroy {
     private angularFireStorage: AngularFireStorage,
     private router: Router,
     private ngZone: NgZone,
-    private databaseService: DatabaseService
+    private databaseService: DatabaseService,
+    private toastService: ToastService,
   ) {
     this.initAngularFireAuthSubscription();
   }
@@ -42,13 +44,9 @@ export class AuthService implements OnDestroy {
     this.angularFireAuthSubscription$?.unsubscribe();
   }
 
-  public async signUp(email: string, password: string): Promise<void> {
-    return this.angularFireAuth.createUserWithEmailAndPassword(email, password).then((result) => {
+  public async signUp(email: string, password: string, name: string): Promise<void> {
+    return this.angularFireAuth.createUserWithEmailAndPassword(email, password).then(async (result) => {
       // this.sendVerificationMail();
-
-      this.ngZone.run(() => {
-        this.router.navigate(['home']); // TODO: Cambiar por página de inicio
-      });
 
       const userData: User = {
         uid: result.user.uid,
@@ -58,9 +56,14 @@ export class AuthService implements OnDestroy {
       };
 
       this.setUserData(userData);
-    }).catch((error) => {
-      window.alert(error.message); // TODO: Cambiar las alertas por TOAST
-    });
+
+      await this.updateUserProfile(name, 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg');
+      const user: firebase.User = await this.getCurrentUser();
+      await this.initUserStructure(user.uid);
+      await this.generateUserDefaultLists(user.uid);
+      this.router.navigate(['home']); // TODO: Cambiar por página de inicio
+
+    }).catch((error) => this.toastService.throwError(error.code));
   }
 
   public async signIn(email: string, password: string): Promise<void> {

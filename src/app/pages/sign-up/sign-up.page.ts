@@ -4,6 +4,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import firebase from 'firebase/compat/app';
 import { LoadingController } from '@ionic/angular';
 import { TranslocoService } from '@ngneat/transloco';
+import { ErrorCodesConfig } from 'src/app/shared/strings/error-codes.config';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -29,24 +31,21 @@ export class SignUpPage implements OnInit {
   }
 
   public async onClickSignUpButton(): Promise<void> {
+    await this.initLoadingScreen();
     this.loading.present();
     const name: string = this.signUpForm.get('name').value;
     const email: string = this.signUpForm.get('email').value;
     const password: string = this.signUpForm.get('password').value;
-    await this.authService.signUp(email, password);
-    await this.authService.updateUserProfile(name, 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg');
-    const user: firebase.User = await this.authService.getCurrentUser();
-    await this.authService.initUserStructure(user.uid);
-    await this.authService.generateUserDefaultLists(user.uid);
+    await this.authService.signUp(email, password, name);
     this.loading.dismiss();
   }
 
   private initForm(): void {
     this.signUpForm = this.formBuilder.group({
-      name: new FormControl(null, Validators.compose([Validators.required])),
-      email: new FormControl(null, Validators.compose([Validators.required, Validators.email])),
-      password: new FormControl(null, Validators.compose([Validators.required, Validators.minLength(8)])),
-      confirmPassword: new FormControl(null, Validators.compose([
+      name: new FormControl('Testmnto3', Validators.compose([Validators.required])),
+      email: new FormControl('testmnto2@nextlevel.com', Validators.compose([Validators.required, Validators.email])),
+      password: new FormControl('12345678', Validators.compose([Validators.required, Validators.minLength(8)])),
+      confirmPassword: new FormControl('12345678', Validators.compose([
         Validators.required,
         Validators.minLength(8),
         this.validateMatchingPasswords.bind(this)
@@ -60,8 +59,7 @@ export class SignUpPage implements OnInit {
 
   private async initLoadingScreen(): Promise<void> {
     this.loading = await this.loadingController.create({
-      message: this.translocoService.translate('loadingScreens.signingUp'),
-      mode: 'ios'
+      message: this.translocoService.translate('loadingScreens.signingUp')
     });
   }
 

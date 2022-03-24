@@ -3,7 +3,7 @@
         "icon": "albums-outline",
         "name": "board",
         "redirectTo": "/board",
-        "disabled": true
+        "disabled": false
     },
     {
         "icon": "library-outline",
@@ -27,7 +27,7 @@
         "icon": "list-outline",
         "name": "lists",
         "redirectTo": "/lists",
-        "disabled": true
+        "disabled": false
     },
     {
         "icon": "settings-outline",

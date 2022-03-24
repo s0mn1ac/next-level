@@ -1,0 +1,13 @@
+<app-header section="lists"></app-header>
+
+<ion-content *transloco="let t">
+
+    <ion-list>
+
+        <ion-item lines="full" *ngFor="let list of allLists" [routerLink]="list?.id">
+            <ion-label> {{ list?.name }} </ion-label>
+        </ion-item>
+        
+    </ion-list>
+
+</ion-content>

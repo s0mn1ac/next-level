@@ -31,7 +31,8 @@
     "loadingScreens": {
         "uploadingUserProfilePicture": "Subiendo nueva imagen de perfil",
         "signingUp": "Registrando",
-        "signingIn": "Iniciando sesión"
+        "signingIn": "Iniciando sesión",
+        "loadingLists": "Actualizando listas"
     },
 
     "signUp": {

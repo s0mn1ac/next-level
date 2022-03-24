@@ -31,7 +31,8 @@
     "loadingScreens": {
         "uploadingUserProfilePicture": "Uploading new user profile picture",
         "signingUp": "Signing Up",
-        "signingIn": "Signing In"
+        "signingIn": "Signing In",
+        "loadingLists": "Updating lists"
     },
 
     "signUp": {

@@ -5,13 +5,14 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { User } from '../interfaces/user.interface';
 import { List } from '../models/list.model';
-import { UserStructure } from '../models/user-structure.model';
 import { DatabaseService } from './database.service';
 import firebase from 'firebase/compat/app';
 import { FileUpload } from '../models/file-upload.model';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
 import { ToastService } from './toast.service';
+import { UserStructure } from '../interfaces/user-structure.interface';
+import { RoleEnum } from '../enums/role.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -31,12 +32,15 @@ export class AuthService implements OnDestroy {
     private router: Router,
     private ngZone: NgZone,
     private databaseService: DatabaseService,
-    private toastService: ToastService,
+    private toastService: ToastService
   ) {
     this.initAngularFireAuthSubscription();
+    this.initUserFilterListRef();
   }
 
   get isLoggedIn(): boolean {
+    const user: any = JSON.parse(localStorage.getItem('next-level-user'));
+    console.log(user);
     return JSON.parse(localStorage.getItem('next-level-user')) !== null;
   }
 
@@ -46,7 +50,6 @@ export class AuthService implements OnDestroy {
 
   public async signUp(email: string, password: string, name: string): Promise<void> {
     return this.angularFireAuth.createUserWithEmailAndPassword(email, password).then(async (result) => {
-      // this.sendVerificationMail();
 
       const userData: User = {
         uid: result.user.uid,
@@ -59,9 +62,8 @@ export class AuthService implements OnDestroy {
 
       await this.updateUserProfile(name, 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg');
       const user: firebase.User = await this.getCurrentUser();
-      await this.initUserStructure(user.uid);
-      await this.generateUserDefaultLists(user.uid);
-      this.router.navigate(['home']); // TODO: Cambiar por página de inicio
+      await this.generateUserStructure(user.uid);
+      this.router.navigate(['board']);
 
     }).catch((error) => this.toastService.throwError(error.code));
   }
@@ -70,7 +72,7 @@ export class AuthService implements OnDestroy {
     return this.angularFireAuth.signInWithEmailAndPassword(email, password).then((result) => {
 
       this.ngZone.run(() => {
-        this.router.navigate(['home']); // TODO: Cambiar por página de inicio
+        this.router.navigate(['board']);
       });
 
       const userData: User = {
@@ -138,28 +140,24 @@ export class AuthService implements OnDestroy {
     return uploadTask.percentageChanges();
   }
 
-  public initUserStructure(uid: string): void {
-    this.databaseService.create(uid, new UserStructure(uid));
-  }
-
-  public generateUserDefaultLists(uid: string): void { // TODO: Revisar
-
-    const playedList: List = new List();
-    playedList.name = 'Jugados';
-    playedList.isPublic = false;
-    playedList.games = [];
-
-    const pendingList: List = new List();
-    pendingList.name = 'Pendientes';
-    pendingList.isPublic = false;
-    pendingList.games = [];
-
-    this.databaseService.createList(uid, playedList);
-    this.databaseService.createList(uid, pendingList);
-  }
-
   public async getCurrentUser(): Promise<firebase.User> {
     return this.angularFireAuth.currentUser;
+  }
+
+  private generateUserStructure(uid: string): void {
+    this.databaseService.createUserStructure(this.getNewUserStructure(uid));
+  }
+
+  private getNewUserStructure(uid: string): UserStructure {
+    return {
+      id: uid,
+      role: RoleEnum.user,
+      isProUser: false,
+      lists: [
+        { id: 'jugados', name: 'Jugados', isPublic: false, games: [] },
+        { id: 'pendientes', name: 'Pendientes', isPublic: false, games: [] }
+      ]
+    };
   }
 
   private initAngularFireAuthSubscription(): void {
@@ -174,15 +172,16 @@ export class AuthService implements OnDestroy {
     });
   }
 
+  private initUserFilterListRef(): void {
+    const user: any = JSON.parse(localStorage.getItem('next-level-user'));
+    if (user != null) {
+      this.databaseService.setUserId(user.uid);
+    }
+  }
+
   private async setUserData(userData: User): Promise<void> {
     const userRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(`users/${userData.uid}`);
     return userRef.set(userData, { merge: true });
   }
-
-  // private async sendVerificationMail(): Promise<void> {
-  //   return this.angularFireAuth.currentUser.then((u: any) => u.sendEmailVerification()).then(() => {
-  //     this.router.navigate(['verify-email-address']);
-  //   });
-  // }
 
 }

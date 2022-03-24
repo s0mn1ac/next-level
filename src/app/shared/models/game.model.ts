@@ -14,8 +14,6 @@ export class Game {
     releaseDate: string;
     tba: boolean;
     metascore: Score;
-    // metascore: number;
-    // metascoreColor: string;
     avgPlaytime: number;
     screenshots: string[];
     esrb: Esrb;

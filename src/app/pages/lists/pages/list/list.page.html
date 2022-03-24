@@ -3,7 +3,7 @@
   <ion-toolbar color="primary">
     
     <ion-buttons slot="start">
-      <ion-menu-button menu="first" *ngIf="!isInEditMode"></ion-menu-button>
+      <ion-back-button defaultHref="/lists"></ion-back-button>
       <ion-button (click)="onClickCancelButton()" *ngIf="isInEditMode">
         <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>

@@ -5,13 +5,8 @@ import { ListPage } from './list.page';
 
 const routes: Routes = [
   {
-    path: ':id',
-    component: ListPage
-  },
-  {
     path: '',
-    redirectTo: '/home', // TODO: Cambiar
-    pathMatch: 'full'
+    component: ListPage
   }
 ];
 

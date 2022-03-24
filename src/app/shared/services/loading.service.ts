@@ -4,6 +4,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
+import { TranslocoService } from '@ngneat/transloco';
 import { Observable } from 'rxjs';
 import { BaseService } from 'src/app/shared/services/base.service';
 import { ConverterService } from 'src/app/shared/services/converter.service';
@@ -15,22 +17,21 @@ import { List } from '../models/list.model';
 @Injectable({
   providedIn: 'root'
 })
-export class DatabaseService {
+export class LoadingService {
 
-  private uid: string;
+  private loading: HTMLIonLoadingElement;
 
-  constructor(private angularFirestore: AngularFirestore) { }
+  constructor(private translocoService: TranslocoService, private loadingController: LoadingController) { }
 
-  public setUserId(uid: string): void {
-    this.uid = uid;
+  public async show(message: string): Promise<void> {
+    this.loading = await this.loadingController.create({
+      message: this.translocoService.translate(`loadingScreens.${message}`)
+    });
+    await this.loading.present();
   }
 
-  public createUserStructure(userStructure: UserStructure): Promise<any> {
-    return this.angularFirestore.collection('users').doc(userStructure.id).set(userStructure);
-  }
-
-  public getUserStructure(): Observable<UserStructure> {
-    return this.angularFirestore.collection('users').doc(this.uid).valueChanges() as Observable<UserStructure>;
+  public async hide(): Promise<void> {
+    await this.loading.dismiss();
   }
 
 }

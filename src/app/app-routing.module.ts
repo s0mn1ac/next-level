@@ -4,12 +4,8 @@ import { AuthGuard } from './shared/guard/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'board',
     pathMatch: 'full'
   },
   {
@@ -28,17 +24,20 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'list',
-    loadChildren: () => import('./pages/list/list.module').then( m => m.ListPageModule),
-    canActivate: [AuthGuard]
-  },
-  {
     path: 'sign-in',
     loadChildren: () => import('./pages/sign-in/sign-in.module').then( m => m.SignInPageModule)
   },
   {
     path: 'sign-up',
     loadChildren: () => import('./pages/sign-up/sign-up.module').then( m => m.SignUpPageModule)
+  },
+  {
+    path: 'board',
+    loadChildren: () => import('./pages/board/board.module').then( m => m.BoardPageModule)
+  },
+  {
+    path: 'lists',
+    loadChildren: () => import('./pages/lists/lists.module').then( m => m.ListsPageModule)
   },
 ];
 

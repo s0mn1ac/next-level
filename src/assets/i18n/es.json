@@ -32,7 +32,10 @@
         "uploadingUserProfilePicture": "Subiendo nueva imagen de perfil",
         "signingUp": "Registrando",
         "signingIn": "Iniciando sesión",
-        "loadingLists": "Actualizando listas"
+        "loadingLists": "Cargando listas",
+        "creatingList": "Añadiendo una nueva lista",
+        "deletingList": "Borrando lista",
+        "loadingGames": "Cargando juegos"
     },
 
     "signUp": {

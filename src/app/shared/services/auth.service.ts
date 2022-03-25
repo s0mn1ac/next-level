@@ -6,13 +6,13 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { User } from '../interfaces/user.interface';
 import { List } from '../models/list.model';
 import { DatabaseService } from './database.service';
-import firebase from 'firebase/compat/app';
 import { FileUpload } from '../models/file-upload.model';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
 import { ToastService } from './toast.service';
 import { UserStructure } from '../interfaces/user-structure.interface';
 import { RoleEnum } from '../enums/role.enum';
+import firebase from 'firebase/compat/app';
 
 @Injectable({
   providedIn: 'root'
@@ -145,7 +145,7 @@ export class AuthService implements OnDestroy {
   }
 
   private generateUserStructure(uid: string): void {
-    this.databaseService.createUserStructure(this.getNewUserStructure(uid));
+    this.databaseService.generateUserStructure(this.getNewUserStructure(uid));
   }
 
   private getNewUserStructure(uid: string): UserStructure {

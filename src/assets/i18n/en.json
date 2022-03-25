@@ -32,7 +32,10 @@
         "uploadingUserProfilePicture": "Uploading new user profile picture",
         "signingUp": "Signing Up",
         "signingIn": "Signing In",
-        "loadingLists": "Updating lists"
+        "loadingLists": "Loading lists",
+        "creatingList": "Adding a new list",
+        "deletingList": "Deleting list",
+        "loadingGames": "Loading games"
     },
 
     "signUp": {

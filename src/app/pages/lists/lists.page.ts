@@ -22,26 +22,38 @@ export class ListsPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.loadingService.show('loadingLists');
-    this.cancelUserStructureSubscription();
-    this.initUserStructureSubscription();
+    this.initData();
   }
 
   ngOnDestroy(): void {
     this.cancelUserStructureSubscription();
   }
 
+  public async onClickAddButton(): Promise<void> {
+    await this.loadingService.show('creatingList');
+    await this.databaseService.addList({ id: 'test4', name: 'Test4', isPublic: false, games: [] });
+    await this.loadingService.hide();
+  }
+
+  private async initData(): Promise<void> {
+    await this.loadingService.show('loadingLists');
+    this.cancelUserStructureSubscription();
+    this.initUserStructureSubscription();
+  }
+
   private initUserStructureSubscription(): void {
-    this.userStructureSubscription$ = this.databaseService.getUserStructure().subscribe(data => this.loadAllLists(data));
+    this.databaseService.initUserStructureSubscription();
+    this.userStructureSubscription$ = this.databaseService.userStructureObservable.subscribe(data => this.loadAllLists(data));
   }
 
   private cancelUserStructureSubscription(): void {
     this.userStructureSubscription$?.unsubscribe();
   }
 
-  private loadAllLists(userStructure: UserStructure): void {
+  private async loadAllLists(userStructure: UserStructure): Promise<void> {
     this.allLists = userStructure.lists;
-    this.loadingService.hide();
+    console.log(this.allLists);
+    await this.loadingService.hide();
   }
 
 }

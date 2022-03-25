@@ -4,19 +4,16 @@
     
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/lists"></ion-back-button>
-      <ion-button (click)="onClickCancelButton()" *ngIf="isInEditMode">
-        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
-      </ion-button>
     </ion-buttons>
 
-    <ion-title> {{ id }} </ion-title>
+    <ion-title> {{ list?.name }} </ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="onClickDeleteButton()" *ngIf="!isInEditMode" color="danger">
-        <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
+        <ion-icon slot="icon-only" name="trash-outline" color="danger"></ion-icon>
       </ion-button>
       <ion-button (click)="onClickEditButton()" *ngIf="!isInEditMode">
-        <ion-icon slot="icon-only" name="create"></ion-icon>
+        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
       </ion-button>
       <ion-button (click)="onClickCancelButton()" *ngIf="isInEditMode">
         <ion-icon slot="icon-only" name="close"></ion-icon>

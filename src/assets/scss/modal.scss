@@ -2,3 +2,13 @@ ion-modal {
     --height: 850px;
     --border-radius: 20px;
 }
+
+ion-action-sheet {
+
+    .action-sheet-group:not(.action-sheet-group-cancel) {
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        max-height: 50vh;
+    }
+}
+

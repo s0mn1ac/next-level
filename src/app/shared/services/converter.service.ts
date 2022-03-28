@@ -6,12 +6,42 @@ import { Genre } from '../models/genre.model';
 import { Store } from '../models/store.model';
 import { ParentPlatform } from '../models/parent-platform.model';
 import { Score } from '../models/score.model';
+import { List } from '../models/list.model';
+import { CollectionReference, DocumentSnapshot, QuerySnapshot } from '@angular/fire/compat/firestore';
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class ConverterService {
+
+    public async convertAllListsFromReport(report: CollectionReference): Promise<List[]> {
+        const allLists: List[] = [];
+        await report.get().then( async (querySnapshot: QuerySnapshot<List[]>) => {
+            for await (const queryDocumentSnapshot of querySnapshot.docs) {
+                allLists.push(await this.convertListFromReport(queryDocumentSnapshot.ref));
+            }
+        });
+        return allLists;
+    }
+
+    public async convertListFromReport(report: any): Promise<List> {
+        const list: List = new List();
+        await report.get().then( async (listSnapshot: DocumentSnapshot<List>) => {
+            const listData: any = listSnapshot.data();
+            list.id = listSnapshot.id;
+            list.name = listData.name;
+            list.isPublic = listData.isPublic;
+            list.games = [];
+            for await (const gameDocumentReference of listData.games) {
+                await gameDocumentReference.get().then((gameSnapshot: DocumentSnapshot<Game>) => {
+                    list.games.push(gameSnapshot.data());
+                });
+            }
+        });
+
+        return list;
+    }
 
     public convertGamesFromReport(report: any): Game[] {
         const games: Game[] = [];
@@ -26,7 +56,7 @@ export class ConverterService {
             game.metascore = this.buildScore(result.metacritic);
             game.avgPlaytime = result.playtime;
             game.screenshots = result.screenshots?.map((screenshot: any) => screenshot.image);
-            game.esrb = this.buildEsrb(result.esrb_rating);
+            game.esrb = result.esrb_rating != null ? this.buildEsrb(result.esrb_rating) : null;
             game.genres = this.buildGenres(result.genres);
             game.parentPlatforms = this.buildParentPlatforms(result.parent_platforms);
             game.platforms = this.buildPlatforms(result.platforms);

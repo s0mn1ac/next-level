@@ -10,11 +10,9 @@ import { LoadingService } from 'src/app/shared/services/loading.service';
   templateUrl: './lists.page.html',
   styleUrls: ['./lists.page.scss'],
 })
-export class ListsPage implements OnInit, OnDestroy {
+export class ListsPage implements OnInit {
 
   public allLists: List[] = [];
-
-  private userStructureSubscription$: Subscription;
 
   constructor(
     private loadingService: LoadingService,
@@ -25,35 +23,19 @@ export class ListsPage implements OnInit, OnDestroy {
     this.initData();
   }
 
-  ngOnDestroy(): void {
-    this.cancelUserStructureSubscription();
-  }
-
   public async onClickAddButton(): Promise<void> {
     await this.loadingService.show('creatingList');
-    await this.databaseService.addList({ id: 'test4', name: 'Test4', isPublic: false, games: [] });
+    await this.databaseService.addList({ id: 'test3', name: 'Test3', isPublic: false, games: [] });
     await this.loadingService.hide();
   }
 
   private async initData(): Promise<void> {
-    await this.loadingService.show('loadingLists');
-    this.cancelUserStructureSubscription();
-    this.initUserStructureSubscription();
+    // await this.loadingService.show('loadingLists');
+    this.getAllLists();
   }
 
-  private initUserStructureSubscription(): void {
-    this.databaseService.initUserStructureSubscription();
-    this.userStructureSubscription$ = this.databaseService.userStructureObservable.subscribe(data => this.loadAllLists(data));
-  }
-
-  private cancelUserStructureSubscription(): void {
-    this.userStructureSubscription$?.unsubscribe();
-  }
-
-  private async loadAllLists(userStructure: UserStructure): Promise<void> {
-    this.allLists = userStructure.lists;
-    console.log(this.allLists);
-    await this.loadingService.hide();
+  private async getAllLists(): Promise<void> {
+    this.allLists = await this.databaseService.getAllLists();
   }
 
 }

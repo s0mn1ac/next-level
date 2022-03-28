@@ -9,7 +9,7 @@
         "icon": "library-outline",
         "name": "library",
         "redirectTo": "/library",
-        "disabled": true
+        "disabled": false
     },
     {
         "icon": "play-outline",

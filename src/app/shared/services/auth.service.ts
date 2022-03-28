@@ -154,8 +154,8 @@ export class AuthService implements OnDestroy {
       role: RoleEnum.user,
       isProUser: false,
       lists: [
-        { id: 'jugados', name: 'Jugados', isPublic: false, games: [] },
-        { id: 'pendientes', name: 'Pendientes', isPublic: false, games: [] }
+        // { id: 'jugados', name: 'Jugados', isPublic: false, games: [] },
+        // { id: 'pendientes', name: 'Pendientes', isPublic: false, games: [] }
       ]
     };
   }

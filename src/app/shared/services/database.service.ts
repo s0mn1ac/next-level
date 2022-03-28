@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreDocument, DocumentReference, SetOptions } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { User } from '../interfaces/user.interface';
 import { Game } from '../models/game.model';
 import { List } from '../models/list.model';
 import firebase from 'firebase/compat/app';
-import { doc, updateDoc, arrayUnion, arrayRemove, setDoc, getFirestore } from 'firebase/firestore';
+import { doc, updateDoc, deleteDoc, arrayUnion, arrayRemove, setDoc, getFirestore, DocumentData } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,10 @@ export class DatabaseService {
 
   private uid: string;
 
-  constructor(private angularFirestore: AngularFirestore) {
+  constructor(
+    private angularFirestore: AngularFirestore,
+    private converterService: ConverterService
+  ) {
     // this.userStructureSubscription$ = new BehaviorSubject<UserStructure>(null);
     // this.userStructure = this.userStructureSubscription$.asObservable().pipe(distinctUntilChanged());
   }
@@ -42,39 +45,50 @@ export class DatabaseService {
     this.userStructureObservable = this.angularFirestore.collection('users').doc(this.uid).valueChanges() as Observable<UserStructure>;
   }
 
+  public async getAllLists(): Promise<List[]> {
+    const report: any = await this.angularFirestore.collection('lists').ref;
+    return this.converterService.convertAllListsFromReport(report);
+  }
+
+  public async getList(listId: string): Promise<List> {
+    const report: any = await this.angularFirestore.collection('lists').doc(listId).ref;
+    return this.converterService.convertListFromReport(report);
+  }
+
+  // public foo(): any {
+  //   return this.angularFirestore.collection('lists').doc(this.uid).ref.collection('games').;
+  // }
+
   // CRUD
 
-  public async addList(list: List): Promise<any> {
-    // await setDoc(doc(getFirestore(), 'users', userStructure.id), userStructure);
-    await updateDoc(doc(getFirestore(), 'users',this.uid), { lists: arrayUnion(list) });
-    // return this.angularFirestore.collection('users').doc(this.uid).set(
-    //   { lists: arrayUnion(list) },
-    //   { merge: true }
-    // );
+  public async addList(list: List): Promise<void> {
+    const documentReference: DocumentReference = await this.angularFirestore.collection('lists').add(list);
+    documentReference.get().then(async (snap) =>
+      await updateDoc(doc(getFirestore(), 'users', this.uid), { lists: arrayUnion(doc(getFirestore(), 'lists', snap.id)) }));
   }
 
-  // public modifyList(): Promise<any> {
+  // public modifyList(): Promise<void> {
 
   // }
 
-  public async deleteList(list: List): Promise<any> {
-    await updateDoc(doc(getFirestore(), 'users',this.uid), { lists: arrayRemove(list) });
-    // return this.angularFirestore.collection('users').doc(this.uid).set(
-    //   { lists: arrayRemove(list) },
-    //   { merge: true }
-    // );
+  public async deleteList(list: List): Promise<void> {
+    await deleteDoc(doc(getFirestore(), 'lists', list.id));
+    await updateDoc(doc(getFirestore(), 'users', this.uid), { lists: arrayRemove(doc(getFirestore(), 'lists', list.id)) });
   }
 
-  // public addGameToList(): Promise<any> {
+  public async addGameToList(game: Game, list: List): Promise<void> {
+    const gameId = `${game.id}_${list.id}`;
+    await this.angularFirestore.collection('games').doc(gameId).set(JSON.parse(JSON.stringify(game)));
+    await updateDoc(doc(getFirestore(), 'lists', list.id), { games: arrayUnion(doc(getFirestore(), 'games', gameId)) });
+  }
+
+  // public modifyGameFromList(): Promise<void> {
 
   // }
 
-  // public modifyGameFromList(): Promise<any> {
-
-  // }
-
-  // public deleteGameFromList(): Promise<any> {
-
-  // }
+  public async deleteGameFromList(game: Game, list: List): Promise<void> {
+    await deleteDoc(doc(getFirestore(), 'lists', list.id));
+    await updateDoc(doc(getFirestore(), 'users', this.uid), { games: arrayRemove(doc(getFirestore(), 'lists', list.id)) });
+  }
 
 }

@@ -25,7 +25,8 @@
         "completed": "Completado",
         "signUp": "Crear cuenta",
         "signIn": "Iniciar sesión",
-        "signOut": "Cerrar sesión"
+        "signOut": "Cerrar sesión",
+        "cancel": "Cancelar"
     },
 
     "loadingScreens": {
@@ -87,7 +88,11 @@
     },
 
     "library": {
-        "title": "Biblioteca"
+        "title": "Biblioteca",
+        "addToList": {
+            "addToListHeader": "Añadir juego a una lista",
+            "addToListBody": "Selecciona cualquier lista de las que tengas creadas para añadirle este juego"
+        }
     },
 
     "played": {

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DocumentData, DocumentReference, DocumentSnapshot } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
@@ -30,7 +31,6 @@ export class ListPage implements OnInit, OnDestroy {
   public isInEditMode = false;
 
   private paramsSubscription$: Subscription;
-  private userStructureSubscription$: Subscription;
 
   constructor(
     private router: Router,
@@ -44,7 +44,6 @@ export class ListPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.cancelUserStructureSubscription();
     this.cancelParamsSubscription();
   }
 
@@ -78,26 +77,17 @@ export class ListPage implements OnInit, OnDestroy {
   }
 
   private async initData(listId: string): Promise<void> {
-    await this.loadingService.show('loadingGames');
-    this.initUserStructureSubscription(listId);
+    // await this.loadingService.show('loadingGames');
+    this.getList(listId);
   }
 
-  private initUserStructureSubscription(listId: string): void {
-    this.databaseService.initUserStructureSubscription();
-    this.userStructureSubscription$ = this.databaseService.userStructureObservable.subscribe(data => this.loadList(data, listId));
+  private async getList(listId: string): Promise<void> {
+    this.list = await this.databaseService.getList(listId);
+    console.log(this.list);
   }
 
   private cancelParamsSubscription(): void {
     this.paramsSubscription$?.unsubscribe();
-  }
-
-  private cancelUserStructureSubscription(): void {
-    this.userStructureSubscription$?.unsubscribe();
-  }
-
-  private async loadList(userStructure: UserStructure, listId: string): Promise<void> {
-    this.list = userStructure?.lists?.find((list: List) => list.id === listId);
-    await this.loadingService.hide();
   }
 
 }

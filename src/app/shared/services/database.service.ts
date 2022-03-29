@@ -77,8 +77,8 @@ export class DatabaseService {
   }
 
   public async addGameToList(game: Game, list: List): Promise<void> {
-    const gameId = `${game.id}_${list.id}`;
-    await this.angularFirestore.collection('games').doc(gameId).set(JSON.parse(JSON.stringify(game)));
+    const gameId = `${this.uid}_${game.id}`;
+    await this.angularFirestore.collection('games').doc(gameId).set(JSON.parse(JSON.stringify(game))); // TODO: Comprobar si ya existe
     await updateDoc(doc(getFirestore(), 'lists', list.id), { games: arrayUnion(doc(getFirestore(), 'games', gameId)) });
   }
 

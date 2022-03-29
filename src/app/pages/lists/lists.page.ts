@@ -25,13 +25,15 @@ export class ListsPage implements OnInit {
 
   public async onClickAddButton(): Promise<void> {
     await this.loadingService.show('creatingList');
-    await this.databaseService.addList({ id: 'test3', name: 'Test3', isPublic: false, games: [] });
+    await this.databaseService.addList({ id: 'test0', name: 'Test0', isPublic: false, games: [] });
     await this.loadingService.hide();
+    await this.initData();
   }
 
   private async initData(): Promise<void> {
-    // await this.loadingService.show('loadingLists');
-    this.getAllLists();
+    await this.loadingService.show('loadingLists');
+    await this.getAllLists();
+    await this.loadingService.hide();
   }
 
   private async getAllLists(): Promise<void> {

@@ -43,7 +43,6 @@ export class GameService extends BaseService {
     const dateEnd: string = moment().format('YYYY-MM-DD');
     return this.serviceGet({
       url: `${this.url}/games${this.key}`,
-      // params: { dates: `${dateStart},${dateEnd}` },
       params: { dates: `${dateStart},${dateEnd}` },
       callback: (response: any) => response.body,
       result: null

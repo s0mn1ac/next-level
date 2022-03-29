@@ -1,14 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Game } from 'src/app/shared/models/game.model';
 
 @Component({
-  selector: 'app-game-card-simple',
-  templateUrl: './game-card-simple.component.html',
-  styleUrls: ['./game-card-simple.component.scss'],
+  selector: 'app-game-card',
+  templateUrl: './game-card.component.html',
+  styleUrls: ['./game-card.component.scss'],
 })
-export class GameCardSimpleComponent implements OnInit {
+export class GameCardComponent implements OnInit {
 
   @Input() game: Game;
+  @Input() isOwnScoreVisible = false;
+
+  @Output() addToListEventEmitter: EventEmitter<any> = new EventEmitter<any>();
 
   public statusButtonColor: string;
   public statusButtonValue: string;
@@ -31,6 +34,10 @@ export class GameCardSimpleComponent implements OnInit {
       this.statusButtonColor = 'danger';
       this.statusButtonValue = 'Pendiente';
     }
+  }
+
+  public onClickAddToListButton(game: Game): void {
+    this.addToListEventEmitter.emit(game);
   }
 
 }

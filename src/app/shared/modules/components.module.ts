@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { TranslocoModule } from '@ngneat/transloco';
 import { GameCardComplexComponent } from 'src/app/components/game-card-complex/game-card-complex.component';
-import { GameCardSimpleComponent } from 'src/app/components/game-card-simple/game-card-simple.component';
+import { GameCardComponent } from 'src/app/components/game-card/game-card.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { ListComponent } from 'src/app/components/list/list.component';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
@@ -14,14 +14,14 @@ import { MenuComponent } from 'src/app/components/menu/menu.component';
     HeaderComponent,
     MenuComponent,
     ListComponent,
-    GameCardSimpleComponent,
+    GameCardComponent,
     GameCardComplexComponent
   ],
   exports: [
     HeaderComponent,
     MenuComponent,
     ListComponent,
-    GameCardSimpleComponent,
+    GameCardComponent,
     GameCardComplexComponent
   ],
   imports: [

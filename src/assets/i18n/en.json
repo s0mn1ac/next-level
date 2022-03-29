@@ -90,6 +90,7 @@
     "library": {
         "title": "Library",
         "addToList": {
+            "title": "Add to list...",
             "addToListHeader": "Add game to a list",
             "addToListBody": "Select any of the available lists to add this game to it"
         }

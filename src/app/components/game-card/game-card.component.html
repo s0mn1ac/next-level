@@ -1,0 +1,41 @@
+<ion-card *transloco="let t">
+
+  <img class="background-image" [src]="game?.image" [alt]="game.name" />
+
+  <ion-card-header>
+
+    <ion-card-subtitle>
+      <div class="parent-platforms">
+        <img [src]="parentPlatform.image" *ngFor="let parentPlatform of game?.parentPlatforms" [alt]="parentPlatform.name" />
+      </div>
+      <!-- <div class="custom-card-subtitle">
+        <div class="parent-platforms">
+          <img [src]="parentPlatform.image" *ngFor="let parentPlatform of game?.parentPlatforms" [alt]="parentPlatform.name" />
+        </div>
+        <div class="scores">
+          <div class="own-score" [ngClass]="game?.score.color" *ngIf="isOwnScoreVisible"> {{ game?.score.value }} </div>
+          <div class="metascore" [ngClass]="game?.metascore.color"> {{ game?.metascore.value ?? '-' }} </div>
+        </div>
+      </div> -->
+    </ion-card-subtitle>
+
+    <ion-card-title> {{ game?.name }} </ion-card-title>
+
+    <ion-card-content>
+
+      <ion-button fill="outline" expand="block" shape="round" (click)="onClickAddToListButton(game)">
+        <ion-icon slot="start" name="add"></ion-icon>
+        {{ t('library.addToList.title') }}
+      </ion-button>
+
+      <!-- <div class="button-container">
+        <ion-button fill="outline" shape="round" (click)="onClickAddToListButton(game)">
+          <ion-icon slot="icon-only" name="add"></ion-icon>
+        </ion-button>
+      </div> -->
+      
+    </ion-card-content>
+
+  </ion-card-header>
+
+</ion-card>

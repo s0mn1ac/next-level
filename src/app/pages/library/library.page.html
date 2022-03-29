@@ -8,38 +8,7 @@
 
       <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" *ngFor="let game of lastReleasedGames">
 
-        <!-- <app-game-card-simple [game]="game"></app-game-card-simple> -->
-
-        <ion-card>
-
-          <img class="background-image" [src]="game?.image" [alt]="game.name" />
-
-          <ion-card-header>
-            <ion-card-subtitle>
-              <div class="card-subtitle">
-                <div class="parent-platforms">
-                  <img [src]="parentPlatform.image" *ngFor="let parentPlatform of game?.parentPlatforms" [alt]="parentPlatform.name" />
-                </div>
-                <div class="scores">
-                  <div class="own-score" [ngClass]="game?.score.color"> {{ game?.score.value }} </div>
-                  <div class="metascore" [ngClass]="game?.metascore.color"> {{ game?.metascore.value ?? '-' }} </div>
-                </div>
-              </div>
-            </ion-card-subtitle>
-            <ion-card-title> {{ game?.name }} </ion-card-title>
-          </ion-card-header>
-        
-          <ion-card-content>
-
-            <ion-item lines="none">
-              
-              <ion-icon slot="end" color="primary" name="add" (click)="onClickAddToListButton(game)"></ion-icon>
-
-            </ion-item>
-            
-          </ion-card-content>
-
-        </ion-card>
+        <app-game-card [game]="game" (addToListEventEmitter)="onClickAddToListButton($event)"></app-game-card>
         
       </ion-col>
 
@@ -47,32 +16,4 @@
 
   </ion-grid>
 
-  <!-- <ion-modal #addToListModal mode="md" [breakpoints]="breakpoints" [initialBreakpoint]="initialBreakpoint">
-        
-    <ng-template>
-  
-      <ion-content>
-  
-        <ion-item class="modal-item" lines="none">
-          <ion-label class="ion-text-center" text-wrap>
-            <ion-icon slot="start" name="bookmark-outline" size="large" color="primary"></ion-icon>
-            <h2> {{ t('library.addToList.addToListHeader') }} </h2>
-            <p> {{ t('library.addToList.addToListBody') }} </p>
-            <div class="lists-container">
-              <ion-list>
-                <ion-item lines="full" *ngFor="let list of allLists">
-                  <ion-label color="primary"> {{ list?.name }} </ion-label>
-                </ion-item>
-              </ion-list>
-            </div>
-          </ion-label>
-        </ion-item>
-  
-      </ion-content>
-  
-    </ng-template>
-  
-  </ion-modal> -->
-
 </ion-content>
-

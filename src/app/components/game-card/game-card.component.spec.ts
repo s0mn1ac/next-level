@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { GameCardSimpleComponent } from './game-card-simple.component';
+import { GameCardComponent } from './game-card.component';
 
 describe('GameCardSimpleComponent', () => {
-  let component: GameCardSimpleComponent;
-  let fixture: ComponentFixture<GameCardSimpleComponent>;
+  let component: GameCardComponent;
+  let fixture: ComponentFixture<GameCardComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ GameCardSimpleComponent ],
+      declarations: [ GameCardComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(GameCardSimpleComponent);
+    fixture = TestBed.createComponent(GameCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

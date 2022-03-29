@@ -8,7 +8,7 @@
 
       <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" *ngFor="let game of lastReleasedGames">
 
-        <app-game-card [game]="game" (addToListEventEmitter)="onClickAddToListButton($event)"></app-game-card>
+        <app-game-card [game]="game" [addToList]="true" (addToListEventEmitter)="onClickAddToListButton($event)"></app-game-card>
         
       </ion-col>
 

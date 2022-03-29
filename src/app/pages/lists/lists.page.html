@@ -4,9 +4,7 @@
 
     <ion-list>
 
-        <ion-item lines="full" *ngFor="let list of allLists" [routerLink]="list?.id">
-            <ion-label> {{ list?.name }} </ion-label>
-        </ion-item>
+      <app-next-level-list [routerLink]="list?.id" [list]="list" *ngFor="let list of allLists"></app-next-level-list>
         
     </ion-list>
 

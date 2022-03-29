@@ -13,7 +13,7 @@
           <img [src]="parentPlatform.image" *ngFor="let parentPlatform of game?.parentPlatforms" [alt]="parentPlatform.name" />
         </div>
         <div class="scores">
-          <div class="own-score" [ngClass]="game?.score.color" *ngIf="isOwnScoreVisible"> {{ game?.score.value }} </div>
+          <div class="own-score" [ngClass]="game?.score.color" *ngIf="ownScore"> {{ game?.score.value }} </div>
           <div class="metascore" [ngClass]="game?.metascore.color"> {{ game?.metascore.value ?? '-' }} </div>
         </div>
       </div> -->
@@ -23,7 +23,7 @@
 
     <ion-card-content>
 
-      <ion-button fill="outline" expand="block" shape="round" (click)="onClickAddToListButton(game)">
+      <ion-button fill="outline" expand="block" shape="round" (click)="onClickAddToListButton(game)" *ngIf="addToList">
         <ion-icon slot="start" name="add"></ion-icon>
         {{ t('library.addToList.title') }}
       </ion-button>

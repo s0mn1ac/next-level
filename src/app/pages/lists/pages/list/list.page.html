@@ -6,17 +6,14 @@
       <ion-back-button defaultHref="/lists"></ion-back-button>
     </ion-buttons>
 
-    <ion-title> {{ list?.name }} </ion-title>
+    <ion-title (click)="onClickChangeListName()"> {{ list?.name }} </ion-title>
 
     <ion-buttons slot="end">
-      <ion-button (click)="onClickDeleteButton()" *ngIf="!isInEditMode" color="danger">
-        <ion-icon slot="icon-only" name="trash-outline" color="danger"></ion-icon>
+      <ion-button (click)="onClickDeleteList()" *ngIf="!isInEditMode">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
       </ion-button>
-      <ion-button (click)="onClickEditButton()" *ngIf="!isInEditMode">
-        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
-      </ion-button>
-      <ion-button (click)="onClickCancelButton()" *ngIf="isInEditMode">
-        <ion-icon slot="icon-only" name="close"></ion-icon>
+      <ion-button (click)="onClickChangeEditMode()">
+        <ion-icon slot="icon-only" [name]="!isInEditMode ? 'create-outline' : 'close'"></ion-icon>
       </ion-button>
     </ion-buttons>
     
@@ -33,6 +30,11 @@
       <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" *ngFor="let game of list?.games">
         
         <app-game-card [game]="game"></app-game-card>
+
+        <div class="checkbox-container" *ngIf="isInEditMode">
+          <ion-checkbox #checkbox mode="ios" (ionChange)="updateGamesToDeleteList(checkbox.checked, game)"></ion-checkbox>
+          <div class="backdrop" (click)="checkbox.checked = !checkbox.checked"></div>
+        </div>
         
       </ion-col>
 
@@ -40,16 +42,12 @@
 
   </ion-grid>
 
-  <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="gamesToDelete?.length !== 0">
 
-    <ion-fab-button (click)="onClickAddButton()" *ngIf="!isInEditMode">
-      <ion-icon name="add"></ion-icon>
+    <ion-fab-button color="danger" (click)="onClickDeleteGamesFromList()">
+      <ion-icon name="trash-outline"></ion-icon>
     </ion-fab-button>
 
-    <ion-fab-button (click)="onClickSaveButton()" *ngIf="isInEditMode">
-      <ion-icon name="save"></ion-icon>
-    </ion-fab-button>
-
-  </ion-fab> -->
+  </ion-fab>
 
 </ion-content>

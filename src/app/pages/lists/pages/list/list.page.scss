@@ -1,0 +1,30 @@
+ion-col {
+    position: relative;
+
+    div.checkbox-container {
+        position: absolute;
+        top: 0rem;
+        left: 0rem;
+        height: calc(100% - 30px);
+        width: calc(100% - 30px);
+        margin: 15px;
+        border-radius: 4px;
+
+        ion-checkbox {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #FFFFFF;
+            border-radius: 50px;
+            border: 2px solid #FFFFFF;
+        }
+
+        div.backdrop {
+            background-color: var(--ion-background-color);
+            border-radius: 4px;
+            opacity: 0.5;
+            height: 100%;
+            width: 100%;
+        }
+    }
+}

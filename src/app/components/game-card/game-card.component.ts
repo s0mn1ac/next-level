@@ -9,7 +9,8 @@ import { Game } from 'src/app/shared/models/game.model';
 export class GameCardComponent implements OnInit {
 
   @Input() game: Game;
-  @Input() isOwnScoreVisible = false;
+  @Input() ownScore = false;
+  @Input() addToList = false;
 
   @Output() addToListEventEmitter: EventEmitter<any> = new EventEmitter<any>();
 

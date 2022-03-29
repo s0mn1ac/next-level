@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DocumentData, DocumentReference, DocumentSnapshot } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { IonCheckbox } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
 import { Game } from 'src/app/shared/models/game.model';
@@ -22,11 +23,11 @@ export class ListPage implements OnInit, OnDestroy {
   //   console.log(this.games);
   // }
 
-  //
-
   public list: List;
 
   public games: Game[] = [];
+
+  public gamesToDelete: number[] = [];
 
   public isInEditMode = false;
 
@@ -47,27 +48,31 @@ export class ListPage implements OnInit, OnDestroy {
     this.cancelParamsSubscription();
   }
 
-  public onClickAddButton(): void {
-    //
+  public async onClickChangeListName(): Promise<void> {
+    console.log('onClickChangeListName');
   }
 
-  public onClickEditButton(): void {
-    this.isInEditMode = true;
+  public async onClickDeleteList(): Promise<void> {
+    console.log('onClickDeleteList');
   }
 
-  public onClickSaveButton(): void {
-    this.isInEditMode = false;
+  public async onClickDeleteGamesFromList(): Promise<void> {
+    console.log('onClickDeleteGamesFromList');
+    this.onClickChangeEditMode();
   }
 
-  public onClickCancelButton(): void {
-    this.isInEditMode = false;
+  public onClickChangeEditMode(): void {
+    this.isInEditMode = !this.isInEditMode;
+    this.gamesToDelete = [];
   }
 
-  public async onClickDeleteButton(): Promise<void> {
-    await this.loadingService.show('deletingList');
-    await this.databaseService.deleteList(this.list);
-    await this.loadingService.hide();
-    this.router.navigate(['lists']);
+  public updateGamesToDeleteList(isSelected: boolean, game: Game): void {
+    if (isSelected) {
+      this.gamesToDelete.push(game.id);
+      return;
+    }
+    const position: number = this.gamesToDelete?.findIndex((id: number) => id === game.id);
+    this.gamesToDelete.splice(position, 1);
   }
 
   private initParamsSubscription(): void {

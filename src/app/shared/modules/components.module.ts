@@ -9,6 +9,7 @@ import { NextLevelListComponent } from 'src/app/components/next-level-list/next-
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { ListComponent } from 'src/app/components/list/list.component';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
+import { NextLevelModalComponent } from 'src/app/components/next-level-modal/next-level-modal.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { MenuComponent } from 'src/app/components/menu/menu.component';
     ListComponent,
     GameCardComponent,
     GameCardComplexComponent,
-    NextLevelListComponent
+    NextLevelListComponent,
+    NextLevelModalComponent
   ],
   exports: [
     HeaderComponent,
@@ -25,7 +27,8 @@ import { MenuComponent } from 'src/app/components/menu/menu.component';
     ListComponent,
     GameCardComponent,
     GameCardComplexComponent,
-    NextLevelListComponent
+    NextLevelListComponent,
+    NextLevelModalComponent
   ],
   imports: [
     CommonModule,

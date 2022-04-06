@@ -67,9 +67,9 @@ export class DatabaseService {
       await updateDoc(doc(getFirestore(), 'users', this.uid), { lists: arrayUnion(doc(getFirestore(), 'lists', snap.id)) }));
   }
 
-  // public modifyList(): Promise<void> {
-
-  // }
+  public async changeListName(list: List, newListName: string): Promise<void> {
+    await updateDoc(doc(getFirestore(), 'lists', list.id), { name: newListName });
+  }
 
   public async deleteList(list: List): Promise<void> {
     await deleteDoc(doc(getFirestore(), 'lists', list.id));
@@ -82,13 +82,9 @@ export class DatabaseService {
     await updateDoc(doc(getFirestore(), 'lists', list.id), { games: arrayUnion(doc(getFirestore(), 'games', gameId)) });
   }
 
-  // public modifyGameFromList(): Promise<void> {
-
-  // }
-
   public async deleteGameFromList(game: Game, list: List): Promise<void> {
-    await deleteDoc(doc(getFirestore(), 'lists', list.id));
-    await updateDoc(doc(getFirestore(), 'users', this.uid), { games: arrayRemove(doc(getFirestore(), 'lists', list.id)) });
+    const gameId = `${this.uid}_${game.id}`;
+    await updateDoc(doc(getFirestore(), 'lists',  list.id), { games: arrayRemove(doc(getFirestore(), 'games', gameId)) });
   }
 
 }

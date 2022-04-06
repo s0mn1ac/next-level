@@ -15,7 +15,7 @@ import { LoadingService } from 'src/app/shared/services/loading.service';
   templateUrl: './library.page.html',
   styleUrls: ['./library.page.scss'],
 })
-export class LibraryPage implements OnInit {
+export class LibraryPage {
 
   public lastReleasedGames: Game[] = [];
 
@@ -32,7 +32,7 @@ export class LibraryPage implements OnInit {
     private actionSheetController: ActionSheetController
   ) { }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.initData();
   }
 
@@ -47,12 +47,15 @@ export class LibraryPage implements OnInit {
 
   private async getLastReleasedGames(): Promise<void> {
     this.lastReleasedGames = await this.gameService.getLastReleasedGames();
-    console.log('lastReleasedGames', this.lastReleasedGames);
   }
 
   private async initData(): Promise<void> {
-    this.getAllLists();
-    this.getLastReleasedGames();
+    await this.loadingService.show('loadingLists');
+    await Promise.all([
+      this.getAllLists(),
+      this.getLastReleasedGames()
+    ]);
+    await this.loadingService.hide();
   }
 
   private async getAllLists(): Promise<void> {

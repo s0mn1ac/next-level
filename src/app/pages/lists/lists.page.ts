@@ -10,7 +10,7 @@ import { LoadingService } from 'src/app/shared/services/loading.service';
   templateUrl: './lists.page.html',
   styleUrls: ['./lists.page.scss'],
 })
-export class ListsPage implements OnInit {
+export class ListsPage {
 
   public allLists: List[] = [];
 
@@ -19,14 +19,14 @@ export class ListsPage implements OnInit {
     private databaseService: DatabaseService
   ) { }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.initData();
   }
 
   public async onClickAddButton(): Promise<void> {
-    await this.loadingService.show('creatingList');
+    // await this.loadingService.show('creatingList');
     await this.databaseService.addList({ id: 'test0', name: 'Test0', isPublic: false, games: [] });
-    await this.loadingService.hide();
+    // await this.loadingService.hide();
     await this.initData();
   }
 

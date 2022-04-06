@@ -25,23 +25,28 @@ const routes: Routes = [
   },
   {
     path: 'sign-in',
-    loadChildren: () => import('./pages/sign-in/sign-in.module').then( m => m.SignInPageModule)
+    loadChildren: () => import('./pages/sign-in/sign-in.module').then( m => m.SignInPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'sign-up',
-    loadChildren: () => import('./pages/sign-up/sign-up.module').then( m => m.SignUpPageModule)
+    loadChildren: () => import('./pages/sign-up/sign-up.module').then( m => m.SignUpPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'board',
-    loadChildren: () => import('./pages/board/board.module').then( m => m.BoardPageModule)
+    loadChildren: () => import('./pages/board/board.module').then( m => m.BoardPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'lists',
-    loadChildren: () => import('./pages/lists/lists.module').then( m => m.ListsPageModule)
+    loadChildren: () => import('./pages/lists/lists.module').then( m => m.ListsPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'library',
-    loadChildren: () => import('./pages/library/library.module').then( m => m.LibraryPageModule)
+    loadChildren: () => import('./pages/library/library.module').then( m => m.LibraryPageModule),
+    canActivate: [AuthGuard]
   },
 ];
 

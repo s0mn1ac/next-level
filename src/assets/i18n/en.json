@@ -26,7 +26,8 @@
         "signUp": "Sign up",
         "signIn": "Sign in",
         "signOut": "Sign out",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "change": "Change"
     },
 
     "loadingScreens": {
@@ -36,7 +37,9 @@
         "loadingLists": "Loading lists",
         "creatingList": "Adding a new list",
         "deletingList": "Deleting list",
-        "loadingGames": "Loading games"
+        "modifyingList": "Modifying list",
+        "loadingGames": "Loading games",
+        "deletingGames": "Deleting games"
     },
 
     "signUp": {
@@ -105,7 +108,18 @@
     },
 
     "lists": {
-        "title": "All my lists"
+        "title": "All my lists",
+        "list": {
+            "listName": "List name",
+            "deleteList": {
+                "deleteListHeader": "Do you want to delete the list?",
+                "deleteListBody": "Keep in mind that this change is irreversible. Once you do it, there is no going back!"
+            },
+            "deleteGames": {
+                "deleteGamesHeader": "Do you want to delete the games selected?",
+                "deleteGamesBody": "Keep in mind that this change is irreversible. Once you do it, there is no going back!"
+            }
+        }
     },
 
     "settings": {

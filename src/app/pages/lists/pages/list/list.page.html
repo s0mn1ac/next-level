@@ -9,7 +9,7 @@
     <ion-title (click)="onClickChangeListName()"> {{ list?.name }} </ion-title>
 
     <ion-buttons slot="end">
-      <ion-button (click)="onClickDeleteList()" *ngIf="!isInEditMode">
+      <ion-button (click)="onClickShowNextLevelModal(deleteListModalOptions)" *ngIf="!isInEditMode">
         <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
       </ion-button>
       <ion-button (click)="onClickChangeEditMode()">
@@ -44,10 +44,12 @@
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="gamesToDelete?.length !== 0">
 
-    <ion-fab-button color="danger" (click)="onClickDeleteGamesFromList()">
+    <ion-fab-button color="danger" (click)="onClickShowNextLevelModal(deleteGamesModalOptions)">
       <ion-icon name="trash-outline"></ion-icon>
     </ion-fab-button>
 
   </ion-fab>
+
+  <app-next-level-modal #nextLevelModal></app-next-level-modal>
 
 </ion-content>

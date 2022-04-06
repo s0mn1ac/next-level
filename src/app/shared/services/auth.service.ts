@@ -40,7 +40,6 @@ export class AuthService implements OnDestroy {
 
   get isLoggedIn(): boolean {
     const user: any = JSON.parse(localStorage.getItem('next-level-user'));
-    console.log(user);
     return JSON.parse(localStorage.getItem('next-level-user')) !== null;
   }
 

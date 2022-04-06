@@ -1,8 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DocumentData, DocumentReference, DocumentSnapshot } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { IonCheckbox } from '@ionic/angular';
+import { AlertController, IonCheckbox } from '@ionic/angular';
+import { TranslocoService } from '@ngneat/transloco';
 import { Subscription } from 'rxjs';
+import { NextLevelModalComponent } from 'src/app/components/next-level-modal/next-level-modal.component';
+import { NextLevelModalOptions } from 'src/app/shared/interfaces/next-level-modal-options.interface';
 import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
 import { Game } from 'src/app/shared/models/game.model';
 import { List } from 'src/app/shared/models/list.model';
@@ -17,17 +20,14 @@ import { LoadingService } from 'src/app/shared/services/loading.service';
 })
 export class ListPage implements OnInit, OnDestroy {
 
-
-  // private async initData(): Promise<void> {
-  //   this.games = await this.gameService.getGames();
-  //   console.log(this.games);
-  // }
+  @ViewChild('nextLevelModal') nextLevelModal: NextLevelModalComponent;
 
   public list: List;
 
-  public games: Game[] = [];
-
   public gamesToDelete: number[] = [];
+
+  public deleteGamesModalOptions: NextLevelModalOptions;
+  public deleteListModalOptions: NextLevelModalOptions;
 
   public isInEditMode = false;
 
@@ -36,11 +36,14 @@ export class ListPage implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private translocoService: TranslocoService,
     private loadingService: LoadingService,
-    private databaseService: DatabaseService
+    private databaseService: DatabaseService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
+    this.initOptions();
     this.initParamsSubscription();
   }
 
@@ -48,16 +51,56 @@ export class ListPage implements OnInit, OnDestroy {
     this.cancelParamsSubscription();
   }
 
+  public onClickShowNextLevelModal(nextLevelModalOptions: NextLevelModalOptions): void {
+    this.nextLevelModal.show(nextLevelModalOptions);
+  }
+
   public async onClickChangeListName(): Promise<void> {
-    console.log('onClickChangeListName');
+
+    const alert = await this.alertController.create({
+      header: this.translocoService.translate('lists.list.listName'),
+      inputs: [
+        {
+          name: 'listName',
+          type: 'text',
+          value: this.list.name,
+          placeholder: this.translocoService.translate('lists.list.listName')
+        }
+      ],
+      buttons: [
+        {
+          text: this.translocoService.translate('buttons.cancel'),
+          role: 'cancel',
+        }, {
+          text: this.translocoService.translate('buttons.change'),
+          handler: async (event: any) => {
+            await this.loadingService.show('modifyingList');
+            await this.databaseService.changeListName(this.list, event.listName);
+            await this.getList(this.list.id);
+            await this.loadingService.hide();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   public async onClickDeleteList(): Promise<void> {
-    console.log('onClickDeleteList');
+    await this.loadingService.show('deletingList');
+    await this.databaseService.deleteList(this.list);
+    await this.loadingService.hide();
+    this.router.navigate(['/lists']);
   }
 
   public async onClickDeleteGamesFromList(): Promise<void> {
-    console.log('onClickDeleteGamesFromList');
+    const gamesToDelete: Game[] = this.gamesToDelete.map((gameId: number) => this.list.games.find((game: Game) => game.id === gameId ));
+    await this.loadingService.show('deletingGames');
+    for await (const game of gamesToDelete) {
+      this.databaseService.deleteGameFromList(game, this.list);
+    }
+    await this.getList(this.list.id);
+    await this.loadingService.hide();
     this.onClickChangeEditMode();
   }
 
@@ -75,6 +118,27 @@ export class ListPage implements OnInit, OnDestroy {
     this.gamesToDelete.splice(position, 1);
   }
 
+  private initOptions(): void {
+
+    this.deleteGamesModalOptions = {
+      icon: 'trash-outline',
+      title: this.translocoService.translate('lists.list.deleteGames.deleteGamesHeader'),
+      description: this.translocoService.translate('lists.list.deleteGames.deleteGamesBody'),
+      buttonColor: 'danger',
+      buttonName: this.translocoService.translate('buttons.delete'),
+      command: () => this.onClickDeleteGamesFromList()
+    };
+
+    this.deleteListModalOptions = {
+      icon: 'trash-outline',
+      title: this.translocoService.translate('lists.list.deleteList.deleteListHeader'),
+      description: this.translocoService.translate('lists.list.deleteList.deleteListBody'),
+      buttonColor: 'danger',
+      buttonName: this.translocoService.translate('buttons.delete'),
+      command: () => this.onClickDeleteList()
+    };
+  }
+
   private initParamsSubscription(): void {
     this.paramsSubscription$ = this.activatedRoute.params.subscribe((params: Params) => {
       this.initData(params?.id);
@@ -82,13 +146,13 @@ export class ListPage implements OnInit, OnDestroy {
   }
 
   private async initData(listId: string): Promise<void> {
-    // await this.loadingService.show('loadingGames');
+    await this.loadingService.show('loadingGames');
     this.getList(listId);
+    await this.loadingService.hide();
   }
 
   private async getList(listId: string): Promise<void> {
     this.list = await this.databaseService.getList(listId);
-    console.log(this.list);
   }
 
   private cancelParamsSubscription(): void {

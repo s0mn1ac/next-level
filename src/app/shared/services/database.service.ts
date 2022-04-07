@@ -14,6 +14,7 @@ import { Game } from '../models/game.model';
 import { List } from '../models/list.model';
 import firebase from 'firebase/compat/app';
 import { doc, updateDoc, deleteDoc, arrayUnion, arrayRemove, setDoc, getFirestore, DocumentData } from 'firebase/firestore';
+import { Score } from '../models/score.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class DatabaseService {
 
   public userStructureObservable: Observable<UserStructure>;
 
-  private uid: string;
+  public uid: string;
 
   constructor(
     private angularFirestore: AngularFirestore,
@@ -71,9 +72,22 @@ export class DatabaseService {
     await updateDoc(doc(getFirestore(), 'lists', list.id), { name: newListName });
   }
 
+  public async changeUserScore(gameId: number, newScore: Score): Promise<void> {
+    await updateDoc(doc(getFirestore(), 'games', `${this.uid}_${gameId}`), { score: JSON.parse(JSON.stringify(newScore)) });
+  }
+
   public async deleteList(list: List): Promise<void> {
     await deleteDoc(doc(getFirestore(), 'lists', list.id));
     await updateDoc(doc(getFirestore(), 'users', this.uid), { lists: arrayRemove(doc(getFirestore(), 'lists', list.id)) });
+  }
+
+  public async getGame(gameId: string): Promise<Game> {
+    const report: any = await this.angularFirestore.collection('games').doc(`${this.uid}_${gameId}`).ref;
+    return this.converterService.convertGameFromReport(report);
+  }
+
+  public async updateGameStatus(game: Game): Promise<void> {
+    await updateDoc(doc(getFirestore(), 'games', `${this.uid}_${game.id}`), { completed: game?.completed });
   }
 
   public async addGameToList(game: Game, list: List): Promise<void> {

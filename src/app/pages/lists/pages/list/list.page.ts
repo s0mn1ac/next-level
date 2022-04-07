@@ -55,6 +55,10 @@ export class ListPage implements OnInit, OnDestroy {
     this.nextLevelModal.show(nextLevelModalOptions);
   }
 
+  public onClickNavigateToGame(gameId: number): void {
+    this.router.navigate([`/game/${gameId}`]);
+  }
+
   public async onClickChangeListName(): Promise<void> {
 
     const alert = await this.alertController.create({
@@ -147,7 +151,7 @@ export class ListPage implements OnInit, OnDestroy {
 
   private async initData(listId: string): Promise<void> {
     await this.loadingService.show('loadingGames');
-    this.getList(listId);
+    await this.getList(listId);
     await this.loadingService.hide();
   }
 

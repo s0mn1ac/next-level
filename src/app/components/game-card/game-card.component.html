@@ -1,4 +1,4 @@
-<ion-card *transloco="let t">
+<ion-card *transloco="let t" (click)="onClickNavigateToGame(game.id)" >
 
   <img class="background-image" [src]="game?.image" [alt]="game.name" />
 
@@ -23,7 +23,7 @@
 
     <ion-card-content>
 
-      <ion-button fill="outline" expand="block" shape="round" (click)="onClickAddToListButton(game)" *ngIf="addToList">
+      <ion-button fill="outline" expand="block" shape="round" (click)="onClickAddToListButton($event, game)" *ngIf="addToList">
         <ion-icon slot="start" name="add"></ion-icon>
         {{ t('library.addToList.title') }}
       </ion-button>

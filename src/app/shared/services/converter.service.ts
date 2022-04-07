@@ -8,6 +8,8 @@ import { ParentPlatform } from '../models/parent-platform.model';
 import { Score } from '../models/score.model';
 import { List } from '../models/list.model';
 import { CollectionReference, DocumentSnapshot, QuerySnapshot } from '@angular/fire/compat/firestore';
+import { Developer } from '../models/developer.model';
+import { Publisher } from '../models/publisher.model';
 
 
 @Injectable({
@@ -53,7 +55,8 @@ export class ConverterService {
             game.image = result.background_image;
             game.releaseDate = result.released;
             game.tba = result.tba;
-            game.metascore = this.buildScore(result.metacritic);
+            game.metascore = new Score(result.metacritic);
+            game.score = new Score(result.score);
             game.avgPlaytime = result.playtime;
             game.screenshots = result.screenshots?.map((screenshot: any) => screenshot.image);
             game.esrb = result.esrb_rating != null ? this.buildEsrb(result.esrb_rating) : null;
@@ -66,17 +69,61 @@ export class ConverterService {
         return games;
     }
 
-    private buildScore(scoreRaw: number): Score {
-        const score: Score = new Score();
-        score.value = scoreRaw;
-        if (scoreRaw >= 0 && scoreRaw < 50) {
-            score.color = 'score-red';
-        } else if (scoreRaw >= 50 && scoreRaw < 75) {
-            score.color = 'score-yellow';
-        } else {
-            score.color = 'score-green';
-        }
-        return score;
+    public async convertGameFromReport(report: any): Promise<Game> {
+        const game: Game = new Game();
+        await report.get().then( async (gameSnapshot: DocumentSnapshot<List>) => {
+            const gameData: any = gameSnapshot.data();
+            if (gameData === undefined) {
+                return;
+            }
+            game.id = gameData.id;
+            game.name = gameData.name;
+            game.slug = gameData.slug;
+            game.image = gameData.image;
+            game.releaseDate = gameData.releaseDate;
+            game.tba = gameData.tba;
+            game.metascore = gameData.metascore;
+            game.score = gameData.score;
+            game.avgPlaytime = gameData.avgPlaytime;
+            game.screenshots = gameData.screenshots;
+            game.esrb = gameData.esrb;
+            game.genres = gameData.genres;
+            game.parentPlatforms = gameData.parentPlatforms;
+            game.platforms = gameData.platforms;
+            game.stores = gameData.stores;
+            game.description = gameData.description;
+            game.dominantColor = `#${gameData.dominant_color}`;
+            game.saturatedColor = `#${gameData.saturated_color}`;
+            game.developers = this.buildDevelopers(gameData.developers);
+            game.publishers = this.buildPublishers(gameData.publishers);
+            game.completed = gameData.completed;
+        });
+        return game;
+    }
+
+    public convertGameInfoFromReport(report: any): Game {
+        const game: Game = new Game();
+        game.id = report.id;
+        game.name = report.name;
+        game.slug = report.slug;
+        game.image = report.background_image;
+        game.releaseDate = report.released;
+        game.tba = report.tba;
+        game.metascore = new Score(report.metacritic);
+        game.score = new Score(report.score);
+        game.avgPlaytime = report.playtime;
+        game.screenshots = report.screenshots?.map((screenshot: any) => screenshot.image);
+        game.esrb = report.esrb_rating != null ? this.buildEsrb(report.esrb_rating) : null;
+        game.genres = this.buildGenres(report.genres);
+        game.parentPlatforms = this.buildParentPlatforms(report.parent_platforms);
+        game.platforms = this.buildPlatforms(report.platforms);
+        game.stores = this.buildStores(report.stores);
+        game.description = report.description;
+        game.dominantColor = `#${report.dominant_color}`;
+        game.saturatedColor = `#${report.saturated_color}`;
+        game.developers = this.buildDevelopers(report.developers);
+        game.publishers = this.buildPublishers(report.publishers);
+        return game;
     }
 
     private buildEsrb(esrbRaw: any): Esrb {
@@ -137,6 +184,30 @@ export class ConverterService {
             stores.push(store);
         });
         return stores;
+    }
+
+    private buildDevelopers(developersRaw: any): Developer[] {
+        const developers: Developer[] = [];
+        developersRaw?.forEach((developerRaw: any) => {
+            const developer: Developer = new Developer();
+            developer.id = developerRaw.id;
+            developer.name = developerRaw.name;
+            developer.slug = developerRaw.slug;
+            developers.push(developer);
+        });
+        return developers;
+    }
+
+    private buildPublishers(publishersRaw: any): Publisher[] {
+        const publishers: Publisher[] = [];
+        publishersRaw?.forEach((publisherRaw: any) => {
+            const publisher: Publisher = new Publisher();
+            publisher.id = publisherRaw.id;
+            publisher.name = publisherRaw.name;
+            publisher.slug = publisherRaw.slug;
+            publishers.push(publisher);
+        });
+        return publishers;
     }
 
 }

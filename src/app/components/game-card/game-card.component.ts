@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Game } from 'src/app/shared/models/game.model';
 
 @Component({
@@ -17,12 +18,18 @@ export class GameCardComponent implements OnInit {
   public statusButtonColor: string;
   public statusButtonValue: string;
 
-  constructor() {
+  constructor(
+    private router: Router
+  ) {
     this.statusButtonColor = 'danger';
     this.statusButtonValue = 'Pendiente';
   }
 
   ngOnInit() {}
+
+  public onClickNavigateToGame(gameId: number): void {
+    this.router.navigate([`/game/${gameId}`]);
+  }
 
   public onClickChangeButtonStatus(): void {
     if (this.statusButtonColor === 'danger') {
@@ -37,7 +44,8 @@ export class GameCardComponent implements OnInit {
     }
   }
 
-  public onClickAddToListButton(game: Game): void {
+  public onClickAddToListButton(event: any, game: Game): void {
+    event.stopPropagation();
     this.addToListEventEmitter.emit(game);
   }
 

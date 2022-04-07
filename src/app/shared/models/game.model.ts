@@ -5,6 +5,8 @@ import { Store } from './store.model';
 import { ParentPlatform } from './parent-platform.model';
 import { StatusEnum } from '../enums/status.enum';
 import { Score } from './score.model';
+import { Developer } from './developer.model';
+import { Publisher } from './publisher.model';
 
 export class Game {
     id: number;
@@ -22,7 +24,14 @@ export class Game {
     platforms: Platform[];
     stores: Store[];
 
-    status: StatusEnum = StatusEnum.pending;
+    description: string;
+    dominantColor: string; // TODO: ¿Al final se usa?
+    saturatedColor: string; // TODO: ¿Al final se usa?
+    developers: Developer[];
+    publishers: Publisher[];
+
+    status: StatusEnum = StatusEnum.pending; // TODO: ¿Al final se usa?
+    completed: boolean;
     score: Score = { value: 50, color: 'score-yellow' };
     myPlatform: Platform;
 }

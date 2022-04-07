@@ -22,6 +22,11 @@ export class GameService extends BaseService {
     return this.converterService.convertGamesFromReport(report);
   }
 
+  public async getGameInfo(id: number | string): Promise<Game> {
+    const report = await this.getGameInfoReport(id);
+    return this.converterService.convertGameInfoFromReport(report);
+  }
+
   public async getLastReleasedGames(): Promise<Game[]> {
     const report = await this.getLastReleasedGamesReport();
     return this.converterService.convertGamesFromReport(report);
@@ -32,6 +37,15 @@ export class GameService extends BaseService {
   private async getGamesReport(): Promise<any> {
     return this.serviceGet({
       url: `${this.url}/games${this.key}`,
+      headers: new HttpHeaders({ token: 'f5b9bcd495c6417d948da840a50adc5a' }),
+      callback: (response: any) => response.body,
+      result: null
+    });
+  }
+
+  private async getGameInfoReport(id: number | string): Promise<any> {
+    return this.serviceGet({
+      url: `${this.url}/games/${id}${this.key}`,
       headers: new HttpHeaders({ token: 'f5b9bcd495c6417d948da840a50adc5a' }),
       callback: (response: any) => response.body,
       result: null

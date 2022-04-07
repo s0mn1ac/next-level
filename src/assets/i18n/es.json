@@ -38,6 +38,7 @@
         "creatingList": "Añadiendo una nueva lista",
         "deletingList": "Borrando lista",
         "modifyingList": "Modificando lista",
+        "loadingGameData": "Cargando datos del juego",
         "loadingGames": "Cargando juegos",
         "deletingGames": "Borrando juegos"
     },
@@ -120,6 +121,18 @@
                 "deleteGamesBody": "Ten presente que este cambio es irreversible. En cuanto lo hagas, ¡no habrá vuelta a trás!"
             }
         }
+    },
+
+    "game": {
+        "description": "Descripción",
+        "platforms": "Plataformas",
+        "metascore": "Metascore",
+        "genres": "Géneros",
+        "releaseDate": "Fecha de lanzamiento",
+        "developer": "Desarrolladora",
+        "publisher": "Editora",
+        "ageRating": "Clasificación de edad",
+        "userScore": "Mi valoración"
     },
 
     "settings": {

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActionSheetButton, ActionSheetController, IonModal } from '@ionic/angular';
 import { TranslocoService } from '@ngneat/transloco';
 import * as moment from 'moment';
@@ -63,9 +64,8 @@ export class LibraryPage {
   }
 
   private async addGameToList(game: Game, list: List): Promise<void> {
-    console.log('gameToSave', game);
-    console.log('listSelected', list);
-    await this.databaseService.addGameToList(game, list);
+    const fullGameInfo: Game = await this.gameService.getGameInfo(game.id);
+    await this.databaseService.addGameToList(fullGameInfo, list);
   }
 
 }

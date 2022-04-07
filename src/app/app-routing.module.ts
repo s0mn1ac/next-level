@@ -48,6 +48,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/library/library.module').then( m => m.LibraryPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'game',
+    loadChildren: () => import('./pages/game/game.module').then( m => m.GamePageModule)
+  },
 ];
 
 @NgModule({

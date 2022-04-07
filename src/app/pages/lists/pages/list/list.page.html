@@ -29,7 +29,7 @@
 
       <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" *ngFor="let game of list?.games">
         
-        <app-game-card [game]="game"></app-game-card>
+        <app-game-card (click)="onClickNavigateToGame(game.id)" [game]="game"></app-game-card>
 
         <div class="checkbox-container" *ngIf="isInEditMode">
           <ion-checkbox #checkbox mode="ios" (ionChange)="updateGamesToDeleteList(checkbox.checked, game)"></ion-checkbox>

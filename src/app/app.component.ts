@@ -3,6 +3,8 @@ import { TranslocoService } from '@ngneat/transloco';
 import { Subscription } from 'rxjs';
 import { DarkModeService } from './shared/services/dark-mode.service';
 import { LanguageService } from './shared/services/language.service';
+import { ListService } from './shared/services/list.service';
+import { LoadingService } from './shared/services/loading.service';
 import { ThemeService } from './shared/services/theme.service';
 
 @Component({
@@ -26,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.initializeDarkModeSubscription();
+    this.initSubscriptions();
   }
 
   ngOnDestroy(): void {
@@ -35,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.themeSubscription$?.unsubscribe();
   }
 
-  private initializeDarkModeSubscription(): void {
+  private initSubscriptions(): void {
     this.languageSubscription$ = this.languageService.languageObservable.subscribe((value: string) => this.setLanguage(value));
     this.darkModeSubscription$ = this.darkModeService.darkModeObservable.subscribe((value: boolean) => this.setDarkMode(value));
     this.themeSubscription$ = this.themeService.themeObservable.subscribe((value: string) => this.setTheme(value));

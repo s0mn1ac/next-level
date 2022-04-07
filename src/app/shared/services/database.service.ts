@@ -90,15 +90,4 @@ export class DatabaseService {
     await updateDoc(doc(getFirestore(), 'games', `${this.uid}_${game.id}`), { completed: game?.completed });
   }
 
-  public async addGameToList(game: Game, list: List): Promise<void> {
-    const gameId = `${this.uid}_${game.id}`;
-    await this.angularFirestore.collection('games').doc(gameId).set(JSON.parse(JSON.stringify(game))); // TODO: Comprobar si ya existe
-    await updateDoc(doc(getFirestore(), 'lists', list.id), { games: arrayUnion(doc(getFirestore(), 'games', gameId)) });
-  }
-
-  public async deleteGameFromList(game: Game, list: List): Promise<void> {
-    const gameId = `${this.uid}_${game.id}`;
-    await updateDoc(doc(getFirestore(), 'lists',  list.id), { games: arrayRemove(doc(getFirestore(), 'games', gameId)) });
-  }
-
 }

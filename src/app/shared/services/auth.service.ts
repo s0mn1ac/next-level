@@ -13,6 +13,7 @@ import { ToastService } from './toast.service';
 import { UserStructure } from '../interfaces/user-structure.interface';
 import { RoleEnum } from '../enums/role.enum';
 import firebase from 'firebase/compat/app';
+import { ListService } from './list.service';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,7 @@ export class AuthService implements OnDestroy {
     private router: Router,
     private ngZone: NgZone,
     private databaseService: DatabaseService,
+    private listService: ListService,
     private toastService: ToastService
   ) {
     this.initAngularFireAuthSubscription();
@@ -39,7 +41,6 @@ export class AuthService implements OnDestroy {
   }
 
   get isLoggedIn(): boolean {
-    const user: any = JSON.parse(localStorage.getItem('next-level-user'));
     return JSON.parse(localStorage.getItem('next-level-user')) !== null;
   }
 
@@ -48,7 +49,7 @@ export class AuthService implements OnDestroy {
   }
 
   public async signUp(email: string, password: string, name: string): Promise<void> {
-    return this.angularFireAuth.createUserWithEmailAndPassword(email, password).then(async (result) => {
+    return this.angularFireAuth.createUserWithEmailAndPassword(email, password).then( async result => {
 
       const userData: User = {
         uid: result.user.uid,
@@ -62,13 +63,14 @@ export class AuthService implements OnDestroy {
       await this.updateUserProfile(name, 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg');
       const user: firebase.User = await this.getCurrentUser();
       await this.generateUserStructure(user.uid);
+      await this.listService.initListsSubscription(); // TODO: ¿Va aquí?
       this.router.navigate(['board']);
 
     }).catch((error) => this.toastService.throwError(error.code));
   }
 
   public async signIn(email: string, password: string): Promise<void> {
-    return this.angularFireAuth.signInWithEmailAndPassword(email, password).then((result) => {
+    return this.angularFireAuth.signInWithEmailAndPassword(email, password).then( async result => {
 
       this.ngZone.run(() => {
         this.router.navigate(['board']);
@@ -82,6 +84,8 @@ export class AuthService implements OnDestroy {
       };
 
       this.setUserData(userData);
+      await this.listService.initListsSubscription(); // TODO: ¿Va aquí?
+
     }).catch((error) => {
       window.alert(error.message); // TODO: Cambiar las alertas por TOAST
     });
@@ -175,6 +179,8 @@ export class AuthService implements OnDestroy {
     const user: any = JSON.parse(localStorage.getItem('next-level-user'));
     if (user != null) {
       this.databaseService.setUserId(user.uid);
+      this.listService.setUserId(user.uid);
+      this.listService.initListsSubscription();
     }
   }
 

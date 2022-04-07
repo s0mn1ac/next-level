@@ -11,6 +11,7 @@ import { Game } from 'src/app/shared/models/game.model';
 import { List } from 'src/app/shared/models/list.model';
 import { DatabaseService } from 'src/app/shared/services/database.service';
 import { GameService } from 'src/app/shared/services/game.service';
+import { ListService } from 'src/app/shared/services/list.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
@@ -31,14 +32,15 @@ export class ListPage implements OnInit, OnDestroy {
 
   public isInEditMode = false;
 
-  private paramsSubscription$: Subscription;
+  private params$: Subscription;
+  private lists$: Subscription;
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private translocoService: TranslocoService,
     private loadingService: LoadingService,
-    private databaseService: DatabaseService,
+    private listService: ListService,
     private alertController: AlertController
   ) { }
 
@@ -49,6 +51,7 @@ export class ListPage implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.cancelParamsSubscription();
+    this.cancelListsSubscription();
   }
 
   public onClickShowNextLevelModal(nextLevelModalOptions: NextLevelModalOptions): void {
@@ -65,7 +68,7 @@ export class ListPage implements OnInit, OnDestroy {
       header: this.translocoService.translate('lists.list.listName'),
       inputs: [
         {
-          name: 'listName',
+          name: 'name',
           type: 'text',
           value: this.list.name,
           placeholder: this.translocoService.translate('lists.list.listName')
@@ -79,8 +82,7 @@ export class ListPage implements OnInit, OnDestroy {
           text: this.translocoService.translate('buttons.change'),
           handler: async (event: any) => {
             await this.loadingService.show('modifyingList');
-            await this.databaseService.changeListName(this.list, event.listName);
-            await this.getList(this.list.id);
+            await this.listService.modifyList(this.list.id, 'name', event.name);
             await this.loadingService.hide();
           }
         }
@@ -92,7 +94,7 @@ export class ListPage implements OnInit, OnDestroy {
 
   public async onClickDeleteList(): Promise<void> {
     await this.loadingService.show('deletingList');
-    await this.databaseService.deleteList(this.list);
+    await this.listService.deleteList(this.list.id);
     await this.loadingService.hide();
     this.router.navigate(['/lists']);
   }
@@ -101,9 +103,8 @@ export class ListPage implements OnInit, OnDestroy {
     const gamesToDelete: Game[] = this.gamesToDelete.map((gameId: number) => this.list.games.find((game: Game) => game.id === gameId ));
     await this.loadingService.show('deletingGames');
     for await (const game of gamesToDelete) {
-      this.databaseService.deleteGameFromList(game, this.list);
+      this.listService.deleteGame(game.id, this.list.id);
     }
-    await this.getList(this.list.id);
     await this.loadingService.hide();
     this.onClickChangeEditMode();
   }
@@ -144,23 +145,26 @@ export class ListPage implements OnInit, OnDestroy {
   }
 
   private initParamsSubscription(): void {
-    this.paramsSubscription$ = this.activatedRoute.params.subscribe((params: Params) => {
-      this.initData(params?.id);
+    this.params$ = this.activatedRoute.params.subscribe((params: Params) => {
+      this.cancelListsSubscription();
+      this.initListsSubscription(params?.id);
     });
   }
 
-  private async initData(listId: string): Promise<void> {
-    await this.loadingService.show('loadingGames');
-    await this.getList(listId);
-    await this.loadingService.hide();
+  private initListsSubscription(listId: string): void {
+    this.lists$ = this.listService.listsObservable.subscribe((lists: List[]) => this.loadLists(lists, listId));
   }
 
-  private async getList(listId: string): Promise<void> {
-    this.list = await this.databaseService.getList(listId);
+  private loadLists(lists: List[], listId: string): void {
+    this.list = lists?.find((list: List) => list.id === listId);
   }
 
   private cancelParamsSubscription(): void {
-    this.paramsSubscription$?.unsubscribe();
+    this.params$?.unsubscribe();
+  }
+
+  private cancelListsSubscription(): void {
+    this.lists$?.unsubscribe();
   }
 
 }

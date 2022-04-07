@@ -10,6 +10,7 @@ import { List } from 'src/app/shared/models/list.model';
 import { ResponseData } from 'src/app/shared/models/response-data.model';
 import { DatabaseService } from 'src/app/shared/services/database.service';
 import { GameService } from 'src/app/shared/services/game.service';
+import { ListService } from 'src/app/shared/services/list.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
@@ -17,7 +18,7 @@ import { LoadingService } from 'src/app/shared/services/loading.service';
   templateUrl: './library.page.html',
   styleUrls: ['./library.page.scss'],
 })
-export class LibraryPage {
+export class LibraryPage implements OnInit {
 
   public games: Game[] = [];
 
@@ -26,6 +27,8 @@ export class LibraryPage {
 
   public allLists: List[] = [];
 
+  public lastSearchValue: string;
+
   private nextUrl: string;
 
   constructor(
@@ -33,10 +36,11 @@ export class LibraryPage {
     private gameService: GameService,
     private loadingService: LoadingService,
     private databaseService: DatabaseService,
+    private listService: ListService,
     private actionSheetController: ActionSheetController
   ) { }
 
-  ionViewWillEnter() {
+  ngOnInit(): void {
     this.initData();
   }
 
@@ -49,9 +53,16 @@ export class LibraryPage {
     await actionSheet.present();
   }
 
+  public async onRefresh(event: any): Promise<void> {
+    await this.onSearch(this.lastSearchValue);
+    event.target.complete();
+  }
+
   public async onSearch(value: string): Promise<void> {
 
-    await this.loadingService.show('loadingGames');
+    this.lastSearchValue = value;
+
+    // await this.loadingService.show('loadingGames');
 
     if (value == null) {
       await this.getLastReleasedGames();
@@ -62,7 +73,7 @@ export class LibraryPage {
     const responseData: ResponseData = await this.gameService.getFilteredGames(value);
     this.games = responseData.results;
     this.nextUrl = responseData.next;
-    await this.loadingService.hide();
+    // await this.loadingService.hide();
   }
 
   public async loadNextValues(event: any): Promise<void> {
@@ -101,7 +112,7 @@ export class LibraryPage {
 
   private async addGameToList(game: Game, list: List): Promise<void> {
     const fullGameInfo: Game = await this.gameService.getGameInfo(game.id);
-    await this.databaseService.addGameToList(fullGameInfo, list);
+    await this.listService.addGame(fullGameInfo, list.id);
   }
 
 }

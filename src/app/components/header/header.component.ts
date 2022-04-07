@@ -14,7 +14,6 @@ export class HeaderComponent {
   @Input() searchButton = false;
 
   @Output() searchEventEmitter: EventEmitter<string> = new EventEmitter<string>();
-  // @Output() hideSearchbarEventEmitter: EventEmitter<void> = new EventEmitter<void>();
 
   public isSearchbarVisible: boolean;
 

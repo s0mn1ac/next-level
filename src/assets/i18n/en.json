@@ -1,4 +1,7 @@
 {
+    "messages": {
+        "searchByGameName": "Search by game name..."
+    },
 
     "errorCodes": {
         "authEmailAlreadyInUse": "Email address is already in use"

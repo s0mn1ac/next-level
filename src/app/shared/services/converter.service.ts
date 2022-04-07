@@ -10,6 +10,7 @@ import { List } from '../models/list.model';
 import { CollectionReference, DocumentSnapshot, QuerySnapshot } from '@angular/fire/compat/firestore';
 import { Developer } from '../models/developer.model';
 import { Publisher } from '../models/publisher.model';
+import { ResponseData } from '../models/response-data.model';
 
 
 @Injectable({
@@ -45,7 +46,8 @@ export class ConverterService {
         return list;
     }
 
-    public convertGamesFromReport(report: any): Game[] {
+    public convertGamesFromReport(report: any): ResponseData {
+
         const games: Game[] = [];
         report?.results?.forEach((result: any) => {
             const game: Game = new Game();
@@ -66,7 +68,13 @@ export class ConverterService {
             game.stores = this.buildStores(result.stores);
             games.push(game);
         });
-        return games;
+
+        const responseData: ResponseData = new ResponseData();
+        responseData.count = report.count;
+        responseData.next = report.next;
+        responseData.previous = report.previous;
+        responseData.results = games;
+        return responseData;
     }
 
     public async convertGameFromReport(report: any): Promise<Game> {

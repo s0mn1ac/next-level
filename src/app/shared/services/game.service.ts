@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { BaseService } from 'src/app/shared/services/base.service';
 import { ConverterService } from 'src/app/shared/services/converter.service';
 import { Game } from '../models/game.model';
+import { ResponseData } from '../models/response-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class GameService extends BaseService {
     super(http);
   }
 
-  public async getGames(): Promise<Game[]> {
+  public async getGames(): Promise<ResponseData> {
     const report = await this.getGamesReport();
     return this.converterService.convertGamesFromReport(report);
   }
@@ -27,7 +28,17 @@ export class GameService extends BaseService {
     return this.converterService.convertGameInfoFromReport(report);
   }
 
-  public async getLastReleasedGames(): Promise<Game[]> {
+  public async getFilteredGames(searchValue?: string): Promise<ResponseData> {
+    const report = await this.getFilteredGamesReport(searchValue);
+    return this.converterService.convertGamesFromReport(report);
+  }
+
+  public async getGamesByUrl(url: string): Promise<ResponseData> {
+    const report = await this.getGamesByUrlReport(url);
+    return this.converterService.convertGamesFromReport(report);
+  }
+
+  public async getLastReleasedGames(): Promise<ResponseData> {
     const report = await this.getLastReleasedGamesReport();
     return this.converterService.convertGamesFromReport(report);
   }
@@ -47,6 +58,23 @@ export class GameService extends BaseService {
     return this.serviceGet({
       url: `${this.url}/games/${id}${this.key}`,
       headers: new HttpHeaders({ token: 'f5b9bcd495c6417d948da840a50adc5a' }),
+      callback: (response: any) => response.body,
+      result: null
+    });
+  }
+
+  private async getFilteredGamesReport(searchValue?: string): Promise<any> {
+    return this.serviceGet({
+      url: `${this.url}/games${this.key}`,
+      params: { search: searchValue },
+      callback: (response: any) => response.body,
+      result: null
+    });
+  }
+
+  private async getGamesByUrlReport(url: string): Promise<any> {
+    return this.serviceGet({
+      url,
       callback: (response: any) => response.body,
       result: null
     });

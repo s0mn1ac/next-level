@@ -1,4 +1,7 @@
 {
+    "messages": {
+        "searchByGameName": "Buscar por nombre de juego..."
+    },
 
     "errorCodes": {
         "authEmailAlreadyInUse": "El email introducido ya está en uso"

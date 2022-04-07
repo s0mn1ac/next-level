@@ -2,11 +2,21 @@
 
   <ion-toolbar color="primary">
     
-    <ion-buttons slot="start">
+    <ion-buttons slot="start" *ngIf="!isSearchbarVisible">
       <ion-menu-button menu="first"></ion-menu-button>
     </ion-buttons>
 
-    <ion-title> {{ t(section + '.title') }} </ion-title>
+    <ion-title *ngIf="!isSearchbarVisible"> {{ t(section + '.title') }} </ion-title>
+
+    <ion-searchbar #customSearchbar *ngIf="isSearchbarVisible" (search)="onSearch($event)"
+      (ionCancel)="hideSearchbar()" showCancelButton="always" color="primary" [placeholder]="t('messages.searchByGameName')">
+    </ion-searchbar>
+
+    <ion-buttons slot="end" *ngIf="searchButton">
+      <ion-button shape="round" *ngIf="!isSearchbarVisible" (click)="showSearchbar()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     
   </ion-toolbar>
 

@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
 import { Game } from 'src/app/shared/models/game.model';
 import { List } from 'src/app/shared/models/list.model';
+import { ResponseData } from 'src/app/shared/models/response-data.model';
 import { DatabaseService } from 'src/app/shared/services/database.service';
 import { GameService } from 'src/app/shared/services/game.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
@@ -18,12 +19,14 @@ import { LoadingService } from 'src/app/shared/services/loading.service';
 })
 export class LibraryPage {
 
-  public lastReleasedGames: Game[] = [];
+  public games: Game[] = [];
 
   public breakpoints: number[] = [0, 0.5];
   public initialBreakpoint = 0.5;
 
   public allLists: List[] = [];
+
+  private nextUrl: string;
 
   constructor(
     private translocoService: TranslocoService,
@@ -46,12 +49,45 @@ export class LibraryPage {
     await actionSheet.present();
   }
 
+  public async onSearch(value: string): Promise<void> {
+
+    await this.loadingService.show('loadingGames');
+
+    if (value == null) {
+      await this.getLastReleasedGames();
+      await this.loadingService.hide();
+      return;
+    }
+
+    const responseData: ResponseData = await this.gameService.getFilteredGames(value);
+    this.games = responseData.results;
+    this.nextUrl = responseData.next;
+    await this.loadingService.hide();
+  }
+
+  public async loadNextValues(event: any): Promise<void> {
+
+    if (!this.nextUrl) {
+      return;
+    }
+
+    const responseData: ResponseData = await this.gameService.getGamesByUrl(this.nextUrl);
+    this.games = this.games.concat(responseData.results);
+    this.nextUrl = responseData.next;
+
+    event.target.complete();
+    event.target.disabled = this.nextUrl == null;
+  }
+
   private async getLastReleasedGames(): Promise<void> {
-    this.lastReleasedGames = await this.gameService.getLastReleasedGames();
+    const responseData: ResponseData = await this.gameService.getLastReleasedGames();
+    this.games = responseData.results;
+    this.nextUrl = responseData.next;
   }
 
   private async initData(): Promise<void> {
     await this.loadingService.show('loadingLists');
+    this.nextUrl = null;
     await Promise.all([
       this.getAllLists(),
       this.getLastReleasedGames()

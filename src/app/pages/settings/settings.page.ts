@@ -1,66 +1,43 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TranslocoService } from '@ngneat/transloco';
-import { Subscription } from 'rxjs';
-import { DarkModeService } from 'src/app/shared/services/dark-mode.service';
-import { LanguageService } from 'src/app/shared/services/language.service';
-import { ThemeService } from 'src/app/shared/services/theme.service';
+import { Component, OnInit } from '@angular/core';
+import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
 })
-export class SettingsPage implements OnInit, OnDestroy {
+export class SettingsPage implements OnInit {
 
   public languageSelected: string;
   public themeSelected: string;
   public isDarkModeEnabled: boolean;
 
-  private languageSubscription$: Subscription;
-  private darkModeSubscription$: Subscription;
-  private themeSubscription$: Subscription;
-
-  constructor(
-    private translocoService: TranslocoService,
-    private languageService: LanguageService,
-    private darkModeService: DarkModeService,
-    private themeService: ThemeService
-  ) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.initializeLanguageSubscription();
-    this.initializeDarkModeSubscription();
-    this.initializeThemeSubscription();
-  }
-
-  ngOnDestroy(): void {
-    this.languageSubscription$?.unsubscribe();
-    this.darkModeSubscription$?.unsubscribe();
-    this.themeSubscription$?.unsubscribe();
+    this.setInitialData();
   }
 
   public onChangeLanguage(event: any): void {
-    this.languageService.onChangeLanguageValue(event?.detail?.value);
+    this.userService.modifyUser('language', event?.detail?.value);
   }
 
   public onChangeDarkMode(): void {
-    this.darkModeService.onChangeDarkModeValue(this.isDarkModeEnabled);
+    this.userService.modifyUser('mode', this.isDarkModeEnabled ? 'dark' : 'light');
   }
 
   public onChangeTheme(event: any): void {
-    this.themeService.onChangeThemeValue(event?.detail?.value);
+    this.userService.modifyUser('theme', event?.detail?.value);
   }
 
-  private initializeLanguageSubscription(): void {
-    this.languageSubscription$ = this.languageService.languageObservable.subscribe((value: string) => this.languageSelected = value);
-  }
-
-  private initializeDarkModeSubscription(): void {
-    this.darkModeSubscription$ = this.darkModeService.darkModeObservable.subscribe((value: boolean)=> this.isDarkModeEnabled = value);
-  }
-
-  private initializeThemeSubscription(): void {
-    this.themeSubscription$ = this.themeService.themeObservable.subscribe((value: string) => this.themeSelected = value);
+  private setInitialData(): void {
+    const userStructure: UserStructure = JSON.parse(localStorage.getItem('next-level-user'));
+    if (userStructure != null) {
+      this.languageSelected = userStructure.language;
+      this.isDarkModeEnabled = userStructure.mode === 'dark';
+      this.themeSelected = userStructure.theme;
+    }
   }
 
 }

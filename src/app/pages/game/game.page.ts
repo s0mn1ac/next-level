@@ -97,7 +97,6 @@ export class GamePage implements OnInit, OnDestroy {
       this.isStatusBarVisible = false;
     }
     this.game = game;
-    console.log(this.game);
     this.isGameDataLoaded = true;
   }
 

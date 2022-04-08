@@ -13,6 +13,7 @@ import { UserStructure } from '../interfaces/user-structure.interface';
 import { RoleEnum } from '../enums/role.enum';
 import firebase from 'firebase/compat/app';
 import { ListService } from './list.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,8 @@ export class AuthService implements OnDestroy {
 
   public readonly userObservable: Observable<UserStructure> = this.userBehavior.asObservable();
 
-  private angularFireAuthSubscription$: Subscription;
+  private angularFireAuth$: Subscription;
+  private userStructure$: Subscription;
 
   private defaultPhotoURL = 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg';
 
@@ -39,6 +41,7 @@ export class AuthService implements OnDestroy {
     private ngZone: NgZone,
     private databaseService: DatabaseService,
     private listService: ListService,
+    private userService: UserService,
     private toastService: ToastService
   ) {
     this.initAngularFireAuthSubscription();
@@ -50,7 +53,8 @@ export class AuthService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.angularFireAuthSubscription$?.unsubscribe();
+    this.angularFireAuth$?.unsubscribe();
+    this.userStructure$?.unsubscribe();
   }
 
   public async signUp(email: string, password: string, name: string): Promise<void> {
@@ -125,16 +129,25 @@ export class AuthService implements OnDestroy {
   }
 
   private generateUserStructure(uid: string, name: string, email: string): void {
-    this.databaseService.generateUserStructure(uid, this.getNewUserStructure(name, email));
+    this.databaseService.generateUserStructure(this.getNewUserStructure(uid, name, email));
   }
 
-  private getNewUserStructure(displayName: string, email: string): UserStructure {
-    return { displayName, email, photoURL: this.defaultPhotoURL, role: this.defaultRole };
+  private getNewUserStructure(uid: string, displayName: string, email: string): UserStructure {
+    return {
+      uid,
+      displayName,
+      email,
+      photoURL: this.defaultPhotoURL,
+      role: this.defaultRole,
+      mode: 'light',
+      theme: 'blue',
+      language: 'es'
+    };
   }
 
   private initAngularFireAuthSubscription(): void {
 
-    this.angularFireAuthSubscription$ = this.angularFireAuth.authState.subscribe( async (user) => {
+    this.angularFireAuth$ = this.angularFireAuth.authState.subscribe( async (user) => {
       if (user) {
         await this.angularFirestore.collection('users').doc(user.uid).ref.get().then((userSnapshot: DocumentSnapshot<UserStructure>) => {
           const userStructure: UserStructure = userSnapshot.data();
@@ -156,13 +169,20 @@ export class AuthService implements OnDestroy {
     if (user != null) {
       this.databaseService.setUserId(user.uid);
       this.listService.setUserId(user.uid);
+      this.userService.setUserId(user.uid);
       this.initListsSubscription();
+      this.initUserStructureSubscription();
     }
   }
 
   private initListsSubscription(): void {
-    this.listService.cancelListSubscription();
+    this.listService.cancelListsSubscription();
     this.listService.initListsSubscription();
+  }
+
+  private initUserStructureSubscription(): void {
+    this.userService.cancelUserSubscription();
+    this.userService.initUserSubscription();
   }
 
   private async setUserData(userData: User): Promise<void> {

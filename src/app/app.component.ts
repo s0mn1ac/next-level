@@ -1,11 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import { Subscription } from 'rxjs';
-import { DarkModeService } from './shared/services/dark-mode.service';
-import { LanguageService } from './shared/services/language.service';
-import { ListService } from './shared/services/list.service';
-import { LoadingService } from './shared/services/loading.service';
-import { ThemeService } from './shared/services/theme.service';
+import { UserStructure } from './shared/interfaces/user-structure.interface';
+import { UserService } from './shared/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -14,33 +11,39 @@ import { ThemeService } from './shared/services/theme.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  private languageSubscription$: Subscription;
-  private darkModeSubscription$: Subscription;
-  private themeSubscription$: Subscription;
+  private user$: Subscription;
 
   private themes: string[] = ['red', 'orange', 'yellow', 'green', 'blue'];
 
   constructor(
     private translocoService: TranslocoService,
-    private languageService: LanguageService,
-    private darkModeService: DarkModeService,
-    private themeService: ThemeService
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
+    this.setInitialData();
     this.initSubscriptions();
   }
 
   ngOnDestroy(): void {
-    this.languageSubscription$?.unsubscribe();
-    this.darkModeSubscription$?.unsubscribe();
-    this.themeSubscription$?.unsubscribe();
+    this.user$?.unsubscribe();
+  }
+
+  private setInitialData(): void {
+    const userStructure: UserStructure = JSON.parse(localStorage.getItem('next-level-user'));
+    this.setUserStructure(userStructure);
+  }
+
+  private setUserStructure(userStructure: UserStructure): void {
+    if (userStructure != null) {
+      this.setDarkMode(userStructure.mode === 'dark');
+      this.setLanguage(userStructure.language);
+      this.setTheme(userStructure.theme);
+    }
   }
 
   private initSubscriptions(): void {
-    this.languageSubscription$ = this.languageService.languageObservable.subscribe((value: string) => this.setLanguage(value));
-    this.darkModeSubscription$ = this.darkModeService.darkModeObservable.subscribe((value: boolean) => this.setDarkMode(value));
-    this.themeSubscription$ = this.themeService.themeObservable.subscribe((value: string) => this.setTheme(value));
+    this.user$ = this.userService.userObservable.subscribe((value: UserStructure) => this.setUserStructure(value));
   }
 
   private setLanguage(languageSelected: string): void {

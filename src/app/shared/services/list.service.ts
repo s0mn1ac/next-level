@@ -39,14 +39,13 @@ export class ListService {
   }
 
   public initListsSubscription(): void {
-    // TODO: Traer SOLO las listas del usuario
     const id = { idField: 'id' };
     this.lists$ = this.angularFirestore.collection('users').doc(this.uid).collection('lists').valueChanges(id).subscribe(async report => {
       await this.updateLists(report);
     });
   }
 
-  public cancelListSubscription(): void {
+  public cancelListsSubscription(): void {
     this.lists$?.unsubscribe();
   }
 
@@ -105,7 +104,6 @@ export class ListService {
 
   private async updateLists(report: any): Promise<void> {
     const lists: List[] = [];
-    console.log(report);
     for await (const reportItem of report) {
       const list: List = new List();
       list.id = reportItem.id;

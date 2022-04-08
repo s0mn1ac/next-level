@@ -37,8 +37,8 @@ export class SignInPage implements OnInit {
 
   private initForm(): void {
     this.signInForm = this.formBuilder.group({
-      email: new FormControl(null, Validators.compose([Validators.required, Validators.email])),
-      password: new FormControl(null, Validators.compose([Validators.required, Validators.minLength(8)]))
+      email: new FormControl('test1@nextlevel.com', Validators.compose([Validators.required, Validators.email])),
+      password: new FormControl('12345678', Validators.compose([Validators.required, Validators.minLength(8)]))
     });
   }
 

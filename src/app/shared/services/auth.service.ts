@@ -61,6 +61,9 @@ export class AuthService implements OnDestroy {
     return this.angularFireAuth.createUserWithEmailAndPassword(email, password).then( async result => {
       this.redirect = true;
       await this.generateUserStructure(result.user.uid, name, email);
+      this.userService.setUserId(result.user.uid);
+      this.initUserStructureSubscription();
+      this.listService.setUserId(result.user.uid);
       this.initListsSubscription();
     }).catch((error) => this.toastService.throwError(error.code));
   }
@@ -68,12 +71,16 @@ export class AuthService implements OnDestroy {
   public async signIn(email: string, password: string): Promise<void> {
     return this.angularFireAuth.signInWithEmailAndPassword(email, password).then( async result => {
       this.redirect = true;
+      this.userService.setUserId(result.user.uid);
+      this.initUserStructureSubscription();
+      this.listService.setUserId(result.user.uid);
       this.initListsSubscription();
     }).catch((error) => this.toastService.throwError(error.code));
   }
 
   public async signOut(): Promise<void> {
     return this.angularFireAuth.signOut().then(() => {
+      this.userService.cancelUserSubscription();
       localStorage.removeItem('next-level-user');
       this.router.navigate(['sign-in']);
     });

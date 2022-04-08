@@ -69,6 +69,25 @@ ion-content {
                         border: 1px solid;
                     }
                 }
+
+                ion-chip {
+
+                    ion-icon {
+                        margin: 0;
+                    }
+
+                    ion-label {
+                        min-width: 85px;
+                    }
+
+                    &.completed-chip {
+                        background-color: var(--ion-color-success);
+                    }
+
+                    &.playing-chip {
+                        background-color: var(--ion-color-warning);
+                    }
+                }
             }
         }
     }

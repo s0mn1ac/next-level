@@ -39,9 +39,10 @@
           <ion-icon name="document-outline"></ion-icon>
         </ion-fab-button>
 
-        <ion-fab-button size="small" [color]="game?.completed ? 'success' : 'medium'" (click)="onClickUpdateGameStatus()">
-          <ion-icon name="checkmark-outline"></ion-icon>
-        </ion-fab-button>
+        <ion-chip [ngClass]="game?.completed ? 'completed-chip' : 'playing-chip'" (click)="onClickUpdateGameStatus()">
+          <ion-icon [name]="game?.completed ? 'checkmark-outline' : 'play-outline'" color="light"></ion-icon>
+          <ion-label color="light"> {{ t(game?.completed ? 'game.completed' : 'game.playing') }} </ion-label>
+        </ion-chip>
         
       </div>
 

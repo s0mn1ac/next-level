@@ -11,6 +11,21 @@ ion-chip.completed-chip {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
+
+    ion-icon {
+        margin: 0;
+    }
+}
+
+ion-chip.playing-chip {
+    background-color: var(--ion-color-warning);
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+
+    ion-icon {
+        margin: 0;
+    }
 }
 
 ion-card-subtitle {

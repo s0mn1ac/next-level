@@ -135,7 +135,9 @@
         "developer": "Desarrolladora",
         "publisher": "Editora",
         "ageRating": "Clasificación de edad",
-        "userScore": "Mi valoración"
+        "userScore": "Mi valoración",
+        "completed": "Completado",
+        "playing": "Jugando"
     },
 
     "settings": {

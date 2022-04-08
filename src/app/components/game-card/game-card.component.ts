@@ -12,6 +12,7 @@ export class GameCardComponent implements OnInit {
   @Input() game: Game;
   @Input() ownScore = false;
   @Input() addToList = false;
+  @Input() isStatusBarVisible = false;
 
   @Output() addToListEventEmitter: EventEmitter<any> = new EventEmitter<any>();
 

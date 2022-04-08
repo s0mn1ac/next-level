@@ -135,7 +135,9 @@
         "developer": "Developer",
         "publisher": "Publisher",
         "ageRating": "Age rating",
-        "userScore": "My score"
+        "userScore": "My score",
+        "completed": "Completed",
+        "playing": "Playing"
     },
 
     "settings": {

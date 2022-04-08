@@ -6,6 +6,13 @@ img.background-image {
     border-bottom-right-radius: 50%;
 }
 
+ion-chip.completed-chip {
+    background-color: var(--ion-color-success);
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+}
+
 ion-card-subtitle {
 
     div.parent-platforms {

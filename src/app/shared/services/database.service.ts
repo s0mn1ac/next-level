@@ -37,8 +37,8 @@ export class DatabaseService {
     this.uid = uid;
   }
 
-  public generateUserStructure(userStructure: UserStructure): Promise<any> {
-    return this.angularFirestore.collection('users').doc(userStructure.id).set(userStructure);
+  public generateUserStructure(uid: string, userStructure: UserStructure): Promise<any> {
+    return this.angularFirestore.collection('users').doc(uid).set(userStructure);
     // await setDoc(doc(getFirestore(), 'users', userStructure.id), userStructure);
   }
 

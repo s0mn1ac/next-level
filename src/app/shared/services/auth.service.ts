@@ -1,10 +1,9 @@
 import { Injectable, NgZone, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreDocument, DocumentSnapshot } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { User } from '../interfaces/user.interface';
-import { List } from '../models/list.model';
 import { DatabaseService } from './database.service';
 import { FileUpload } from '../models/file-upload.model';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -20,11 +19,17 @@ import { ListService } from './list.service';
 })
 export class AuthService implements OnDestroy {
 
-  public userBehavior = new BehaviorSubject<User>(null);
+  public userBehavior = new BehaviorSubject<UserStructure>(null);
 
-  public readonly userObservable: Observable<User> = this.userBehavior.asObservable();
+  public readonly userObservable: Observable<UserStructure> = this.userBehavior.asObservable();
 
   private angularFireAuthSubscription$: Subscription;
+
+  private defaultPhotoURL = 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg';
+
+  private defaultRole: RoleEnum = RoleEnum.user;
+
+  private redirect = false;
 
   constructor(
     private angularFirestore: AngularFirestore,
@@ -50,48 +55,17 @@ export class AuthService implements OnDestroy {
 
   public async signUp(email: string, password: string, name: string): Promise<void> {
     return this.angularFireAuth.createUserWithEmailAndPassword(email, password).then( async result => {
-
-      const userData: User = {
-        uid: result.user.uid,
-        email: result.user.email,
-        displayName: result.user.displayName,
-        photoURL: result.user.photoURL
-      };
-
-      this.setUserData(userData);
-
-      await this.updateUserProfile(name, 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg');
-      const user: firebase.User = await this.getCurrentUser();
-      await this.generateUserStructure(user.uid);
-
+      this.redirect = true;
+      await this.generateUserStructure(result.user.uid, name, email);
       this.initListsSubscription();
-
-      this.router.navigate(['board']);
-
     }).catch((error) => this.toastService.throwError(error.code));
   }
 
   public async signIn(email: string, password: string): Promise<void> {
     return this.angularFireAuth.signInWithEmailAndPassword(email, password).then( async result => {
-
-      this.ngZone.run(() => {
-        this.router.navigate(['board']);
-      });
-
-      const userData: User = {
-        uid: result.user.uid,
-        email: result.user.email,
-        displayName: result.user.displayName,
-        photoURL: result.user.photoURL
-      };
-
-      this.setUserData(userData);
-
+      this.redirect = true;
       this.initListsSubscription();
-
-    }).catch((error) => {
-      window.alert(error.message); // TODO: Cambiar las alertas por TOAST
-    });
+    }).catch((error) => this.toastService.throwError(error.code));
   }
 
   public async signOut(): Promise<void> {
@@ -114,20 +88,20 @@ export class AuthService implements OnDestroy {
 
   public async updateUserProfile(displayName: string, photoURL: string): Promise<void> {
     return await (await this.angularFireAuth.currentUser).updateProfile({ displayName, photoURL }).then(() => {
-      const userData: User = JSON.parse(localStorage.getItem('next-level-user'));
-      userData.displayName = displayName;
-      userData.photoURL = photoURL;
-      localStorage.setItem('next-level-user', JSON.stringify(userData));
-      this.userBehavior.next(userData);
+      const userStructure: UserStructure = JSON.parse(localStorage.getItem('next-level-user'));
+      userStructure.displayName = displayName;
+      userStructure.photoURL = photoURL;
+      localStorage.setItem('next-level-user', JSON.stringify(userStructure));
+      this.userBehavior.next(userStructure);
     });
   }
 
   public async updateUserProfilePicture(photoURL: string): Promise<void> {
     return await (await this.angularFireAuth.currentUser).updateProfile({ photoURL }).then(() => {
-      const userData: User = JSON.parse(localStorage.getItem('next-level-user'));
-      userData.photoURL = photoURL;
-      localStorage.setItem('next-level-user', JSON.stringify(userData));
-      this.userBehavior.next(userData);
+      const userStructure: UserStructure = JSON.parse(localStorage.getItem('next-level-user'));
+      userStructure.photoURL = photoURL;
+      localStorage.setItem('next-level-user', JSON.stringify(userStructure));
+      this.userBehavior.next(userStructure);
     });
   }
 
@@ -150,28 +124,27 @@ export class AuthService implements OnDestroy {
     return this.angularFireAuth.currentUser;
   }
 
-  private generateUserStructure(uid: string): void {
-    this.databaseService.generateUserStructure(this.getNewUserStructure(uid));
+  private generateUserStructure(uid: string, name: string, email: string): void {
+    this.databaseService.generateUserStructure(uid, this.getNewUserStructure(name, email));
   }
 
-  private getNewUserStructure(uid: string): UserStructure {
-    return {
-      id: uid,
-      role: RoleEnum.user,
-      isProUser: false,
-      lists: [
-        // { id: 'jugados', name: 'Jugados', isPublic: false, games: [] },
-        // { id: 'pendientes', name: 'Pendientes', isPublic: false, games: [] }
-      ]
-    };
+  private getNewUserStructure(displayName: string, email: string): UserStructure {
+    return { displayName, email, photoURL: this.defaultPhotoURL, role: this.defaultRole };
   }
 
   private initAngularFireAuthSubscription(): void {
-    this.angularFireAuthSubscription$ = this.angularFireAuth.authState.subscribe((user) => {
+
+    this.angularFireAuthSubscription$ = this.angularFireAuth.authState.subscribe( async (user) => {
       if (user) {
-        const userData: User = { uid: user.uid, email: user.email, displayName: user.displayName, photoURL: user.photoURL };
-        localStorage.setItem('next-level-user', JSON.stringify(userData));
-        this.userBehavior.next(userData);
+        await this.angularFirestore.collection('users').doc(user.uid).ref.get().then((userSnapshot: DocumentSnapshot<UserStructure>) => {
+          const userStructure: UserStructure = userSnapshot.data();
+          localStorage.setItem('next-level-user', JSON.stringify(userStructure));
+          this.userBehavior.next(userStructure);
+          if (this.redirect) {
+            this.router.navigate(['board']);
+            this.redirect = false;
+          }
+        });
       } else {
         localStorage.setItem('next-level-user', 'null');
       }

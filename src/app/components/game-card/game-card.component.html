@@ -1,5 +1,10 @@
 <ion-card *transloco="let t" (click)="onClickNavigateToGame(game.id)" >
 
+  <ion-chip class="completed-chip" *ngIf="game?.completed">
+    <ion-icon name="checkmark-outline" color="light"></ion-icon>
+    <ion-label color="light"> Completado </ion-label>
+  </ion-chip>
+
   <img class="background-image" [src]="game?.image" [alt]="game.name" />
 
   <ion-card-header>

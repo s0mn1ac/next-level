@@ -66,16 +66,22 @@ export class ListService {
 
   public async getGame(gameId: string): Promise<Game> {
     const report: any = await this.angularFirestore.collection('users').doc(this.uid).collection('games').doc(`${gameId}`).ref;
-    return this.converterService.convertGameFromReport(report);
+    return await this.converterService.convertGameFromReport(report);
   }
 
   public async addGame(game: Game, listId: string): Promise<void> {
-    await this.angularFirestore.collection('users').doc(this.uid).collection('games').doc(`${game.id}`).set(
-      JSON.parse(JSON.stringify(game))
-    );
-    await this.angularFirestore.collection('users').doc(this.uid).collection('lists').doc(listId).update({
-      games: arrayUnion(doc(getFirestore(), `users/${this.uid}/games`, `${game.id}`))
-    });
+    await this.angularFirestore.collection('users').doc(this.uid).collection('games').doc(`${game.id}`).ref
+      .get()
+      .then( async (gameSnapshot: DocumentSnapshot<Game>) => {
+        if (gameSnapshot.data() === undefined) {
+          await this.angularFirestore.collection('users').doc(this.uid).collection('games').doc(`${game.id}`).set(
+            JSON.parse(JSON.stringify(game)), { merge: true }
+          );
+        }
+        await this.angularFirestore.collection('users').doc(this.uid).collection('lists').doc(listId).update({
+          games: arrayUnion(doc(getFirestore(), `users/${this.uid}/games`, `${game.id}`))
+        });
+      });
   }
 
   public async modifyGame(gameId: number, name: string, value: any): Promise<void> {

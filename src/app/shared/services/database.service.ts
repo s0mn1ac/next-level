@@ -62,32 +62,4 @@ export class DatabaseService {
 
   // CRUD
 
-  public async addList(list: List): Promise<void> {
-    const documentReference: DocumentReference = await this.angularFirestore.collection('lists').add(list);
-    documentReference.get().then(async (snap) =>
-      await updateDoc(doc(getFirestore(), 'users', this.uid), { lists: arrayUnion(doc(getFirestore(), 'lists', snap.id)) }));
-  }
-
-  public async changeListName(list: List, newListName: string): Promise<void> {
-    await updateDoc(doc(getFirestore(), 'lists', list.id), { name: newListName });
-  }
-
-  public async changeUserScore(gameId: number, newScore: Score): Promise<void> {
-    await updateDoc(doc(getFirestore(), 'games', `${this.uid}_${gameId}`), { score: JSON.parse(JSON.stringify(newScore)) });
-  }
-
-  public async deleteList(list: List): Promise<void> {
-    await deleteDoc(doc(getFirestore(), 'lists', list.id));
-    await updateDoc(doc(getFirestore(), 'users', this.uid), { lists: arrayRemove(doc(getFirestore(), 'lists', list.id)) });
-  }
-
-  public async getGame(gameId: string): Promise<Game> {
-    const report: any = await this.angularFirestore.collection('games').doc(`${this.uid}_${gameId}`).ref;
-    return this.converterService.convertGameFromReport(report);
-  }
-
-  public async updateGameStatus(game: Game): Promise<void> {
-    await updateDoc(doc(getFirestore(), 'games', `${this.uid}_${game.id}`), { completed: game?.completed });
-  }
-
 }

@@ -37,7 +37,7 @@ export class ListsPage implements OnInit, OnDestroy {
 
   public async onClickAddButton(): Promise<void> {
     // await this.loadingService.show('creatingList');
-    await this.databaseService.addList({ id: 'test0', name: 'Test0', isPublic: false, games: [] });
+    await this.listService.addList({ id: 'test0', name: 'Test0', isPublic: false, games: [] });
     // await this.loadingService.hide();
     // await this.initData();
   }

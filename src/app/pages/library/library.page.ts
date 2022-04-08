@@ -18,16 +18,18 @@ import { LoadingService } from 'src/app/shared/services/loading.service';
   templateUrl: './library.page.html',
   styleUrls: ['./library.page.scss'],
 })
-export class LibraryPage implements OnInit {
+export class LibraryPage implements OnInit, OnDestroy {
 
   public games: Game[] = [];
 
   public breakpoints: number[] = [0, 0.5];
   public initialBreakpoint = 0.5;
 
-  public allLists: List[] = [];
+  public lists: List[] = [];
 
   public lastSearchValue: string;
+
+  private lists$: Subscription;
 
   private nextUrl: string;
 
@@ -44,11 +46,15 @@ export class LibraryPage implements OnInit {
     this.initData();
   }
 
+  ngOnDestroy(): void {
+    this.cancelListsSubscription();
+  }
+
   public async onClickAddToListButton(game: Game): Promise<void> {
     const actionSheet: HTMLIonActionSheetElement = await this.actionSheetController.create({
       header: this.translocoService.translate('library.addToList.addToListHeader'),
       subHeader: this.translocoService.translate('library.addToList.addToListBody'),
-      buttons: this.allLists?.map((list: List) => ({ text: list?.name, handler: () => this.addGameToList(game, list) }))
+      buttons: this.lists?.map((list: List) => ({ text: list?.name, handler: () => this.addGameToList(game, list) }))
     });
     await actionSheet.present();
   }
@@ -97,22 +103,28 @@ export class LibraryPage implements OnInit {
   }
 
   private async initData(): Promise<void> {
-    await this.loadingService.show('loadingLists');
     this.nextUrl = null;
-    await Promise.all([
-      this.getAllLists(),
-      this.getLastReleasedGames()
-    ]);
+    this.initListsSubscription();
+    await this.loadingService.show('loadingLists');
+    await this.getLastReleasedGames();
     await this.loadingService.hide();
   }
 
-  private async getAllLists(): Promise<void> {
-    this.allLists = await this.databaseService.getAllLists();
+  private initListsSubscription(): void {
+    this.lists$ = this.listService.listsObservable.subscribe((lists: List[]) => this.loadLists(lists));
+  }
+
+  private loadLists(lists: List[]): void {
+    this.lists = lists;
   }
 
   private async addGameToList(game: Game, list: List): Promise<void> {
     const fullGameInfo: Game = await this.gameService.getGameInfo(game.id);
     await this.listService.addGame(fullGameInfo, list.id);
+  }
+
+  private cancelListsSubscription(): void {
+    this.lists$?.unsubscribe();
   }
 
 }

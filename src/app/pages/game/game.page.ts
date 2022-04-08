@@ -7,6 +7,7 @@ import { Game } from 'src/app/shared/models/game.model';
 import { Score } from 'src/app/shared/models/score.model';
 import { DatabaseService } from 'src/app/shared/services/database.service';
 import { GameService } from 'src/app/shared/services/game.service';
+import { ListService } from 'src/app/shared/services/list.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
@@ -28,6 +29,7 @@ export class GamePage implements OnInit, OnDestroy {
     private translocoService: TranslocoService,
     private loadingService: LoadingService,
     private databaseService: DatabaseService,
+    private listService: ListService,
     private gameService: GameService,
     private pickerController: PickerController
   ) { }
@@ -42,7 +44,7 @@ export class GamePage implements OnInit, OnDestroy {
 
   public async onClickUpdateGameStatus(): Promise<void> {
     this.game.completed = !this.game.completed;
-    this.databaseService.updateGameStatus(this.game);
+    this.listService.modifyGame(this.game.id, 'completed', this.game.completed);
   }
 
   public async onClickChangeUserScore(): Promise<void> {
@@ -58,7 +60,7 @@ export class GamePage implements OnInit, OnDestroy {
           text: this.translocoService.translate('buttons.change'),
           handler: (value) => {
             this.game.score = new Score(value.score.value);
-            this.databaseService.changeUserScore(this.game.id, this.game.score);
+            this.listService.modifyGame(this.game.id, 'score', JSON.parse(JSON.stringify(this.game.score)));
           }
         }
       ]
@@ -88,7 +90,7 @@ export class GamePage implements OnInit, OnDestroy {
   }
 
   private async getGame(gameId: string): Promise<void> {
-    let game: Game = await this.databaseService.getGame(gameId);
+    let game: Game = await this.listService.getGame(gameId);
     this.isStatusBarVisible = true;
     if (game?.name === undefined) {
       game = await this.gameService.getGameInfo(gameId);

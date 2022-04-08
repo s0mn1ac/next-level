@@ -7,7 +7,7 @@
         <div class="avatar-image-container">
 
             <ion-avatar>
-                <img [src]="user?.photoURL" />
+                <img [src]="userStructure?.photoURL" />
                 <input #fileInput type="file" class="input-file" (change)="selectFile($event)" />
                 <ion-button class="custom-button" size="large" fill="clear" shape="round" (click)="fileInput.click()">
                     <ion-icon slot="icon-only" name="camera-reverse-outline"></ion-icon>
@@ -16,8 +16,8 @@
 
             <ion-item lines="none">
                 <ion-label class="ion-text-center" text-wrap>
-                    <h2> {{ user?.displayName }} </h2>
-                    <p> {{ user?.email }} </p>
+                    <h2> {{ userStructure?.displayName }} </h2>
+                    <p> {{ userStructure?.email }} </p>
                 </ion-label>
             </ion-item>
 

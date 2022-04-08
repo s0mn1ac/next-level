@@ -2,9 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IonModal, LoadingController } from '@ionic/angular';
 import { TranslocoService } from '@ngneat/transloco';
 import { Subscription } from 'rxjs';
+import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { FileUpload } from 'src/app/shared/models/file-upload.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,9 +15,9 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class ProfilePage implements OnInit, OnDestroy {
 
-  public userSubscription$: Subscription;
+  public user$: Subscription;
 
-  public user: User;
+  public userStructure: UserStructure;
 
   public breakpoints: number[] = [0, 0.3];
   public initialBreakpoint = 0.3;
@@ -24,17 +26,19 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private translocoService: TranslocoService,
     private loadingController: LoadingController
   ) { }
 
   ngOnInit() {
+    this.setInitialData();
     this.initUserSubscription();
     this.initLoadingScreen();
   }
 
   ngOnDestroy(): void {
-    this.userSubscription$?.unsubscribe();
+    this.user$?.unsubscribe();
   }
 
   public onClickLogOutButton(logOutModal: IonModal): void {
@@ -47,6 +51,21 @@ export class ProfilePage implements OnInit, OnDestroy {
     this.updateUserProfilePicture(selectedFiles.item(0));
   }
 
+  private setInitialData(): void {
+    const userStructure: UserStructure = JSON.parse(localStorage.getItem('next-level-user'));
+    this.setUserStructure(userStructure);
+  }
+
+  private setUserStructure(userStructure: UserStructure): void {
+    if (userStructure != null) {
+      this.userStructure = userStructure;
+    }
+  }
+
+  private initUserSubscription(): void {
+    this.user$ = this.userService.userObservable?.subscribe((value: UserStructure) => this.setUserStructure(value));
+  }
+
   private async initLoadingScreen(): Promise<void> {
     this.loading = await this.loadingController.create({
       message: this.translocoService.translate('loadingScreens.uploadingUserProfilePicture'),
@@ -54,14 +73,10 @@ export class ProfilePage implements OnInit, OnDestroy {
     });
   }
 
-  private initUserSubscription(): void {
-    this.userSubscription$ = this.authService.userObservable?.subscribe((user: User) => this.user = user);
-  }
-
   private updateUserProfilePicture(file: File): void {
     this.loading.present();
     const fileExtension: string = file.name.split('.').pop();
-    const renamedFile: File = new File([file], `${this.user.uid}.${fileExtension}`, { type: file.type });
+    const renamedFile: File = new File([file], `${this.userStructure.uid}.${fileExtension}`, { type: file.type });
     const currentFileUpload: FileUpload = new FileUpload(renamedFile);
     this.authService.uploadUserProfilePicture(currentFileUpload).subscribe(
       (percentage: number) => {

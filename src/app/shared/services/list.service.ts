@@ -1,21 +1,11 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, NgZone } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
-import { AngularFirestore, AngularFirestoreDocument, DocumentReference, DocumentSnapshot } from '@angular/fire/compat/firestore';
-import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subscriber, Subscription } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { AngularFirestore, DocumentSnapshot } from '@angular/fire/compat/firestore';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { BaseService } from 'src/app/shared/services/base.service';
 import { ConverterService } from 'src/app/shared/services/converter.service';
-import { UserStructure } from '../interfaces/user-structure.interface';
-import { User } from '../interfaces/user.interface';
 import { Game } from '../models/game.model';
 import { List } from '../models/list.model';
-import firebase from 'firebase/compat/app';
-import { doc, collection, updateDoc, deleteDoc, arrayUnion, arrayRemove, getFirestore } from 'firebase/firestore';
-import { Score } from '../models/score.model';
-import { LoadingService } from './loading.service';
+import { doc, updateDoc, arrayUnion, arrayRemove, getFirestore } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -85,12 +75,7 @@ export class ListService {
 
   public async modifyGame(gameId: number, name: string, value: any): Promise<void> {
     await this.angularFirestore.collection('users').doc(this.uid).collection('games').doc(`${gameId}`).update({ [name]: value });
-    // await updateDoc(doc(getFirestore(), 'games', `${this.uid}_${gameId}`), { score: JSON.parse(JSON.stringify(newScore)) });
   }
-
-  // public async changeUserScore(gameId: number, newScore: Score): Promise<void> {
-  //   await updateDoc(doc(getFirestore(), 'games', `${this.uid}_${gameId}`), { score: JSON.parse(JSON.stringify(newScore)) });
-  // }
 
   public async updateGameStatus(game: Game): Promise<void> {
     await updateDoc(doc(getFirestore(), 'games', `${this.uid}_${game.id}`), { completed: game?.completed });

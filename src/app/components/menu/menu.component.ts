@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable, Subscription } from 'rxjs';
+import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { MenuItemModel } from 'src/app/shared/models/menu-item.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { UserService } from 'src/app/shared/services/user.service';
 import { MenuService } from './menu.service';
 
 @Component({
@@ -13,25 +15,37 @@ import { MenuService } from './menu.service';
 })
 export class MenuComponent implements OnInit, OnDestroy {
 
-  public userSubscription$: Subscription;
+  public user$: Subscription;
 
-  public user: User;
+  public userStructure: UserStructure;
 
   public menuItems: MenuItemModel[];
 
-  constructor(private menuService: MenuService, private authService: AuthService) { }
+  constructor(private menuService: MenuService, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.setInitialData();
     this.initUserSubscription();
     this.buildMenuItems();
   }
 
   ngOnDestroy(): void {
-    this.userSubscription$?.unsubscribe();
+    this.user$?.unsubscribe();
+  }
+
+  private setInitialData(): void {
+    const userStructure: UserStructure = JSON.parse(localStorage.getItem('next-level-user'));
+    this.setUserStructure(userStructure);
+  }
+
+  private setUserStructure(userStructure: UserStructure): void {
+    if (userStructure != null) {
+      this.userStructure = userStructure;
+    }
   }
 
   private initUserSubscription(): void {
-    this.userSubscription$ = this.authService.userObservable?.subscribe((user: User) => this.user = user);
+    this.user$ = this.userService.userObservable?.subscribe((value: UserStructure) => this.setUserStructure(value));
   }
 
   private async buildMenuItems(): Promise<void> {

@@ -12,8 +12,8 @@ ion-col {
 
         ion-checkbox {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
+            top: 0.5rem;
+            left: 0.5rem;
             background: #FFFFFF;
             border-radius: 50px;
             border: 2px solid #FFFFFF;
@@ -33,7 +33,7 @@ ion-col {
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        height: 75px;
+        height: 120px;
         width: calc(100% - 20px);
         margin: 10px;
         border-radius: 5px;

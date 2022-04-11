@@ -1,4 +1,4 @@
-<ion-card *transloco="let t" (click)="onClickNavigateToGame(game.id)" >
+<!-- <ion-card *transloco="let t" (click)="onClickNavigateToGame(game.id)" >
 
   <ion-chip class="completed-chip" *ngIf="game?.completed && isStatusBarVisible">
     <ion-icon name="checkmark-outline" color="light"></ion-icon>
@@ -31,4 +31,37 @@
 
   </ion-card-header>
 
+</ion-card> -->
+
+<ion-card>
+
+  <ion-card-content>
+    
+    <div class="custom-content">
+
+      <div class="image-container">
+        <img [src]="game?.image" [alt]="game.name" />
+      </div>
+      
+      <div class="information-container">
+  
+        <div class="parent-platforms">
+          <img [src]="parentPlatform.image" *ngFor="let parentPlatform of game?.parentPlatforms" [alt]="parentPlatform.name" />
+        </div>
+  
+        <div class="title">
+          <ion-label> {{ game?.name }} </ion-label>
+        </div>
+  
+        <div class="status">
+          <ion-icon name="checkmark-circle" color="success" *ngIf="game?.completed && isStatusBarVisible"></ion-icon>
+          <ion-icon name="play-circle" color="primary" *ngIf="!game?.completed && isStatusBarVisible"></ion-icon>
+        </div>
+  
+      </div>
+
+    </div>
+
+  </ion-card-content>
+  
 </ion-card>

@@ -4,5 +4,6 @@ export class List {
     id?: string;
     name: string;
     isPublic: boolean;
+    isFavorite: boolean;
     games: Game[];
 }

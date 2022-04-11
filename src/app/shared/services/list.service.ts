@@ -40,9 +40,7 @@ export class ListService {
   }
 
   public async addList(list: List): Promise<void> {
-    const documentReference = await this.angularFirestore.collection('users').doc(this.uid).collection('lists').add(list);
-    documentReference.get().then(async (snap) =>
-      await updateDoc(doc(getFirestore(), 'users', this.uid), { lists: arrayUnion(doc(getFirestore(), 'lists', snap.id)) }));
+    await this.angularFirestore.collection('users').doc(this.uid).collection('lists').add(list);
   }
 
   public async modifyList(listId: string, name: string, value: any): Promise<void> {
@@ -51,6 +49,29 @@ export class ListService {
 
   public async deleteList(listId: string): Promise<void> {
     await this.angularFirestore.collection('users').doc(this.uid).collection('lists').doc(listId).delete();
+  }
+
+  public async addListToFavorites(listId: string): Promise<void> {
+    // await this.angularFirestore.collection('users').doc(this.uid).collection('lists').doc(listId).ref
+    //   .get()
+    //   .then( async (listSnapshot: DocumentSnapshot<List>) => {
+    //     const list: List = listSnapshot.data();
+    //     console.log(list);
+    //     if (listSnapshot.data() === undefined) {
+    //       await this.angularFirestore.collection('users').doc(this.uid).collection('games').doc(`${game.id}`).set(
+    //         JSON.parse(JSON.stringify(game)), { merge: true }
+    //       );
+    //     }
+    //     await this.angularFirestore.collection('users').doc(this.uid).collection('lists').doc(listId).update({
+    //       games: arrayUnion(doc(getFirestore(), `users/${this.uid}/games`, `${game.id}`))
+    //     });
+    //   });
+
+      await this.angularFirestore.collection('users').doc(this.uid).collection('lists').doc(listId).update({
+        favorites: arrayUnion(doc(getFirestore(), `users/${this.uid}/lists`, listId))
+      });
+
+    // await updateDoc(doc(getFirestore(), 'users', this.uid), { favorites: arrayUnion(doc(getFirestore(), 'favorites', listId)) });
   }
 
   public async getGame(gameId: string): Promise<Game> {
@@ -93,6 +114,7 @@ export class ListService {
       const list: List = new List();
       list.id = reportItem.id;
       list.isPublic = reportItem.isPublic;
+      list.isFavorite = reportItem.isFavorite;
       list.name = reportItem.name;
       list.games = [];
       for await (const gameDocumentReference of reportItem.games) {

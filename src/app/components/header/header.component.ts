@@ -15,6 +15,8 @@ export class HeaderComponent {
 
   @Output() searchEventEmitter: EventEmitter<string> = new EventEmitter<string>();
 
+  public value: string;
+
   public isSearchbarVisible: boolean;
 
   public showSearchbar() {
@@ -24,12 +26,12 @@ export class HeaderComponent {
 
   public hideSearchbar() {
     this.isSearchbarVisible = false;
-    this.searchEventEmitter.emit(null);
   }
 
   public onSearch(event: any): void {
-    const value: string = event?.target?.value;
-    this.searchEventEmitter.emit(value);
+    this.value = event?.target?.value === '' ? null : event?.target?.value;
+    this.searchEventEmitter.emit(this.value);
+    this.isSearchbarVisible = false;
   }
 
 }

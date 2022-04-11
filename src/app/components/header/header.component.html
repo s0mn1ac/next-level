@@ -8,7 +8,7 @@
 
     <ion-title *ngIf="!isSearchbarVisible"> {{ t(section + '.title') }} </ion-title>
 
-    <ion-searchbar #customSearchbar *ngIf="isSearchbarVisible" (search)="onSearch($event)"
+    <ion-searchbar #customSearchbar *ngIf="isSearchbarVisible" (search)="onSearch($event)" [value]="value"
       (ionCancel)="hideSearchbar()" showCancelButton="always" color="primary" [placeholder]="t('messages.searchByGameName')">
     </ion-searchbar>
 

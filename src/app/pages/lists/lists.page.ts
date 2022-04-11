@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { TranslocoService } from '@ngneat/transloco';
 import { Subscription } from 'rxjs';
 import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
 import { List } from 'src/app/shared/models/list.model';
@@ -18,9 +20,11 @@ export class ListsPage implements OnInit, OnDestroy {
   private lists$: Subscription;
 
   constructor(
+    private translocoService: TranslocoService,
     private loadingService: LoadingService,
     private databaseService: DatabaseService,
-    private listService: ListService
+    private listService: ListService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit(): void {
@@ -36,10 +40,32 @@ export class ListsPage implements OnInit, OnDestroy {
   }
 
   public async onClickAddButton(): Promise<void> {
-    // await this.loadingService.show('creatingList');
-    await this.listService.addList({ id: 'test0', name: 'Test0', isPublic: false, games: [] });
-    // await this.loadingService.hide();
-    // await this.initData();
+
+    const alert = await this.alertController.create({
+      header: this.translocoService.translate('lists.list.newList'),
+      inputs: [
+        {
+          name: 'name',
+          type: 'text',
+          placeholder: this.translocoService.translate('lists.list.listName')
+        }
+      ],
+      buttons: [
+        {
+          text: this.translocoService.translate('buttons.cancel'),
+          role: 'cancel',
+        }, {
+          text: this.translocoService.translate('buttons.create'),
+          handler: async (event: any) => {
+            await this.loadingService.show('creatingList');
+            await this.listService.addList({ name: event.name, isPublic: false, games: [] });
+            await this.loadingService.hide();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   private initListsSubscription(): void {

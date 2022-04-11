@@ -27,4 +27,22 @@ ion-col {
             width: 100%;
         }
     }
+
+    div.add-games-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 75px;
+        width: calc(100% - 20px);
+        margin: 10px;
+        border-radius: 5px;
+        border: 2px dashed var(--ion-color-primary);
+        font-size: 18px;
+        font-weight: bold;
+
+        ion-icon {
+            margin-right: 0.5rem;
+        }
+    }
 }

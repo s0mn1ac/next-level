@@ -30,7 +30,8 @@
         "signIn": "Iniciar sesión",
         "signOut": "Cerrar sesión",
         "cancel": "Cancelar",
-        "change": "Cambiar"
+        "change": "Cambiar",
+        "create": "Crear"
     },
 
     "loadingScreens": {
@@ -114,6 +115,7 @@
     "lists": {
         "title": "Todas mis listas",
         "list": {
+            "newList": "Nueva lista",
             "listName": "Nombre de la lista",
             "deleteList": {
                 "deleteListHeader": "¿Quieres eliminar la lista?",

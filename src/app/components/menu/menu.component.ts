@@ -4,7 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { List } from 'src/app/shared/models/list.model';
-import { MenuItemModel } from 'src/app/shared/models/menu-item.model';
+import { MenuItem } from 'src/app/shared/models/menu-item.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ListService } from 'src/app/shared/services/list.service';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -20,7 +20,7 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   public userStructure: UserStructure;
 
-  public menuItems: MenuItemModel[];
+  public menuItems: MenuItem[];
 
   private user$: Subscription;
   private lists$: Subscription;
@@ -68,14 +68,15 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   private async buildMenuItems(lists?: List[]): Promise<void> {
-    const menuItems: MenuItemModel[] = await this.menuService.getMenuItems();
+    const menuItems: MenuItem[] = await this.menuService.getMenuItems();
     this.menuItems = [];
-    menuItems?.forEach((menuItem: MenuItemModel, index) => {
+    menuItems?.forEach((menuItem: MenuItem, index) => {
       if (index === 2) {
         lists?.forEach((list: List) => this.menuItems.push({
           disabled: false,
           icon: 'star-outline',
           name: list.name,
+          translate: false,
           redirectTo: `/lists/${list.id}`
         }));
       }

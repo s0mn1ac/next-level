@@ -92,6 +92,18 @@ export class ListPage implements OnInit, OnDestroy {
     await alert.present();
   }
 
+  public async onClickAddToFavorites(): Promise<void> {
+    await this.loadingService.show('modifyingList');
+    await this.listService.modifyList(this.list.id, 'isFavorite', true);
+    await this.loadingService.hide();
+  }
+
+  public async onClickRemoveFromFavorites(): Promise<void> {
+    await this.loadingService.show('modifyingList');
+    await this.listService.modifyList(this.list.id, 'isFavorite', false);
+    await this.loadingService.hide();
+  }
+
   public async onClickDeleteList(): Promise<void> {
     await this.loadingService.show('deletingList');
     await this.listService.deleteList(this.list.id);
@@ -106,10 +118,10 @@ export class ListPage implements OnInit, OnDestroy {
       this.listService.deleteGame(game.id, this.list.id);
     }
     await this.loadingService.hide();
-    this.onClickChangeEditMode();
+    this.onClickSelectGames();
   }
 
-  public onClickChangeEditMode(): void {
+  public onClickSelectGames(): void {
     this.isInEditMode = !this.isInEditMode;
     this.gamesToDelete = [];
   }

@@ -27,7 +27,7 @@
       <ion-menu-toggle *ngFor="let menuItem of menuItems">
         <ion-item [routerLink]="menuItem.redirectTo" lines="none" [disabled]="menuItem.disabled">
             <ion-icon slot="start" color="primary" [name]="menuItem.icon"></ion-icon>
-            <ion-label> {{ t('menu.' + menuItem.name) }} </ion-label>
+            <ion-label> {{ menuItem.translate ? t('menu.' + menuItem.name) : menuItem.name }} </ion-label>
         </ion-item>
       </ion-menu-toggle>
 

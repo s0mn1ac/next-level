@@ -3,42 +3,35 @@
         "icon": "albums-outline",
         "name": "board",
         "redirectTo": "/board",
-        "disabled": false
+        "disabled": false,
+        "translate": true
     },
     {
         "icon": "library-outline",
         "name": "library",
         "redirectTo": "/library",
-        "disabled": false
-    },
-    {
-        "icon": "play-outline",
-        "name": "played",
-        "redirectTo": "/played",
-        "disabled": true
-    },
-    {
-        "icon": "pause-outline",
-        "name": "pending",
-        "redirectTo": "/pending",
-        "disabled": true
+        "disabled": false,
+        "translate": true
     },
     {
         "icon": "list-outline",
         "name": "lists",
         "redirectTo": "/lists",
-        "disabled": false
+        "disabled": false,
+        "translate": true
     },
     {
         "icon": "settings-outline",
         "name": "settings",
         "redirectTo": "/settings",
-        "disabled": false
+        "disabled": false,
+        "translate": true
     },
     {
         "icon": "information-circle-outline",
         "name": "information",
         "redirectTo": "/information",
-        "disabled": false
+        "disabled": false,
+        "translate": true
     }
 ]

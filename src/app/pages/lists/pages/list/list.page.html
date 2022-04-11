@@ -6,16 +6,37 @@
       <ion-back-button defaultHref="/lists"></ion-back-button>
     </ion-buttons>
 
-    <ion-title (click)="onClickChangeListName()"> {{ list?.name }} </ion-title>
+    <ion-title> {{ list?.name }} </ion-title>
 
     <ion-buttons slot="end">
-      <ion-button (click)="onClickShowNextLevelModal(deleteListModalOptions)" *ngIf="!isInEditMode">
-        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-      </ion-button>
-      <ion-button (click)="onClickChangeEditMode()">
-        <ion-icon slot="icon-only" [name]="!isInEditMode ? 'create-outline' : 'close'"></ion-icon>
+      <ion-button id="side-button">
+        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
       </ion-button>
     </ion-buttons>
+
+    <ion-popover #optionsPopover trigger="side-button" [dismissOnSelect]="true">
+      <ng-template>
+        <ion-content>
+          <ion-list>
+            <ion-item (click)="onClickChangeListName()">
+              <ion-label slot="end"> {{ t('lists.list.changeName') }} </ion-label>
+            </ion-item>
+            <ion-item (click)="onClickAddToFavorites()" *ngIf="!list?.isFavorite">
+              <ion-label slot="end"> {{ t('lists.list.addToFavorites') }} </ion-label>
+            </ion-item>
+            <ion-item (click)="onClickRemoveFromFavorites()" *ngIf="list?.isFavorite">
+              <ion-label slot="end"> {{ t('lists.list.removeFromFavorites') }} </ion-label>
+            </ion-item>
+            <ion-item (click)="onClickSelectGames()">
+              <ion-label slot="end"> {{ t('lists.list.selectGames') }} </ion-label>
+            </ion-item>
+            <ion-item (click)="onClickShowNextLevelModal(deleteListModalOptions)" lines="none">
+              <ion-label slot="end" color="danger"> {{ t('lists.list.delete') }} </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ng-template>
+    </ion-popover>
     
   </ion-toolbar>
 
@@ -29,7 +50,7 @@
 
       <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" *ngFor="let game of list?.games">
         
-        <app-game-card (click)="onClickNavigateToGame(game.id)" [game]="game" [isStatusBarVisible]="true"></app-game-card>
+        <app-game-card (click)="onClickNavigateToGame(game.id)" (press)="onClickSelectGames()" [game]="game" [isStatusBarVisible]="true"></app-game-card>
 
         <div class="checkbox-container" *ngIf="isInEditMode">
           <ion-checkbox #checkbox mode="ios" (ionChange)="updateGamesToDeleteList(checkbox.checked, game)"></ion-checkbox>

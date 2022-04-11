@@ -113,10 +113,15 @@
     },
 
     "lists": {
-        "newList": "New list",
         "title": "All my lists",
         "list": {
+            "newList": "New list",
             "listName": "List name",
+            "changeName": "Change name",
+            "addToFavorites": "Add to favorites",
+            "removeFromFavorites": "Remove from favorites",
+            "selectGames": "Select games",
+            "delete": "Delete list",
             "deleteList": {
                 "deleteListHeader": "Do you want to delete the list?",
                 "deleteListBody": "Keep in mind that this change is irreversible. Once you do it, there is no going back!"

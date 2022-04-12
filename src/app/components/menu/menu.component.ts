@@ -22,6 +22,8 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   public menuItems: MenuItem[];
 
+  public isAppLoaded = false;
+
   private user$: Subscription;
   private lists$: Subscription;
 
@@ -82,6 +84,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       }
       this.menuItems.push(menuItem);
     });
+    this.isAppLoaded = true;
   }
 
 }

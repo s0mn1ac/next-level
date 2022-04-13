@@ -1,20 +1,40 @@
-ion-item {
+div.sign-up-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 
-    &.margin-top-item {
-        margin-top: 1rem;
+    form {
+        border: 2px solid var(--ion-color-primary);
+        border-radius: 0.5rem;
+        width: 100%;
+        padding: 1rem;
+        position: relative;
+
+        div.next-level-title-container {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 2rem;
+
+            label {
+                padding: 0.5rem 1rem;
+                font-weight: bold;
+                font-size: 32px;
+                color: var(--ion-color-primary);
+            }
+        }
+
+        ion-item {
+
+            &.margin-top-item {
+                margin-top: 1rem;
+            }
+        }
+        
+        ion-button {
+            margin-top: 2rem;
+        }
     }
-
-    ion-label.label-floating {
-        padding: 0px 6px;
-        background: var(--ion-background-color) !important;
-    }
-
-    ion-input {
-        --padding-start: 8px;
-        --padding-top: 16px;
-    }
-}
-
-ion-button {
-    margin-top: 2rem;
 }

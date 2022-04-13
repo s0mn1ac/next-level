@@ -1,4 +1,6 @@
 {
+    "appName": "Next Level",
+
     "messages": {
         "searchByGameName": "Search by game name..."
     },
@@ -41,7 +43,9 @@
         "playing": "Playing",
         "completed": "Completed",
         "signUp": "Sign up",
+        "signUpHere": "Don't have an account? Sign up here",
         "signIn": "Sign in",
+        "signInHere": "Have already an account? Sign in here",
         "signOut": "Sign out",
         "cancel": "Cancel",
         "change": "Change",

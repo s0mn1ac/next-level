@@ -3,15 +3,6 @@ ion-item {
     &.user-item {
         margin-top: 1rem;
     }
-
-    ion-input {
-        --padding-start: 8px;
-        --padding-top: 16px;
-    }
-
-    &.ion-valid.item-has-focus ion-label.label-floating {
-        color: var(--ion-color-success);
-    }
 }
 
 ion-button {

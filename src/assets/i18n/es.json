@@ -1,4 +1,6 @@
 {
+    "appName": "Next Level",
+
     "messages": {
         "searchByGameName": "Buscar por nombre de juego..."
     },
@@ -22,7 +24,7 @@
     },
 
     "menu": {
-        "title": "Next level!",
+        "title": "Next level",
         "profile": "Perfil",
         "board": "Mi tablón",
         "library": "Biblioteca",
@@ -41,7 +43,9 @@
         "playing": "Jugando",
         "completed": "Completado",
         "signUp": "Crear cuenta",
+        "signUpHere": "¿No tienes cuenta? Crea una aquí",
         "signIn": "Iniciar sesión",
+        "signInHere": "¿Ya tienes cuenta? Inicia sesión aquí",
         "signOut": "Cerrar sesión",
         "cancel": "Cancelar",
         "change": "Cambiar",

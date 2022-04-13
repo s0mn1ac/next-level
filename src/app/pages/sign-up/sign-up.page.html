@@ -1,40 +1,48 @@
 <ion-content class="ion-padding" *transloco="let t">
 
-  <form [formGroup]="signUpForm">
+  <div class="sign-up-container">
 
-    <ion-item fill="outline">
-      <ion-icon slot="start" name="text-outline"></ion-icon>
-      <ion-label position="floating"> {{ t('signUp.name') }} </ion-label>
-      <ion-input type="name" formControlName="name"></ion-input>
-    </ion-item>
+    <form [formGroup]="signUpForm">
 
-    <ion-item fill="outline" class="margin-top-item">
-      <ion-icon slot="start" name="mail-outline"></ion-icon>
-      <ion-label position="floating"> {{ t('signUp.email') }} </ion-label>
-      <ion-input type="email" formControlName="email"></ion-input>
-    </ion-item>
+      <div class="next-level-title-container">
+        <label> {{ t('appName') | uppercase }} </label>
+      </div>
 
-    <ion-item  fill="outline" class="margin-top-item">
-      <ion-icon slot="start" name="key-outline"></ion-icon>
-      <ion-label position="floating"> {{ t('signUp.password') }} </ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
-    </ion-item>
+      <ion-item fill="outline">
+        <ion-icon slot="start" name="text-outline"></ion-icon>
+        <ion-label position="floating"> {{ t('signUp.name') }} </ion-label>
+        <ion-input type="name" formControlName="name"></ion-input>
+      </ion-item>
   
-    <ion-item  fill="outline" class="margin-top-item">
-      <ion-icon slot="start" name="key-outline"></ion-icon>
-      <ion-label position="floating"> {{ t('signUp.confirmPassword') }} </ion-label>
-      <ion-input type="password" formControlName="confirmPassword"></ion-input>
-    </ion-item>
+      <ion-item fill="outline" class="margin-top-item">
+        <ion-icon slot="start" name="mail-outline"></ion-icon>
+        <ion-label position="floating"> {{ t('signUp.email') }} </ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
   
-    <ion-button mode="ios" expand="block" [disabled]="signUpForm.invalid" (click)="onClickSignUpButton()">
-      {{ t('buttons.signUp') }}
-    </ion-button>
+      <ion-item  fill="outline" class="margin-top-item">
+        <ion-icon slot="start" name="key-outline"></ion-icon>
+        <ion-label position="floating"> {{ t('signUp.password') }} </ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+    
+      <ion-item  fill="outline" class="margin-top-item">
+        <ion-icon slot="start" name="key-outline"></ion-icon>
+        <ion-label position="floating"> {{ t('signUp.confirmPassword') }} </ion-label>
+        <ion-input type="password" formControlName="confirmPassword"></ion-input>
+      </ion-item>
+    
+      <ion-button mode="ios" expand="block" [disabled]="signUpForm.invalid" (click)="onClickSignUpButton()">
+        {{ t('buttons.signUp') }}
+      </ion-button>
+    
+      <ion-button mode="ios" expand="block" fill="outline" routerLink="/sign-in">
+        {{ t('buttons.signInHere') }}
+      </ion-button>
   
-    <ion-button mode="ios" expand="block" routerLink="/sign-in">
-      {{ t('buttons.signIn') }}
-    </ion-button>
+    </form>
 
-  </form>
+  </div>
 
 </ion-content>
 

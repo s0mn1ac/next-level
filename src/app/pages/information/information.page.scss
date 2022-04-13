@@ -1,0 +1,27 @@
+div.column-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    ion-label {
+        margin-top: 0.5rem;
+    }
+
+    ion-button {
+        margin-top: 1rem;
+        width: 100%;
+    }
+
+    div.buttons-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        ion-button {
+            width: auto;
+        }
+    }
+}

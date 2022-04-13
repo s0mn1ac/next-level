@@ -2,4 +2,65 @@
 
 <ion-content *transloco="let t">
 
+    <ion-card>
+        <ion-card-content>
+            <div class="column-container">
+                <h2> {{ t('information.version.title') }} </h2>
+                <ion-label> v1.0.0 </ion-label>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-content>
+            <div class="column-container">
+                <h2> {{ t('information.doYouLikeTheApp.title') }} </h2>
+                <ion-label> {{ t('information.doYouLikeTheApp.firstParagraph') }}  </ion-label>
+                <ion-label> {{ t('information.doYouLikeTheApp.secondParagraph') }}  </ion-label>
+                <ion-button mode="ios" expand="block" color="kofi">
+                    <ion-icon slot="start" name="cafe"></ion-icon>
+                    {{ t('information.supportMeOnKofi') }}
+                </ion-button>
+                <ion-button mode="ios" expand="block" color="paypal">
+                    <ion-icon slot="start" name="logo-paypal"></ion-icon>
+                    {{ t('information.donateWithPaypal') }}
+                </ion-button>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-content>
+            <div class="column-container">
+                <h2> {{ t('information.contact.title') }} </h2>
+                <ion-label> {{ t('information.contact.firstParagraph') }}  </ion-label>
+                <div class="buttons-container">
+                    <ion-button mode="ios" expand="block" color="twitter">
+                        <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
+                    </ion-button>
+                    <ion-button mode="ios" expand="block" color="facebook">
+                        <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
+                    </ion-button>
+                    <ion-button mode="ios" expand="block" color="instagram">
+                        <ion-icon slot="icon-only" name="logo-instagram"></ion-icon>
+                    </ion-button>
+                    <ion-button mode="ios" expand="block" color="primary">
+                        <ion-icon slot="icon-only" name="mail-outline"></ion-icon>
+                    </ion-button>
+                </div>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-content>
+            <div class="column-container">
+                <h2> {{ t('information.legal.title') }} </h2>
+                <ion-label> Magna est ullamco aute voluptate. Nulla officia eu nostrud eiusmod sit qui est exercitation fugiat ad anim cupidatat non. Sint mollit adipisicing nulla non officia. Sint laborum minim aliqua pariatur adipisicing dolor. </ion-label>
+                <ion-label> Magna est ullamco aute voluptate. Nulla officia eu nostrud eiusmod sit qui est exercitation fugiat ad anim cupidatat non. Sint mollit adipisicing nulla non officia. Sint laborum minim aliqua pariatur adipisicing dolor. </ion-label>
+                <ion-label> Magna est ullamco aute voluptate. Nulla officia eu nostrud eiusmod sit qui est exercitation fugiat ad anim cupidatat non. Sint mollit adipisicing nulla non officia. Sint laborum minim aliqua pariatur adipisicing dolor. </ion-label>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
 </ion-content>

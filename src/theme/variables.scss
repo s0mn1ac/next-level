@@ -6,6 +6,7 @@
 @import './yellow.scss';
 @import './green.scss';
 @import './blue.scss';
+@import './brands.scss';
 
 /** Ionic CSS Variables **/
 :root {
@@ -96,22 +97,22 @@
 
   --ion-color-orange: #F3722C;
 	--ion-color-orange-rgb: 243,114,44;
-	--ion-color-orange-contrast: #000000;
-	--ion-color-orange-contrast-rgb: 0,0,0;
+	--ion-color-orange-contrast: #ffffff;
+	--ion-color-orange-contrast-rgb: 255,255,255;
 	--ion-color-orange-shade: #d66427;
 	--ion-color-orange-tint: #f48041;
 
   --ion-color-yellow: #F9C74F;
 	--ion-color-yellow-rgb: 249,199,79;
-	--ion-color-yellow-contrast: #000000;
-	--ion-color-yellow-contrast-rgb: 0,0,0;
+	--ion-color-yellow-contrast: #ffffff;
+	--ion-color-yellow-contrast-rgb: 255,255,255;
 	--ion-color-yellow-shade: #dbaf46;
 	--ion-color-yellow-tint: #facd61;
 
   --ion-color-green: #43AA8B;
 	--ion-color-green-rgb: 67,170,139;
-	--ion-color-green-contrast: #000000;
-	--ion-color-green-contrast-rgb: 0,0,0;
+	--ion-color-green-contrast: #ffffff;
+	--ion-color-green-contrast-rgb: 255,255,255;
 	--ion-color-green-shade: #3b967a;
 	--ion-color-green-tint: #56b397;
 
@@ -121,6 +122,41 @@
 	--ion-color-blue-contrast-rgb: 255,255,255;
 	--ion-color-blue-shade: #226e8e;
 	--ion-color-blue-tint: #3d8aaa;
+
+  --ion-color-kofi: #13C3FF;
+	--ion-color-kofi-rgb: 19,195,255;
+	--ion-color-kofi-contrast: #ffffff;
+	--ion-color-kofi-contrast-rgb: 255,255,255;
+	--ion-color-kofi-shade: #11ace0;
+	--ion-color-kofi-tint: #2bc9ff;
+
+  --ion-color-paypal: #FCBB32;
+	--ion-color-paypal-rgb: 252,187,50;
+	--ion-color-paypal-contrast: #ffffff;
+	--ion-color-paypal-contrast-rgb: 255,255,255;
+	--ion-color-paypal-shade: #dea52c;
+	--ion-color-paypal-tint: #fcc247;
+
+  --ion-color-twitter: #1DA1F2;
+	--ion-color-twitter-rgb: 29,161,242;
+	--ion-color-twitter-contrast: #ffffff;
+	--ion-color-twitter-contrast-rgb: 255,255,255;
+	--ion-color-twitter-shade: #1a8ed5;
+	--ion-color-twitter-tint: #34aaf3;
+
+  --ion-color-facebook: #1877F2;
+	--ion-color-facebook-rgb: 24,119,242;
+	--ion-color-facebook-contrast: #ffffff;
+	--ion-color-facebook-contrast-rgb: 255,255,255;
+	--ion-color-facebook-shade: #1569d5;
+	--ion-color-facebook-tint: #2f85f3;
+
+  --ion-color-instagram: #E1306C;
+	--ion-color-instagram-rgb: 225,48,108;
+	--ion-color-instagram-contrast: #ffffff;
+	--ion-color-instagram-contrast-rgb: 255,255,255;
+	--ion-color-instagram-shade: #c62a5f;
+	--ion-color-instagram-tint: #e4457b;
 
   --background-color: #FFFFFF;
 }

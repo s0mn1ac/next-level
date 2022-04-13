@@ -188,7 +188,28 @@
     },
 
     "information": {
-        "title": "Información"
+        "title": "Información",
+        "supportMeOnKofi": "Apóyame en Ko-fi",
+        "donateWithPaypal": "Dona a través de PayPal",
+        "version": {
+            "title": "Detalles de la versión"
+        },
+        "doYouLikeTheApp": {
+            "title": "¿Te gusta la aplicación?",
+            "firstParagraph": "No te olvides de puntuarla en tu tienda de aplicaciones preferida. Una buena puntuación me motiva a seguir con el desarrollo.",
+            "secondParagraph": "Si lo deseas, también puedes apoyar al desarrollo invitándome a un café o haciendo una donación a través de PayPal. ¡Cualquier ayuda es bienvenida!"
+        },
+        "contact": {
+            "title": "Contacto",
+            "firstParagraph": "Sígueme en mis redes sociales para permanecer al tanto de los últimos avances en el desarrollo de la aplicación.",
+            "twitter": "Sígueme en Twitter",
+            "facebook": "Dame un Me gusta en Facebook",
+            "instagram": "Sígueme en Instagram",
+            "email": "Envíame un correo"
+        },
+        "legal": {
+            "title": "Aviso legal"
+        }
     }
 
 }

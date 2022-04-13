@@ -1,4 +1,4 @@
-<!-- <ion-card *transloco="let t" (click)="onClickNavigateToGame(game.id)" >
+<ion-card class="expanded" (click)="onClickNavigateToGame(game.id)" *ngIf="!isCompactVisualizationSelected">
 
   <ion-chip class="completed-chip" *ngIf="game?.completed && isStatusBarVisible">
     <ion-icon name="checkmark-outline" color="light"></ion-icon>
@@ -20,7 +20,7 @@
 
     <ion-card-title> {{ game?.name }} </ion-card-title>
 
-    <ion-card-content>
+    <ion-card-content *transloco="let t">
 
       <ion-button fill="outline" expand="block" shape="round" (click)="onClickAddToListButton($event, game)" *ngIf="addToList">
         <ion-icon slot="start" name="add"></ion-icon>
@@ -31,9 +31,9 @@
 
   </ion-card-header>
 
-</ion-card> -->
+</ion-card>
 
-<ion-card>
+<ion-card class="compact" (click)="onClickNavigateToGame(game.id)" *ngIf="isCompactVisualizationSelected">
 
   <ion-card-content>
     

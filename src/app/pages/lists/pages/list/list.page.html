@@ -9,6 +9,9 @@
     <ion-title> {{ list?.name }} </ion-title>
 
     <ion-buttons slot="end">
+      <ion-button (click)="onClickChangeVisualization(!isCompactVisualizationSelected)">
+        <ion-icon slot="icon-only" [name]="isCompactVisualizationSelected ? 'copy-outline' : 'duplicate-outline'"></ion-icon>
+      </ion-button>
       <ion-button id="side-button">
         <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
       </ion-button>
@@ -50,7 +53,13 @@
 
       <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6" *ngFor="let game of list?.games">
         
-        <app-game-card (click)="onClickNavigateToGame(game.id)" (press)="onClickSelectGames()" [game]="game" [isStatusBarVisible]="true"></app-game-card>
+        <app-game-card
+          (click)="onClickNavigateToGame(game.id)"
+          (press)="onClickSelectGames()"
+          [game]="game"
+          [isStatusBarVisible]="true"
+          [isCompactVisualizationSelected]="isCompactVisualizationSelected">
+        </app-game-card>
 
         <div class="checkbox-container" *ngIf="isInEditMode">
           <ion-checkbox #checkbox mode="ios" (ionChange)="updateGamesToDeleteList(checkbox.checked, game)"></ion-checkbox>

@@ -5,6 +5,7 @@ import { AlertController, IonCheckbox } from '@ionic/angular';
 import { TranslocoService } from '@ngneat/transloco';
 import { Subscription } from 'rxjs';
 import { NextLevelModalComponent } from 'src/app/components/next-level-modal/next-level-modal.component';
+import { VisualizationEnum } from 'src/app/shared/enums/visualization.enum';
 import { NextLevelModalOptions } from 'src/app/shared/interfaces/next-level-modal-options.interface';
 import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
 import { Game } from 'src/app/shared/models/game.model';
@@ -13,6 +14,7 @@ import { DatabaseService } from 'src/app/shared/services/database.service';
 import { GameService } from 'src/app/shared/services/game.service';
 import { ListService } from 'src/app/shared/services/list.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-list',
@@ -31,6 +33,7 @@ export class ListPage implements OnInit, OnDestroy {
   public deleteListModalOptions: NextLevelModalOptions;
 
   public isInEditMode = false;
+  public isCompactVisualizationSelected = false;
 
   private params$: Subscription;
   private lists$: Subscription;
@@ -40,11 +43,13 @@ export class ListPage implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private translocoService: TranslocoService,
     private loadingService: LoadingService,
+    private userService: UserService,
     private listService: ListService,
     private alertController: AlertController
   ) { }
 
   ngOnInit() {
+    this.setVisualization();
     this.initOptions();
     this.initParamsSubscription();
   }
@@ -60,6 +65,11 @@ export class ListPage implements OnInit, OnDestroy {
 
   public onClickNavigateToGame(gameId: number): void {
     this.router.navigate([`/game/${gameId}`]);
+  }
+
+  public async onClickChangeVisualization(value: boolean): Promise<void> {
+    this.isCompactVisualizationSelected = value;
+    await this.userService.modifyUser('visualization', value ? VisualizationEnum.compact : VisualizationEnum.expanded);
   }
 
   public async onClickChangeListName(): Promise<void> {
@@ -104,11 +114,9 @@ export class ListPage implements OnInit, OnDestroy {
     await this.loadingService.hide();
   }
 
-  public async onClickDeleteList(): Promise<void> {
-    await this.loadingService.show('deletingList');
-    await this.listService.deleteList(this.list.id);
-    await this.loadingService.hide();
-    this.router.navigate(['/lists']);
+  public onClickSelectGames(): void {
+    this.isInEditMode = !this.isInEditMode;
+    this.gamesToDelete = [];
   }
 
   public async onClickDeleteGamesFromList(): Promise<void> {
@@ -121,9 +129,11 @@ export class ListPage implements OnInit, OnDestroy {
     this.onClickSelectGames();
   }
 
-  public onClickSelectGames(): void {
-    this.isInEditMode = !this.isInEditMode;
-    this.gamesToDelete = [];
+  public async onClickDeleteList(): Promise<void> {
+    await this.loadingService.show('deletingList');
+    await this.listService.deleteList(this.list.id);
+    await this.loadingService.hide();
+    this.router.navigate(['/lists']);
   }
 
   public updateGamesToDeleteList(isSelected: boolean, game: Game): void {
@@ -133,6 +143,11 @@ export class ListPage implements OnInit, OnDestroy {
     }
     const position: number = this.gamesToDelete?.findIndex((id: number) => id === game.id);
     this.gamesToDelete.splice(position, 1);
+  }
+
+  private setVisualization(): void {
+    const userStructure: UserStructure = JSON.parse(localStorage.getItem('next-level-user'));
+    this.isCompactVisualizationSelected = userStructure?.visualization === VisualizationEnum.compact;
   }
 
   private initOptions(): void {

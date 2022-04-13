@@ -42,6 +42,7 @@
         "creatingList": "Añadiendo una nueva lista",
         "deletingList": "Borrando lista",
         "modifyingList": "Modificando lista",
+        "addingGameToList": "Añadiendo juego a la lista",
         "loadingGameData": "Cargando datos del juego",
         "loadingGames": "Cargando juegos",
         "deletingGames": "Borrando juegos"

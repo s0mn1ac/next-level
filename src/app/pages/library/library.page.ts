@@ -31,6 +31,8 @@ export class LibraryPage implements OnInit, OnDestroy {
 
   private lists$: Subscription;
 
+  private actionSheet: HTMLIonActionSheetElement;
+
   private nextUrl: string;
 
   constructor(
@@ -51,12 +53,12 @@ export class LibraryPage implements OnInit, OnDestroy {
   }
 
   public async onClickAddToListButton(game: Game): Promise<void> {
-    const actionSheet: HTMLIonActionSheetElement = await this.actionSheetController.create({
+    this.actionSheet = await this.actionSheetController.create({
       header: this.translocoService.translate('library.addToList.addToListHeader'),
       subHeader: this.translocoService.translate('library.addToList.addToListBody'),
       buttons: this.lists?.map((list: List) => ({ text: list?.name, handler: () => this.addGameToList(game, list) }))
     });
-    await actionSheet.present();
+    await this.actionSheet.present();
   }
 
   public async onRefresh(event: any): Promise<void> {
@@ -119,8 +121,11 @@ export class LibraryPage implements OnInit, OnDestroy {
   }
 
   private async addGameToList(game: Game, list: List): Promise<void> {
+    await this.loadingService.show('addingGameToList');
+    await this.actionSheet?.dismiss();
     const fullGameInfo: Game = await this.gameService.getGameInfo(game.id);
     await this.listService.addGame(fullGameInfo, list.id);
+    await this.loadingService.hide();
   }
 
   private cancelListsSubscription(): void {

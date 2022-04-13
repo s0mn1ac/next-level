@@ -14,6 +14,7 @@ import { RoleEnum } from '../enums/role.enum';
 import firebase from 'firebase/compat/app';
 import { ListService } from './list.service';
 import { UserService } from './user.service';
+import { VisualizationEnum } from '../enums/visualization.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,8 @@ export class AuthService implements OnDestroy {
   private userStructure$: Subscription;
 
   private defaultPhotoURL = 'https://ionicframework.com/docs/demos/api/avatar/avatar.svg';
-
   private defaultRole: RoleEnum = RoleEnum.user;
+  private defaultVisualization: VisualizationEnum = VisualizationEnum.compact;
 
   private redirect = false;
 
@@ -148,7 +149,8 @@ export class AuthService implements OnDestroy {
       role: this.defaultRole,
       mode: 'light',
       theme: 'blue',
-      language: 'es'
+      language: 'es',
+      visualization: this.defaultVisualization
     };
   }
 

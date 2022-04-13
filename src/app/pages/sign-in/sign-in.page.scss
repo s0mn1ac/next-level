@@ -7,12 +7,13 @@ div.sign-in-container {
     height: 100%;
 
     form {
-        border: 2px solid var(--ion-color-primary);
         background-color: var(--background-color);
         border-radius: 1rem;
         width: 100%;
         padding: 2rem;
         position: relative;
+        -webkit-box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.5); 
+        box-shadow: 0px 10px 15px 0px rgba(0,0,0,0.5);
 
         div.next-level-title-container {
             width: 100%;

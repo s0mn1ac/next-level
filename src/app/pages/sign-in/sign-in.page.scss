@@ -8,9 +8,10 @@ div.sign-in-container {
 
     form {
         border: 2px solid var(--ion-color-primary);
-        border-radius: 0.5rem;
+        background-color: var(--background-color);
+        border-radius: 1rem;
         width: 100%;
-        padding: 1rem;
+        padding: 2rem;
         position: relative;
 
         div.next-level-title-container {
@@ -34,7 +35,7 @@ div.sign-in-container {
         }
         
         ion-button {
-            margin-top: 2rem;
+            margin-top: 1rem;
         }
     }
 }

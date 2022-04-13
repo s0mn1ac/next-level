@@ -66,7 +66,7 @@ export class AuthService implements OnDestroy {
       this.initUserStructureSubscription();
       this.listService.setUserId(result.user.uid);
       this.initListsSubscription();
-    }).catch((error) => this.toastService.throwError(error.code));
+    }).catch((error) => this.toastService.throwErrorToast(error.code));
   }
 
   public async signIn(email: string, password: string): Promise<void> {
@@ -76,7 +76,7 @@ export class AuthService implements OnDestroy {
       this.initUserStructureSubscription();
       this.listService.setUserId(result.user.uid);
       this.initListsSubscription();
-    }).catch((error) => this.toastService.throwError(error.code));
+    }).catch((error) => this.toastService.throwErrorToast(error.code));
   }
 
   public async signOut(): Promise<void> {
@@ -96,6 +96,27 @@ export class AuthService implements OnDestroy {
       .catch((error) => {
         window.alert(error); // TODO: Cambiar las alertas por TOAST
       });
+  }
+
+  public async updateEmail(email: string, password: string): Promise<void> {
+    const currentUser: firebase.User = await this.angularFireAuth.currentUser;
+    await this.angularFireAuth.signInWithEmailAndPassword(currentUser.email, password).then( async () => {
+      await currentUser.updateEmail(email).then( async () => await this.signIn(email, password))
+        .then( async () => {
+          await this.userService.modifyUser('email', email);
+          this.toastService.throwSuccessToast('emailModified');
+        })
+        .catch((error) => this.toastService.throwErrorToast(error.code));
+    }).catch((error) => this.toastService.throwErrorToast(error.code));
+  }
+
+  public async updatePassword(oldPassword: string, newPassword: string): Promise<void> {
+    const currentUser: firebase.User = await this.angularFireAuth.currentUser;
+    await this.angularFireAuth.signInWithEmailAndPassword(currentUser.email, oldPassword).then( async () => {
+      await currentUser.updatePassword(newPassword).then( async () => await this.signIn(currentUser.email, newPassword))
+        .then(() => this.toastService.throwSuccessToast('passwordModified'))
+        .catch((error) => this.toastService.throwErrorToast(error.code));
+    }).catch((error) => this.toastService.throwErrorToast(error.code));
   }
 
   public async updateUserProfile(displayName: string, photoURL: string): Promise<void> {
@@ -123,10 +144,11 @@ export class AuthService implements OnDestroy {
     const uploadTask = this.angularFireStorage.upload(filePath, fileUpload.file);
     uploadTask.snapshotChanges().pipe(
     finalize(() => {
-      storageRef.getDownloadURL().subscribe(downloadURL => {
+      storageRef.getDownloadURL().subscribe(async (downloadURL: string) => {
         fileUpload.url = downloadURL;
         fileUpload.name = fileUpload.file.name;
-        this.updateUserProfilePicture(fileUpload.url);
+        await this.userService.modifyUser('photoURL', fileUpload.url);
+        await this.toastService.throwSuccessToast('userProfilePictureModified');
       });
     })).subscribe();
     return uploadTask.percentageChanges();
@@ -192,11 +214,6 @@ export class AuthService implements OnDestroy {
   private initUserStructureSubscription(): void {
     this.userService.cancelUserSubscription();
     this.userService.initUserSubscription();
-  }
-
-  private async setUserData(userData: User): Promise<void> {
-    const userRef: AngularFirestoreDocument<any> = this.angularFirestore.doc(`users/${userData.uid}`);
-    return userRef.set(userData, { merge: true });
   }
 
 }

@@ -3,8 +3,22 @@
         "searchByGameName": "Buscar por nombre de juego..."
     },
 
+    "successCodes": {
+        "displayNameModified": "El nombre ha sido actualizado con éxito",
+        "emailModified": "El correo ha sido actualizado con éxito",
+        "passwordModified": "La contraseña ha sido actualizada con éxito",
+        "userProfilePictureModified": "La foto de perfil ha sido actualizada con éxito"
+    },
+
+    "warningCodes": {
+
+    },
+
     "errorCodes": {
-        "authEmailAlreadyInUse": "El email introducido ya está en uso"
+        "authEmailAlreadyInUse": "El email introducido ya está en uso",
+        "authWrongPassword": "La contraseña introducida no es correcta",
+        "authUserNotFound": "No existe ningún usuario asociado al email indicado",
+        "default": "Ha ocurrido un error inesperado"
     },
 
     "menu": {
@@ -45,7 +59,10 @@
         "addingGameToList": "Añadiendo juego a la lista",
         "loadingGameData": "Cargando datos del juego",
         "loadingGames": "Cargando juegos",
-        "deletingGames": "Borrando juegos"
+        "deletingGames": "Borrando juegos",
+        "updatingName": "Actualizando nombre",
+        "updatingEmail": "Actualizando email",
+        "updatingPassword": "Actualizando contraseña"
     },
 
     "signUp": {
@@ -75,10 +92,9 @@
             "newEmailAddress": "Nueva dirección de correo",
             "confirmPassword": "Confirmar contraseña"
         },
-        "changeUser": {
-            "title": "Cambiar usuario y nombre",
-            "name": "Nombre completo",
-            "user": "Usuario"
+        "changeName": {
+            "title": "Cambiar nombre",
+            "name": "Nombre completo"
         },
         "logOut": {
             "title": "Cerrar sesión",

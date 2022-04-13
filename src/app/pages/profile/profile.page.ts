@@ -6,6 +6,7 @@ import { UserStructure } from 'src/app/shared/interfaces/user-structure.interfac
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { FileUpload } from 'src/app/shared/models/file-upload.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -22,19 +23,16 @@ export class ProfilePage implements OnInit, OnDestroy {
   public breakpoints: number[] = [0, 0.3];
   public initialBreakpoint = 0.3;
 
-  private loading: HTMLIonLoadingElement;
-
   constructor(
     private authService: AuthService,
     private userService: UserService,
     private translocoService: TranslocoService,
-    private loadingController: LoadingController
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
     this.setInitialData();
     this.initUserSubscription();
-    this.initLoadingScreen();
   }
 
   ngOnDestroy(): void {
@@ -66,31 +64,14 @@ export class ProfilePage implements OnInit, OnDestroy {
     this.user$ = this.userService.userObservable?.subscribe((value: UserStructure) => this.setUserStructure(value));
   }
 
-  private async initLoadingScreen(): Promise<void> {
-    this.loading = await this.loadingController.create({
-      message: this.translocoService.translate('loadingScreens.uploadingUserProfilePicture'),
-      mode: 'ios'
-    });
-  }
-
-  private updateUserProfilePicture(file: File): void {
-    this.loading.present();
+  private async updateUserProfilePicture(file: File): Promise<void> {
+    await this.loadingService.show('uploadingUserProfilePicture');
     const fileExtension: string = file.name.split('.').pop();
     const renamedFile: File = new File([file], `${this.userStructure.uid}.${fileExtension}`, { type: file.type });
     const currentFileUpload: FileUpload = new FileUpload(renamedFile);
-    this.authService.uploadUserProfilePicture(currentFileUpload).subscribe(
-      (percentage: number) => {
-        console.log('percentage', percentage);
-      },
-      (error: any) => {
-        console.log(error);
-        this.loading.dismiss();
-      },
-      (complete: void) => {
-        console.log('FINISH');
-        this.loading.dismiss();
-      }
-    );
+    await this.authService.uploadUserProfilePicture(currentFileUpload).subscribe(
+      async (error: any) => await this.loadingService.hide(),
+      async (complete: void) => await this.loadingService.hide());
   }
 
 }

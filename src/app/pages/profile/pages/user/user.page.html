@@ -6,7 +6,7 @@
       <ion-back-button defaultHref="/profile"></ion-back-button>
     </ion-buttons>
 
-    <ion-title> {{ t('profile.changeUser.title') }} </ion-title>
+    <ion-title> {{ t('profile.changeName.title') }} </ion-title>
     
   </ion-toolbar>
 
@@ -18,18 +18,12 @@
 
     <ion-item  fill="outline">
       <ion-icon slot="start" name="text-outline"></ion-icon>
-      <ion-label position="floating"> {{ t('profile.changeUser.name') }} </ion-label>
-      <ion-input type="name" formControlName="name"></ion-input>
-    </ion-item>
-  
-    <ion-item  fill="outline" class="user-item">
-      <ion-icon slot="start" name="at-outline"></ion-icon>
-      <ion-label position="floating"> {{ t('profile.changeUser.user') }} </ion-label>
-      <ion-input type="username" formControlName="user"></ion-input>
+      <ion-label mode="md" position="floating"> {{ t('profile.changeName.name') }} </ion-label>
+      <ion-input mode="md" type="name" [maxlength]="75" formControlName="name"></ion-input>
     </ion-item>
 
   </form>
 
-  <ion-button mode="ios" expand="block" [disabled]="changeUserForm.invalid"> {{ t('buttons.confirm') }} </ion-button>
+  <ion-button mode="ios" expand="block" [disabled]="changeUserForm.invalid" (click)="onClickChangeDisplayName()"> {{ t('buttons.confirm') }} </ion-button>
 
 </ion-content>

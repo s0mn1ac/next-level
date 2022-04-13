@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { TranslocoService } from '@ngneat/transloco';
 import { ErrorCodesConfig } from '../strings/error-codes.config';
 
@@ -7,14 +8,24 @@ import { ErrorCodesConfig } from '../strings/error-codes.config';
 })
 export class ToastService {
 
-  private url = 'https://api.rawg.io/api';
-  private key = '?key=f5b9bcd495c6417d948da840a50adc5a';
+  constructor(private translocoService: TranslocoService, private toastController: ToastController) { }
 
-  constructor(private translocoService: TranslocoService) {}
+  public async throwSuccessToast(successCode: string): Promise<void> {
+    const message: string = this.translocoService.translate(`successCodes.${successCode}`);
+    const toast = await this.toastController.create({ message, duration: 3000, color: 'success', mode: 'ios', icon: 'checkmark-outline' });
+    await toast.present();
+  }
 
-  public throwError(errorCode: string): void {
+  public async throwWarningToast(warningCode: string): Promise<void> {
+    const message: string = this.translocoService.translate(`warningCodes.${warningCode}`);
+    const toast = await this.toastController.create({ message, duration: 3000, color: 'warning', mode: 'ios', icon: 'alert-outline' });
+    await toast.present();
+  }
+
+  public async throwErrorToast(errorCode: string): Promise<void> {
     const message: string = this.getMessageByErrorCode(errorCode);
-    console.warn(message);
+    const toast = await this.toastController.create({ message, duration: 3000, color: 'danger', mode: 'ios', icon: 'close-outline' });
+    await toast.present();
   }
 
   // ---------------------------------------------------------------------------------------------------------------------------------------
@@ -23,8 +34,12 @@ export class ToastService {
     switch (errorCode) {
       case ErrorCodesConfig.authEmailAlreadyInUse:
         return this.translocoService.translate('errorCodes.authEmailAlreadyInUse');
+      case ErrorCodesConfig.authWrongPassword:
+        return this.translocoService.translate('errorCodes.authWrongPassword');
+      case ErrorCodesConfig.authUserNotFound:
+        return this.translocoService.translate('errorCodes.authUserNotFound');
       default:
-        break;
+        return this.translocoService.translate('errorCodes.default');
     }
   }
 

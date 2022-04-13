@@ -3,8 +3,22 @@
         "searchByGameName": "Search by game name..."
     },
 
+    "successCodes": {
+        "displayNameModified": "Name has been successfully updated",
+        "emailModified": "Email has been successfully updated",
+        "passwordModified": "Password has been successfully updated",
+        "userProfilePictureModified": "Profile picture has been successfully updated"
+    },
+
+    "warningCodes": {
+
+    },
+
     "errorCodes": {
-        "authEmailAlreadyInUse": "Email address is already in use"
+        "authEmailAlreadyInUse": "Email address is already in use",
+        "authWrongPassword": "Your password is incorrect",
+        "authUserNotFound": "There is no user associated to this email",
+        "default": "Ha ocurrido un error inesperado"
     },
 
     "menu": {
@@ -45,7 +59,10 @@
         "addingGameToList": "Adding game to list",
         "loadingGameData": "Loading game data",
         "loadingGames": "Loading games",
-        "deletingGames": "Deleting games"
+        "deletingGames": "Deleting games",
+        "updatingName": "Updating name",
+        "updatingEmail": "Updating email",
+        "updatingPassword": "Updating password"
     },
 
     "signUp": {
@@ -75,10 +92,9 @@
             "newEmailAddress": "New email address",
             "confirmPassword": "Confirm password"
         },
-        "changeUser": {
-            "title": "Change user and name",
-            "name": "Full name",
-            "user": "User"
+        "changeName": {
+            "title": "Change name",
+            "name": "Full name"
         },
         "logOut": {
             "title": "Log out",

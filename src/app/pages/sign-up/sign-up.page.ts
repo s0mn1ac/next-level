@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import firebase from 'firebase/compat/app';
 import { LoadingController } from '@ionic/angular';
 import { TranslocoService } from '@ngneat/transloco';
-import { ErrorCodesConfig } from 'src/app/shared/strings/error-codes.config';
-import { ToastService } from 'src/app/shared/services/toast.service';
-import { DatabaseService } from 'src/app/shared/services/database.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -43,10 +39,10 @@ export class SignUpPage implements OnInit {
 
   private initForm(): void {
     this.signUpForm = this.formBuilder.group({
-      name: new FormControl('Test2', Validators.compose([Validators.required])),
-      email: new FormControl('test2@nextlevel.com', Validators.compose([Validators.required, Validators.email])),
-      password: new FormControl('12345678', Validators.compose([Validators.required, Validators.minLength(8)])),
-      confirmPassword: new FormControl('12345678', Validators.compose([
+      name: new FormControl(null, Validators.compose([Validators.required])),
+      email: new FormControl(null, Validators.compose([Validators.required, Validators.email])),
+      password: new FormControl(null, Validators.compose([Validators.required, Validators.minLength(8)])),
+      confirmPassword: new FormControl(null, Validators.compose([
         Validators.required,
         Validators.minLength(8),
         this.validateMatchingPasswords.bind(this)

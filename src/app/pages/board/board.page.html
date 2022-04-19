@@ -1,5 +1,53 @@
-<app-header section="board"></app-header>
+<ion-header *transloco="let t">
+
+    <ion-toolbar color="primary">
+  
+        <ion-buttons slot="start">
+            <ion-menu-button menu="first"></ion-menu-button>
+        </ion-buttons>
+    
+        <ion-title> {{ t('board.title') }} </ion-title>
+  
+        <ion-buttons slot="end">
+            <ion-button id="side-button">
+                <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    
+        <ion-popover #optionsPopover trigger="side-button" [dismissOnSelect]="true">
+            <ng-template>
+            <ion-content>
+                <ion-list>
+                    <ion-item lines="none" (click)="onClickChangeEditMode()" *ngIf="!isInEditMode">
+                        <ion-label slot="end"> Modificar </ion-label>
+                    </ion-item>
+                    <ion-item lines="none" (click)="onClickDiscardChanges()" *ngIf="isInEditMode">
+                        <ion-label slot="end"> Descartar cambios </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-content>
+            </ng-template>
+        </ion-popover>
+      
+    </ion-toolbar>
+  
+  </ion-header>
 
 <ion-content *transloco="let t">
+
+    <ion-list>
+        <ion-reorder-group (ionItemReorder)="onReorder($event)" [disabled]="!isInEditMode">
+            <ion-item *ngFor="let list of lists" lines="none">
+                <app-next-level-primary-list [routerLink]="list?.id" [list]="list"></app-next-level-primary-list>
+                <ion-reorder slot="end"></ion-reorder>
+            </ion-item>
+        </ion-reorder-group>
+    </ion-list>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="isInEditMode">
+        <ion-fab-button color="primary" (click)="onClickSaveChanges()">
+          <ion-icon name="save-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 
 </ion-content>

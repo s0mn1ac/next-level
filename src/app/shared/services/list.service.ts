@@ -116,6 +116,8 @@ export class ListService {
       list.isPublic = reportItem.isPublic;
       list.isFavorite = reportItem.isFavorite;
       list.name = reportItem.name;
+      list.type = reportItem.type;
+      list.position = reportItem.position;
       list.games = [];
       for await (const gameDocumentReference of reportItem.games) {
         await gameDocumentReference.get().then((gameSnapshot: DocumentSnapshot<Game>) => list.games.push(gameSnapshot.data()));

@@ -10,6 +10,8 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 import { ListComponent } from 'src/app/components/list/list.component';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { NextLevelModalComponent } from 'src/app/components/next-level-modal/next-level-modal.component';
+import { NextLevelPrimaryListComponent } from 'src/app/components/next-level-primary-list/next-level-primary-list.component';
+import { NextLevelSecondaryListComponent } from 'src/app/components/next-level-secondary-list/next-level-secondary-list.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { NextLevelModalComponent } from 'src/app/components/next-level-modal/nex
     GameCardComponent,
     GameCardComplexComponent,
     NextLevelListComponent,
+    NextLevelPrimaryListComponent,
+    NextLevelSecondaryListComponent,
     NextLevelModalComponent
   ],
   exports: [
@@ -28,6 +32,8 @@ import { NextLevelModalComponent } from 'src/app/components/next-level-modal/nex
     GameCardComponent,
     GameCardComplexComponent,
     NextLevelListComponent,
+    NextLevelPrimaryListComponent,
+    NextLevelSecondaryListComponent,
     NextLevelModalComponent
   ],
   imports: [

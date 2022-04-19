@@ -1,0 +1,43 @@
+ion-card {
+    margin-inline: 0;
+
+    ion-card-content {
+        width: 100%;
+
+        div.next-level-list-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        div.next-level-list-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            overflow-x: overlay;
+            overflow-y: hidden;
+            padding-bottom: 13px;
+        
+            div.game-container {
+                height: 150px;
+                min-width: 100px;
+                margin-right: 1rem;
+        
+                img {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                    border-radius: 5px;
+                }
+
+                &:last-of-type {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+<ion-card>
+  
+  <ion-card-content>
+
+    <div class="next-level-list-header">
+      <ion-label> {{ list?.name }} </ion-label>
+    </div>
+
+    <div class="next-level-list-container">
+
+      <div class="game-container" *ngFor="let game of list?.games">
+        <img [src]="game?.image" [alt]="game.name" />
+      </div>
+
+    </div>
+
+  </ion-card-content>
+
+</ion-card>

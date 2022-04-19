@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { TranslocoService } from '@ngneat/transloco';
 import { Subscription } from 'rxjs';
+import { ListTypeEnum } from 'src/app/shared/enums/list-type.enum';
 import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
 import { List } from 'src/app/shared/models/list.model';
 import { DatabaseService } from 'src/app/shared/services/database.service';
@@ -58,7 +59,7 @@ export class ListsPage implements OnInit, OnDestroy {
           text: this.translocoService.translate('buttons.create'),
           handler: async (event: any) => {
             await this.loadingService.show('creatingList');
-            await this.listService.addList({ name: event.name, isPublic: false, isFavorite: false, games: [] });
+            await this.listService.addList({ name: event.name, isPublic: false, isFavorite: false, games: [], type: ListTypeEnum.unset });
             await this.loadingService.hide();
           }
         }

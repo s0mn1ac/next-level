@@ -1,3 +1,4 @@
+import { ListTypeEnum } from '../enums/list-type.enum';
 import { Game } from './game.model';
 
 export class List {
@@ -5,5 +6,7 @@ export class List {
     name: string;
     isPublic: boolean;
     isFavorite: boolean;
+    type: ListTypeEnum;
+    position?: number;
     games: Game[];
 }

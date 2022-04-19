@@ -4,31 +4,38 @@
 
   <ion-list>
 
-    <ion-list-header> {{ t('settings.appColor') }} </ion-list-header>
+    <ion-list-header>
+      <div class="header-container">
+        {{ t('settings.appColor') }}
+        <ion-chip color="danger" mode="md" outline="true" *ngIf="!isProUser">
+          <ion-label> PRO </ion-label>
+        </ion-chip>
+      </div>
+    </ion-list-header>
 
     <ion-radio-group name="theme" [value]="themeSelected" (ionChange)="onChangeTheme($event)">
 
-      <ion-item lines="full">
+      <ion-item lines="full" [disabled]="!isProUser">
         <ion-label color="red"> {{ t('settings.colors.red') }} </ion-label>
         <ion-radio value="red" color="red"></ion-radio>
       </ion-item>
 
-      <ion-item lines="full">
+      <ion-item lines="full" [disabled]="!isProUser">
         <ion-label color="orange"> {{ t('settings.colors.orange') }} </ion-label>
         <ion-radio value="orange" color="orange"></ion-radio>
       </ion-item>
 
-      <ion-item lines="full">
+      <ion-item lines="full" [disabled]="!isProUser">
         <ion-label color="yellow"> {{ t('settings.colors.yellow') }} </ion-label>
         <ion-radio value="yellow" color="yellow"></ion-radio>
       </ion-item>
 
-      <ion-item lines="full">
+      <ion-item lines="full" [disabled]="!isProUser">
         <ion-label color="green"> {{ t('settings.colors.green') }} </ion-label>
         <ion-radio value="green" color="green"></ion-radio>
       </ion-item>
 
-      <ion-item lines="full">
+      <ion-item lines="full" [disabled]="!isProUser">
         <ion-label color="blue"> {{ t('settings.colors.blue') }} </ion-label>
         <ion-radio value="blue" color="blue"></ion-radio>
       </ion-item>

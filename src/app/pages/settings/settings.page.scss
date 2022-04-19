@@ -1,0 +1,13 @@
+ion-list-header div.header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-right: 0.5rem;
+
+    ion-chip {
+        padding: 0.3rem 0.5rem;
+        height: fit-content;
+    }
+}

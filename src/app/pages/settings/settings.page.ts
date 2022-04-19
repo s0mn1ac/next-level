@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { RoleEnum } from 'src/app/shared/enums/role.enum';
 import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
@@ -9,7 +9,7 @@ import { UserService } from 'src/app/shared/services/user.service';
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
 })
-export class SettingsPage implements OnInit {
+export class SettingsPage implements OnInit, OnDestroy {
 
   public languageSelected: string;
   public themeSelected: string;
@@ -24,6 +24,10 @@ export class SettingsPage implements OnInit {
   ngOnInit() {
     this.setInitialData();
     this.initSubscriptions();
+  }
+
+  ngOnDestroy(): void {
+    this.user$?.unsubscribe();
   }
 
   public onChangeLanguage(event: any): void {

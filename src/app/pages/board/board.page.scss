@@ -1,3 +1,38 @@
 app-next-level-primary-list, app-next-level-secondary-list {
     width: 100%;
 }
+
+ion-content {
+
+    ion-button.delete-list {
+        position: absolute;
+        top: 10px;
+        right: 60px;
+        height: 36px;
+        width: 36px;
+        
+    }
+
+    ion-reorder {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+    }
+
+    div.add-list-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 120px;
+        width: 100%;
+        border-radius: 5px;
+        border: 2px dashed var(--ion-color-primary);
+        font-size: 18px;
+        font-weight: bold;
+
+        ion-icon {
+            margin-right: 0.5rem;
+        }
+    }
+}

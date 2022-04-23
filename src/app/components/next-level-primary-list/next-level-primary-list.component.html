@@ -1,14 +1,14 @@
-<ion-card>
+<!-- <ion-card>
   
   <ion-card-content>
 
     <div class="next-level-list-header">
-      <ion-label> {{ list?.name }} </ion-label>
+      <h2> {{ list?.name }} </h2>
     </div>
 
     <div class="next-level-list-container">
 
-      <div class="game-container" *ngFor="let game of list?.games">
+      <div class="game-container" [routerLink]="'/game/' + game.id" *ngFor="let game of list?.games">
         <img [src]="game?.image" [alt]="game.name" />
       </div>
 
@@ -16,4 +16,20 @@
 
   </ion-card-content>
 
-</ion-card>
+</ion-card> -->
+
+<div class="next-level-primary-list-layout">
+
+  <div class="next-level-list-header">
+    <h2> {{ list?.name }} </h2>
+  </div>
+
+  <div class="next-level-list-container">
+
+    <div class="game-container" [routerLink]="'/game/' + game.id" *ngFor="let game of list?.games">
+      <img [src]="game?.image" [alt]="game.name" />
+    </div>
+
+  </div>
+
+</div>

@@ -66,7 +66,8 @@
         "deletingGames": "Borrando juegos",
         "updatingName": "Actualizando nombre",
         "updatingEmail": "Actualizando email",
-        "updatingPassword": "Actualizando contraseña"
+        "updatingPassword": "Actualizando contraseña",
+        "updatingBoard": "Actualizando tablón"
     },
 
     "signUp": {
@@ -113,7 +114,16 @@
     },
 
     "board": {
-        "title": "Mi tablón"
+        "title": "Mi tablón",
+        "addList": "Añade una lista",
+        "addToBoard": {
+            "addToBoardHeader": "Añade una lista al tablón",
+            "addToBoardBody": "Selecciona una lista de las disponibles a continuación para añadirlas al tablón y poder acceder a su contenido fácilmente"
+        },
+        "deleteFromBoard": {
+            "deleteFromBoardHeader": "¿Quieres quitar la lista del tablón?",
+            "deleteFromBoardBody": "Tranquilo, puedes volver a añadirla en cualquier momento"
+        }
     },
 
     "library": {

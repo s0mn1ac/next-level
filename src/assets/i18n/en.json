@@ -66,7 +66,8 @@
         "deletingGames": "Deleting games",
         "updatingName": "Updating name",
         "updatingEmail": "Updating email",
-        "updatingPassword": "Updating password"
+        "updatingPassword": "Updating password",
+        "updatingBoard": "Updating board"
     },
 
     "signUp": {
@@ -113,7 +114,16 @@
     },
 
     "board": {
-        "title": "My board"
+        "title": "My board",
+        "addList": "Add list",
+        "addToBoard": {
+            "addToBoardHeader": "Add a list to the board",
+            "addToBoardBody": "Select any list of those available below to add them to the board for easy access to its content"
+        },
+        "deleteFromBoard": {
+            "deleteFromBoardHeader": "Do you want to remove the list from the board?",
+            "deleteFromBoardBody": "Don't worry, you can add it back at any time"
+        }
     },
 
     "library": {

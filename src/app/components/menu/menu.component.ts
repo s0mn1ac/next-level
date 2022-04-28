@@ -1,14 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
-import { User } from 'src/app/shared/interfaces/user.interface';
 import { List } from 'src/app/shared/models/list.model';
 import { MenuItem } from 'src/app/shared/models/menu-item.model';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import { ListService } from 'src/app/shared/services/list.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { MenuService } from './menu.service';
+import { RoleEnum } from 'src/app/shared/enums/role.enum';
 
 @Component({
   selector: 'app-menu',
@@ -16,7 +14,6 @@ import { MenuService } from './menu.service';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit, OnDestroy {
-
 
   public userStructure: UserStructure;
 
@@ -84,6 +81,15 @@ export class MenuComponent implements OnInit, OnDestroy {
       }
       this.menuItems.push(menuItem);
     });
+    if (this.userStructure.role === RoleEnum.admin) {
+      this.menuItems.push({
+        disabled: false,
+        icon: 'podium-outline',
+        name: 'administration',
+        translate: true,
+        redirectTo: '/administration'
+      });
+    }
     this.isAppLoaded = true;
   }
 

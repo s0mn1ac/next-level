@@ -1,5 +1,9 @@
 ion-item {
 
+    ion-label.label-floating {
+        opacity: 1 !important;
+    }
+
     &.ion-valid.item-has-focus ion-label.label-floating {
         color: var(--ion-color-success) !important;
     }

@@ -48,7 +48,13 @@ const routes: Routes = [
   },
   {
     path: 'game',
-    loadChildren: () => import('./pages/game/game.module').then( m => m.GamePageModule)
+    loadChildren: () => import('./pages/game/game.module').then( m => m.GamePageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'administration',
+    loadChildren: () => import('./pages/administration/administration.module').then( m => m.AdministrationPageModule),
+    canActivate: [AuthGuard]
   },
 ];
 

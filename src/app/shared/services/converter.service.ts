@@ -11,6 +11,7 @@ import { CollectionReference, DocumentSnapshot, QuerySnapshot } from '@angular/f
 import { Developer } from '../models/developer.model';
 import { Publisher } from '../models/publisher.model';
 import { ResponseData } from '../models/response-data.model';
+import { UserStructure } from '../interfaces/user-structure.interface';
 
 
 @Injectable({

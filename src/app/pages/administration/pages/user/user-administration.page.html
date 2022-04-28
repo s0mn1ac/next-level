@@ -1,0 +1,66 @@
+<ion-header *transloco="let t">
+
+  <ion-toolbar color="primary">
+    
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/administration"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title> {{ userStructure?.displayName }} </ion-title>
+    
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="ion-padding" *transloco="let t">
+
+  <form [formGroup]="userAdministrationForm">
+
+    <ion-item fill="outline">
+      <ion-icon slot="start" name="text-outline"></ion-icon>
+      <ion-label position="floating"> {{ t('administration.userAdministration.name') }} </ion-label>
+      <ion-input type="text" formControlName="displayName"></ion-input>
+    </ion-item>
+
+    <ion-item fill="outline">
+      <ion-icon slot="start" name="person-outline"></ion-icon>
+      <ion-label position="floating"> {{ t('administration.userAdministration.uid') }} </ion-label>
+      <ion-input type="text" formControlName="uid"></ion-input>
+    </ion-item>
+
+    <ion-item fill="outline">
+      <ion-icon slot="start" name="mail-outline"></ion-icon>
+      <ion-label position="floating"> {{ t('administration.userAdministration.email') }} </ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+
+    <ion-list>
+
+      <ion-radio-group name="theme" [value]="roleSelected" (ionChange)="onChangeUserRole($event)">
+  
+        <ion-item lines="none" [disabled]="isDisabled">
+          <ion-label color="success"> {{ t('administration.userAdministration.role.user') }} </ion-label>
+          <ion-radio value="USER" color="success"></ion-radio>
+        </ion-item>
+  
+        <ion-item lines="none" [disabled]="isDisabled">
+          <ion-label color="warning"> {{ t('administration.userAdministration.role.pro') }} </ion-label>
+          <ion-radio value="PRO" color="warning"></ion-radio>
+        </ion-item>
+  
+        <ion-item lines="none" [disabled]="isDisabled">
+          <ion-label color="danger"> {{ t('administration.userAdministration.role.admin') }} </ion-label>
+          <ion-radio value="ADMIN" color="danger"></ion-radio>
+        </ion-item>
+  
+      </ion-radio-group>
+  
+    </ion-list>
+  
+    <ion-button mode="ios" expand="block" [disabled]="userAdministrationForm.invalid || isDisabled" (click)="onClickModifyUser()">
+      {{ t('buttons.confirm') }}
+    </ion-button>
+
+  </form>
+
+</ion-content>

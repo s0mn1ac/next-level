@@ -32,7 +32,8 @@
         "pending": "Pending",
         "lists": "All my lists",
         "settings": "Settings",
-        "information": "Information"
+        "information": "Information",
+        "administration": "Administration"
     },
 
     "buttons": {
@@ -67,7 +68,10 @@
         "updatingName": "Updating name",
         "updatingEmail": "Updating email",
         "updatingPassword": "Updating password",
-        "updatingBoard": "Updating board"
+        "updatingBoard": "Updating board",
+        "loadingUsers": "Loading users",
+        "loadingUser": "Loading user",
+        "modifyingUser": "Modifying user"
     },
 
     "signUp": {
@@ -219,6 +223,21 @@
         },
         "legal": {
             "title": "Legal notice"
+        }
+    },
+
+    "administration": {
+        "title": "Administration",
+        "userAdministration": {
+            "name": "Name",
+            "uid": "Id",
+            "email": "Email",
+            "role": {
+                "title": "User role",
+                "user": "User",
+                "pro": "Pro",
+                "admin": "Administrator"
+            }
         }
     }
 

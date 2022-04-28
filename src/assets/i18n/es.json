@@ -32,7 +32,8 @@
         "pending": "Pendientes",
         "lists": "Todas mis listas",
         "settings": "Ajustes",
-        "information": "Información"
+        "information": "Información",
+        "administration": "Administración"
     },
 
     "buttons": {
@@ -67,7 +68,10 @@
         "updatingName": "Actualizando nombre",
         "updatingEmail": "Actualizando email",
         "updatingPassword": "Actualizando contraseña",
-        "updatingBoard": "Actualizando tablón"
+        "updatingBoard": "Actualizando tablón",
+        "loadingUsers": "Cargando usuarios",
+        "loadingUser": "Cargando usuario",
+        "modifyingUser": "Modificando usuario"
     },
 
     "signUp": {
@@ -219,6 +223,21 @@
         },
         "legal": {
             "title": "Aviso legal"
+        }
+    },
+
+    "administration": {
+        "title": "Administración",
+        "userAdministration": {
+            "name": "Nombre",
+            "uid": "Id",
+            "email": "Correo electrónico",
+            "role": {
+                "title": "Rol del usuario",
+                "user": "Usuario",
+                "pro": "Pro",
+                "admin": "Administrador"
+            }
         }
     }
 

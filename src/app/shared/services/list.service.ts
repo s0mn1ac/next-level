@@ -6,6 +6,7 @@ import { ConverterService } from 'src/app/shared/services/converter.service';
 import { Game } from '../models/game.model';
 import { List } from '../models/list.model';
 import { doc, updateDoc, arrayUnion, arrayRemove, getFirestore } from 'firebase/firestore';
+import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class ListService {
   private uid: string;
 
   constructor(
+    private loadingService: LoadingService,
     private angularFirestore: AngularFirestore,
     private converterService: ConverterService
   ) { }
@@ -52,26 +54,9 @@ export class ListService {
   }
 
   public async addListToFavorites(listId: string): Promise<void> {
-    // await this.angularFirestore.collection('users').doc(this.uid).collection('lists').doc(listId).ref
-    //   .get()
-    //   .then( async (listSnapshot: DocumentSnapshot<List>) => {
-    //     const list: List = listSnapshot.data();
-    //     console.log(list);
-    //     if (listSnapshot.data() === undefined) {
-    //       await this.angularFirestore.collection('users').doc(this.uid).collection('games').doc(`${game.id}`).set(
-    //         JSON.parse(JSON.stringify(game)), { merge: true }
-    //       );
-    //     }
-    //     await this.angularFirestore.collection('users').doc(this.uid).collection('lists').doc(listId).update({
-    //       games: arrayUnion(doc(getFirestore(), `users/${this.uid}/games`, `${game.id}`))
-    //     });
-    //   });
-
-      await this.angularFirestore.collection('users').doc(this.uid).collection('lists').doc(listId).update({
-        favorites: arrayUnion(doc(getFirestore(), `users/${this.uid}/lists`, listId))
-      });
-
-    // await updateDoc(doc(getFirestore(), 'users', this.uid), { favorites: arrayUnion(doc(getFirestore(), 'favorites', listId)) });
+    await this.angularFirestore.collection('users').doc(this.uid).collection('lists').doc(listId).update({
+      favorites: arrayUnion(doc(getFirestore(), `users/${this.uid}/lists`, listId))
+    });
   }
 
   public async getGame(gameId: string): Promise<Game> {
@@ -124,6 +109,7 @@ export class ListService {
       }
       lists.push(list);
     }
+    this.loadingService.hideLoadingScreen();
     this.listsBehavior.next(lists);
   }
 

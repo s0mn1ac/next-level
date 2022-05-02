@@ -15,6 +15,7 @@ import firebase from 'firebase/compat/app';
 import { ListService } from './list.service';
 import { UserService } from './user.service';
 import { VisualizationEnum } from '../enums/visualization.enum';
+import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,8 @@ export class AuthService implements OnDestroy {
     private databaseService: DatabaseService,
     private listService: ListService,
     private userService: UserService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private loadingService: LoadingService
   ) {
     this.initAngularFireAuthSubscription();
     this.initUserFilterListRef();
@@ -60,6 +62,7 @@ export class AuthService implements OnDestroy {
 
   public async signUp(email: string, password: string, name: string): Promise<void> {
     return this.angularFireAuth.createUserWithEmailAndPassword(email, password).then( async result => {
+      this.loadingService.showLoadingScreen();
       this.redirect = true;
       await this.generateUserStructure(result.user.uid, name, email);
       this.userService.setUserId(result.user.uid);
@@ -71,6 +74,7 @@ export class AuthService implements OnDestroy {
 
   public async signIn(email: string, password: string): Promise<void> {
     return this.angularFireAuth.signInWithEmailAndPassword(email, password).then( async result => {
+      this.loadingService.showLoadingScreen();
       this.redirect = true;
       this.userService.setUserId(result.user.uid);
       this.initUserStructureSubscription();

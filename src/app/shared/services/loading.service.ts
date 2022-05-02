@@ -7,6 +7,8 @@ import { TranslocoService } from '@ngneat/transloco';
 })
 export class LoadingService {
 
+  public isLoading = true;
+
   private loading: HTMLIonLoadingElement;
 
   constructor(private translocoService: TranslocoService, private loadingController: LoadingController) { }
@@ -18,6 +20,14 @@ export class LoadingService {
 
   public async hide(): Promise<void> {
     await this.loading?.dismiss();
+  }
+
+  public showLoadingScreen(): void {
+    this.isLoading = true;
+  }
+
+  public hideLoadingScreen(): void {
+    setTimeout(() => this.isLoading = false, 3000);
   }
 
 }

@@ -120,6 +120,7 @@
     "board": {
         "title": "Mi tablón",
         "addList": "Añade una lista",
+        "createListNow": "¡Crea una ahora!",
         "addToBoard": {
             "addToBoardHeader": "Añade una lista al tablón",
             "addToBoardBody": "Selecciona una lista de las disponibles a continuación para añadirlas al tablón y poder acceder a su contenido fácilmente"

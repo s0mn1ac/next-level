@@ -74,6 +74,7 @@ export class MenuComponent implements OnInit, OnDestroy {
         lists?.forEach((list: List) => this.menuItems.push({
           disabled: false,
           icon: 'star-outline',
+          color: 'primary',
           name: list.name,
           translate: false,
           redirectTo: `/lists/${list.id}`
@@ -85,6 +86,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       this.menuItems.push({
         disabled: false,
         icon: 'podium-outline',
+        color: 'primary',
         name: 'administration',
         translate: true,
         redirectTo: '/administration'

@@ -120,6 +120,7 @@
     "board": {
         "title": "My board",
         "addList": "Add list",
+        "createListNow": "Add one now!",
         "addToBoard": {
             "addToBoardHeader": "Add a list to the board",
             "addToBoardBody": "Select any list of those available below to add them to the board for easy access to its content"

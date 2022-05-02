@@ -1,6 +1,7 @@
 [
     {
         "icon": "albums-outline",
+        "color": "primary",
         "name": "board",
         "redirectTo": "/board",
         "disabled": false,
@@ -8,6 +9,7 @@
     },
     {
         "icon": "library-outline",
+        "color": "primary",
         "name": "library",
         "redirectTo": "/library",
         "disabled": false,
@@ -15,6 +17,7 @@
     },
     {
         "icon": "list-outline",
+        "color": "primary",
         "name": "lists",
         "redirectTo": "/lists",
         "disabled": false,
@@ -22,6 +25,7 @@
     },
     {
         "icon": "settings-outline",
+        "color": "primary",
         "name": "settings",
         "redirectTo": "/settings",
         "disabled": false,
@@ -29,6 +33,7 @@
     },
     {
         "icon": "information-circle-outline",
+        "color": "primary",
         "name": "information",
         "redirectTo": "/information",
         "disabled": false,

@@ -19,6 +19,39 @@ ion-content {
         right: 18px;
     }
 
+    div.no-lists-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        border-radius: 5px;
+        border: 2px dashed var(--ion-color-primary);
+        font-size: 16px;
+        padding: 1rem;
+        color: var(--ion-color-primary);
+        min-height: 120px;
+
+        label.custom-label {
+            margin-bottom: 1rem;
+            line-height: 22px;
+            text-align: center;
+        }
+        
+        div.go-to-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+
+            ion-icon {
+                margin-right: 0.5rem;
+            }
+        }
+    }
+
     div.add-list-container {
         display: flex;
         flex-direction: row;

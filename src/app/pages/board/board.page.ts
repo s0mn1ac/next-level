@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActionSheetController, ItemReorderEventDetail } from '@ionic/angular';
+import { ActionSheetController, AlertController, ItemReorderEventDetail } from '@ionic/angular';
 import { TranslocoService } from '@ngneat/transloco';
 import { Subscription } from 'rxjs';
 import { NextLevelModalComponent } from 'src/app/components/next-level-modal/next-level-modal.component';
@@ -26,6 +26,7 @@ export class BoardPage implements OnInit, OnDestroy {
   public deleteListModalOptions: NextLevelModalOptions;
 
   public isInEditMode = false;
+  public isAnyListAvailable = false;
 
   private lists$: Subscription;
 
@@ -35,6 +36,7 @@ export class BoardPage implements OnInit, OnDestroy {
     private translocoService: TranslocoService,
     private loadingService: LoadingService,
     private listService: ListService,
+    private alertController: AlertController,
     private actionSheetController: ActionSheetController
   ) { }
 
@@ -62,11 +64,40 @@ export class BoardPage implements OnInit, OnDestroy {
     this.onClickChangeEditMode();
   }
 
+  public async onClickAddList(): Promise<void> {
+
+    const alert = await this.alertController.create({
+      header: this.translocoService.translate('lists.list.newList'),
+      inputs: [
+        {
+          name: 'name',
+          type: 'text',
+          placeholder: this.translocoService.translate('lists.list.listName')
+        }
+      ],
+      buttons: [
+        {
+          text: this.translocoService.translate('buttons.cancel'),
+          role: 'cancel',
+        }, {
+          text: this.translocoService.translate('buttons.create'),
+          handler: async (event: any) => {
+            await this.loadingService.show('creatingList');
+            await this.listService.addList({ name: event.name, isPublic: false, isFavorite: false, games: [], type: ListTypeEnum.unset });
+            await this.loadingService.hide();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   public async onClickAddListToBoard(): Promise<void> {
     this.actionSheet = await this.actionSheetController.create({
       header: this.translocoService.translate('board.addToBoard.addToBoardHeader'),
       subHeader: this.translocoService.translate('board.addToBoard.addToBoardBody'),
-      buttons: this.lists?.map((list: List) => ({ text: list?.name, handler: () => this.addListToBoard(list) }))
+      buttons: this.lists?.map((list: List) => ({ text: list?.name, handler: () => this.addListToBoard(list?.id) }))
     });
     await this.actionSheet.present();
   }
@@ -104,6 +135,7 @@ export class BoardPage implements OnInit, OnDestroy {
   private async loadLists(lists: List[]): Promise<void> {
     this.lists = lists?.filter((list: List) => list.type === ListTypeEnum.unset);
     this.board = lists?.filter((list: List) => list.type === ListTypeEnum.board)?.sort((a: List, b: List) => a.position - b.position);
+    this.isAnyListAvailable = (this.lists !== undefined || this.lists?.length > 0) && (this.board !== undefined || this.board?.length > 0);
     await this.loadingService.hide();
   }
 
@@ -111,10 +143,10 @@ export class BoardPage implements OnInit, OnDestroy {
     this.board?.map((list: List, index) => this.listService.modifyList(list?.id, 'position', index));
   }
 
-  private async addListToBoard(list: List): Promise<void> {
+  private async addListToBoard(listId: string): Promise<void> {
     await this.loadingService.show('updatingBoard');
-    await this.listService.modifyList(list.id, 'position', this.board?.length);
-    await this.listService.modifyList(list.id, 'type', ListTypeEnum.board);
+    await this.listService.modifyList(listId, 'position', this.board?.length);
+    await this.listService.modifyList(listId, 'type', ListTypeEnum.board);
     this.updateListsPosition();
   }
 

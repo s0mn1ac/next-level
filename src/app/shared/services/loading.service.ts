@@ -27,7 +27,7 @@ export class LoadingService {
   }
 
   public hideLoadingScreen(): void {
-    setTimeout(() => this.isLoading = false, 3000);
+    setTimeout(() => this.isLoading = false, 0);
   }
 
 }

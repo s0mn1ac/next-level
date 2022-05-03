@@ -1,0 +1,26 @@
+<ion-modal #modal mode="md" [breakpoints]="breakpoints" [initialBreakpoint]="initialBreakpoint">
+          
+  <ng-template>
+
+    <ion-content *transloco="let t">
+
+      <ion-item class="modal-item" lines="none">
+        <ion-label class="ion-text-center" text-wrap>
+          <ion-icon slot="start" name="clipboard-outline" size="large" color="warning"></ion-icon>
+          <ion-textarea #textArea [value]="value" [placeholder]="t('game.yourNoteHere')" [rows]="10"></ion-textarea>
+        </ion-label>
+      </ion-item>
+
+      <ion-item class="button-item" lines="none">
+        <ion-label class="ion-text-center" text-wrap>
+          <ion-button mode="ios" size="large" expand="block" color="warning" (click)="onClickModalButton(textArea.value)">
+            {{ t('game.saveNote') }}
+          </ion-button>
+        </ion-label>
+      </ion-item>
+
+    </ion-content>
+
+  </ng-template>
+
+</ion-modal>

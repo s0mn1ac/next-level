@@ -5,7 +5,7 @@ import { Game } from '../models/game.model';
 import { Genre } from '../models/genre.model';
 import { Store } from '../models/store.model';
 import { ParentPlatform } from '../models/parent-platform.model';
-import { Score } from '../models/score.model';
+import { MetaScore } from '../models/meta-score.model';
 import { List } from '../models/list.model';
 import { CollectionReference, DocumentSnapshot, QuerySnapshot } from '@angular/fire/compat/firestore';
 import { Developer } from '../models/developer.model';
@@ -58,8 +58,8 @@ export class ConverterService {
             game.image = result.background_image;
             game.releaseDate = result.released;
             game.tba = result.tba;
-            game.metascore = new Score(result.metacritic);
-            game.score = new Score(result.score);
+            game.metascore = new MetaScore(result.metacritic);
+            game.score = new MetaScore(result.score);
             game.avgPlaytime = result.playtime;
             game.screenshots = result.screenshots?.map((screenshot: any) => screenshot.image);
             game.esrb = result.esrb_rating != null ? this.buildEsrb(result.esrb_rating) : null;
@@ -105,7 +105,9 @@ export class ConverterService {
             game.saturatedColor = `#${gameData.saturated_color}`;
             game.developers = this.buildDevelopers(gameData.developers);
             game.publishers = this.buildPublishers(gameData.publishers);
-            game.completed = gameData.completed;
+            game.status = gameData.status;
+            game.notes = gameData.notes;
+            // game.completed = gameData.completed;
         });
         return game;
     }
@@ -118,8 +120,8 @@ export class ConverterService {
         game.image = report.background_image;
         game.releaseDate = report.released;
         game.tba = report.tba;
-        game.metascore = new Score(report.metacritic);
-        game.score = new Score(report.score);
+        game.metascore = new MetaScore(report.metacritic);
+        game.score = new MetaScore(report.score);
         game.avgPlaytime = report.playtime;
         game.screenshots = report.screenshots?.map((screenshot: any) => screenshot.image);
         game.esrb = report.esrb_rating != null ? this.buildEsrb(report.esrb_rating) : null;

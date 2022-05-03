@@ -1,0 +1,31 @@
+ion-modal {
+    
+    ion-item.modal-item ion-label {
+        width: 100%;
+        max-width: unset;
+        margin-top: 20px;
+    
+        ion-icon {
+            margin-top: 10px;
+        }
+    
+        h2 {
+            margin-top: 10px;
+        }
+    
+        p {
+            margin-bottom: 20px;
+        }
+    }
+
+    ion-item.button-item ion-label {
+        width: 100%;
+        max-width: unset;
+        margin-top: 0px;
+        margin-bottom: 20px;
+
+        ion-button {
+            width: 100%;
+        }
+    }
+}

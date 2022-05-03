@@ -180,7 +180,11 @@
         "ageRating": "Clasificación de edad",
         "userScore": "Mi valoración",
         "completed": "Completado",
-        "playing": "Jugando"
+        "paused": "En pausa",
+        "playing": "Jugando",
+        "addNote": "Añadir una nota",
+        "saveNote": "Guardar nota",
+        "yourNoteHere": "Tu nota aquí..."
     },
 
     "settings": {

@@ -14,7 +14,7 @@ import { Game } from '../models/game.model';
 import { List } from '../models/list.model';
 import firebase from 'firebase/compat/app';
 import { doc, updateDoc, deleteDoc, arrayUnion, arrayRemove, setDoc, getFirestore, DocumentData } from 'firebase/firestore';
-import { Score } from '../models/score.model';
+import { MetaScore } from '../models/meta-score.model';
 
 @Injectable({
   providedIn: 'root'

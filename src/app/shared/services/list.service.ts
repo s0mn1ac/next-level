@@ -83,10 +83,6 @@ export class ListService {
     await this.angularFirestore.collection('users').doc(this.uid).collection('games').doc(`${gameId}`).update({ [name]: value });
   }
 
-  public async updateGameStatus(game: Game): Promise<void> {
-    await updateDoc(doc(getFirestore(), 'games', `${this.uid}_${game.id}`), { completed: game?.completed });
-  }
-
   public async deleteGame(gameId: number, listId: string): Promise<void> {
     await this.angularFirestore.collection('users').doc(this.uid).collection('lists').doc(listId).update({
       games: arrayRemove(doc(getFirestore(), `users/${this.uid}/games`, `${gameId}`))

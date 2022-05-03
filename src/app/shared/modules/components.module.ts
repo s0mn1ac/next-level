@@ -12,6 +12,7 @@ import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { NextLevelModalComponent } from 'src/app/components/next-level-modal/next-level-modal.component';
 import { NextLevelPrimaryListComponent } from 'src/app/components/next-level-primary-list/next-level-primary-list.component';
 import { NextLevelSecondaryListComponent } from 'src/app/components/next-level-secondary-list/next-level-secondary-list.component';
+import { NextLevelNoteModalComponent } from 'src/app/components/next-level-note-modal/next-level-note-modal.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { NextLevelSecondaryListComponent } from 'src/app/components/next-level-s
     NextLevelListComponent,
     NextLevelPrimaryListComponent,
     NextLevelSecondaryListComponent,
-    NextLevelModalComponent
+    NextLevelModalComponent,
+    NextLevelNoteModalComponent
   ],
   exports: [
     HeaderComponent,
@@ -34,7 +36,8 @@ import { NextLevelSecondaryListComponent } from 'src/app/components/next-level-s
     NextLevelListComponent,
     NextLevelPrimaryListComponent,
     NextLevelSecondaryListComponent,
-    NextLevelModalComponent
+    NextLevelModalComponent,
+    NextLevelNoteModalComponent
   ],
   imports: [
     CommonModule,

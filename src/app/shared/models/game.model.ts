@@ -4,9 +4,10 @@ import { Genre } from './genre.model';
 import { Store } from './store.model';
 import { ParentPlatform } from './parent-platform.model';
 import { StatusEnum } from '../enums/status.enum';
-import { Score } from './score.model';
+import { MetaScore } from './meta-score.model';
 import { Developer } from './developer.model';
 import { Publisher } from './publisher.model';
+import { UserScore } from './user-score.model';
 
 export class Game {
     id: number;
@@ -15,7 +16,7 @@ export class Game {
     image: string;
     releaseDate: string;
     tba: boolean;
-    metascore: Score;
+    metascore: MetaScore;
     avgPlaytime: number;
     screenshots: string[];
     esrb: Esrb;
@@ -30,8 +31,8 @@ export class Game {
     developers: Developer[];
     publishers: Publisher[];
 
-    status: StatusEnum = StatusEnum.pending; // TODO: ¿Al final se usa?
-    completed: boolean;
-    score: Score = { value: 50, color: 'score-yellow' };
-    myPlatform: Platform;
+    status: StatusEnum = StatusEnum.playing;
+    score: UserScore = new UserScore(5);
+    myPlatform: Platform; // TODO: ¿Al final se usa?
+    notes: string[] = [];
 }

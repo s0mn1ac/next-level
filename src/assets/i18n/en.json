@@ -71,7 +71,8 @@
         "updatingBoard": "Updating board",
         "loadingUsers": "Loading users",
         "loadingUser": "Loading user",
-        "modifyingUser": "Modifying user"
+        "modifyingUser": "Modifying user",
+        "loadingLibrary": "Loading library"
     },
 
     "signUp": {
@@ -138,6 +139,7 @@
 
     "library": {
         "title": "Library",
+        "createList": "Create a list",
         "addToList": {
             "title": "Add to list...",
             "addToListHeader": "Add game to a list",

@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 import { TranslocoService } from '@ngneat/transloco';
 import { Subscription } from 'rxjs';
 import { Game } from 'src/app/shared/models/game.model';
 import { List } from 'src/app/shared/models/list.model';
 import { ResponseData } from 'src/app/shared/models/response-data.model';
-import { DatabaseService } from 'src/app/shared/services/database.service';
 import { GameService } from 'src/app/shared/services/game.service';
 import { ListService } from 'src/app/shared/services/list.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
@@ -35,10 +35,10 @@ export class LibraryPage implements OnInit, OnDestroy {
   private nextUrl: string;
 
   constructor(
+    private router: Router,
     private translocoService: TranslocoService,
     private gameService: GameService,
     private loadingService: LoadingService,
-    private databaseService: DatabaseService,
     private listService: ListService,
     private actionSheetController: ActionSheetController
   ) { }
@@ -55,7 +55,9 @@ export class LibraryPage implements OnInit, OnDestroy {
     this.actionSheet = await this.actionSheetController.create({
       header: this.translocoService.translate('library.addToList.addToListHeader'),
       subHeader: this.translocoService.translate('library.addToList.addToListBody'),
-      buttons: this.lists?.map((list: List) => ({ text: list?.name, handler: () => this.addGameToList(game, list) }))
+      buttons: this.lists !== undefined && this.lists?.length > 0
+        ? this.lists?.map((list: List) => ({ text: list?.name, handler: () => this.addGameToList(game, list) }))
+        : [{ text: this.translocoService.translate('library.createList'), handler: () => this.router.navigate(['/lists']) }]
     });
     await this.actionSheet.present();
   }
@@ -69,8 +71,6 @@ export class LibraryPage implements OnInit, OnDestroy {
 
     this.lastSearchValue = value;
 
-    // await this.loadingService.show('loadingGames');
-
     if (value == null) {
       await this.getLastReleasedGames();
       await this.loadingService.hide();
@@ -80,8 +80,6 @@ export class LibraryPage implements OnInit, OnDestroy {
     const responseData: ResponseData = await this.gameService.getFilteredGames(value);
     this.games = responseData.results;
     this.nextUrl = responseData.next;
-    // await this.loadingService.hide();
-
     this.hasDataToShow = this.games !== undefined && this.games?.length > 0;
   }
 
@@ -109,7 +107,7 @@ export class LibraryPage implements OnInit, OnDestroy {
   private async initData(): Promise<void> {
     this.nextUrl = null;
     this.initListsSubscription();
-    await this.loadingService.show('loadingLists');
+    await this.loadingService.show('loadingLibrary');
     await this.getLastReleasedGames();
     await this.loadingService.hide();
   }

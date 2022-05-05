@@ -38,11 +38,12 @@
             <div class="score" [ngClass]="game?.score.color"> {{ game?.score.value ?? '-' }} </div>
           </div>
 
-          <ion-chip [ngClass]="game?.status" id="statusTrigger">
-            <ion-icon [name]="'play-outline'" *ngIf="game?.status === statusEnum.playing" color="light"></ion-icon>
-            <ion-icon [name]="'pause-outline'" *ngIf="game?.status === statusEnum.paused" color="light"></ion-icon>
-            <ion-icon [name]="'checkmark-outline'" *ngIf="game?.status === statusEnum.completed" color="light"></ion-icon>
-            <ion-label color="light"> {{ t('game.' + game?.status) }} </ion-label>
+          <ion-chip [ngClass]="game?.status" id="statusTrigger" outline="true"
+            [color]="game?.status === statusEnum.playing ? 'danger' : (game?.status === statusEnum.paused ? 'warning' : 'success')">
+            <ion-icon [name]="'play-outline'" *ngIf="game?.status === statusEnum.playing"></ion-icon>
+            <ion-icon [name]="'pause-outline'" *ngIf="game?.status === statusEnum.paused"></ion-icon>
+            <ion-icon [name]="'checkmark-outline'" *ngIf="game?.status === statusEnum.completed"></ion-icon>
+            <ion-label> {{ t('game.' + game?.status) }} </ion-label>
           </ion-chip>
   
           <ion-popover #optionsPopover trigger="statusTrigger" [dismissOnSelect]="true">
@@ -50,8 +51,8 @@
               <ion-content>
                 <ion-list>
                   <ion-item lines="full" (click)="onClickUpdateGameStatus(statusEnum.playing)">
-                    <ion-icon color="primary" slot="start" name="play-outline"></ion-icon>
-                    <ion-label color="primary" slot="end"> {{ t('game.playing') }} </ion-label>
+                    <ion-icon color="danger" slot="start" name="play-outline"></ion-icon>
+                    <ion-label color="danger" slot="end"> {{ t('game.playing') }} </ion-label>
                   </ion-item>
                   <ion-item lines="full" (click)="onClickUpdateGameStatus(statusEnum.paused)">
                     <ion-icon color="warning" slot="start" name="pause-outline"></ion-icon>

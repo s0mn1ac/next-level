@@ -79,25 +79,14 @@ ion-content {
                     }
     
                     ion-chip {
+                        border-width: 1px;
     
                         ion-icon {
                             margin: 0;
                         }
-    
+
                         ion-label {
                             min-width: 85px;
-                        }
-    
-                        &.completed {
-                            background-color: var(--ion-color-success);
-                        }
-    
-                        &.paused {
-                            background-color: var(--ion-color-warning);
-                        }
-    
-                        &.playing {
-                            background-color: var(--ion-color-primary);
                         }
                     }
                 }

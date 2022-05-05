@@ -1,6 +1,6 @@
 [
     {
-        "icon": "albums-outline",
+        "icon": "clipboard-outline",
         "color": "primary",
         "name": "board",
         "redirectTo": "/board",

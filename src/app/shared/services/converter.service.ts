@@ -12,6 +12,7 @@ import { Developer } from '../models/developer.model';
 import { Publisher } from '../models/publisher.model';
 import { ResponseData } from '../models/response-data.model';
 import { UserStructure } from '../interfaces/user-structure.interface';
+import { StatusEnum } from '../enums/status.enum';
 
 
 @Injectable({
@@ -107,7 +108,6 @@ export class ConverterService {
             game.publishers = this.buildPublishers(gameData.publishers);
             game.status = gameData.status;
             game.notes = gameData.notes;
-            // game.completed = gameData.completed;
         });
         return game;
     }
@@ -134,6 +134,7 @@ export class ConverterService {
         game.saturatedColor = `#${report.saturated_color}`;
         game.developers = this.buildDevelopers(report.developers);
         game.publishers = this.buildPublishers(report.publishers);
+        game.status = StatusEnum.playing;
         return game;
     }
 

@@ -1,10 +1,7 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { ActionSheetButton, ActionSheetController, IonModal } from '@ionic/angular';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActionSheetController } from '@ionic/angular';
 import { TranslocoService } from '@ngneat/transloco';
-import * as moment from 'moment';
 import { Subscription } from 'rxjs';
-import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
 import { Game } from 'src/app/shared/models/game.model';
 import { List } from 'src/app/shared/models/list.model';
 import { ResponseData } from 'src/app/shared/models/response-data.model';

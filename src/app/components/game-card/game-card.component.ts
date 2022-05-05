@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { VisualizationEnum } from 'src/app/shared/enums/visualization.enum';
-import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
+import { StatusEnum } from 'src/app/shared/enums/status.enum';
 import { Game } from 'src/app/shared/models/game.model';
 
 @Component({
@@ -15,10 +14,10 @@ export class GameCardComponent implements OnInit {
   @Input() ownScore = false;
   @Input() addToList = false;
   @Input() isStatusBarVisible = false;
-  @Input() isCompactVisualizationSelected = false;
 
   @Output() addToListEventEmitter: EventEmitter<any> = new EventEmitter<any>();
 
+  public statusEnum: typeof StatusEnum = StatusEnum;
 
   constructor(private router: Router) { }
 

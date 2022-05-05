@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { IonModal, PickerColumnOption, PickerController } from '@ionic/angular';
+import { PickerColumnOption, PickerController } from '@ionic/angular';
 import { TranslocoService } from '@ngneat/transloco';
 import { Subscription } from 'rxjs';
 import { NextLevelNoteModalComponent } from 'src/app/components/next-level-note-modal/next-level-note-modal.component';

@@ -1,60 +1,5 @@
-ion-card.expanded {
-    
-    img.background-image {
-        height: 150px;
-        width: 100%;
-        object-fit: cover;
-        border-bottom-left-radius: 50%;
-        border-bottom-right-radius: 50%;
-    }
-    
-    ion-chip.completed-chip {
-        background-color: var(--ion-color-success);
-        position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
-    
-        ion-icon {
-            margin: 0;
-        }
-    }
-    
-    ion-chip.playing-chip {
-        background-color: var(--ion-color-warning);
-        position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
-    
-        ion-icon {
-            margin: 0;
-        }
-    }
-    
-    ion-card-subtitle {
-    
-        div.parent-platforms {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-    
-            img {
-                height: 13px;
-                margin: 0px 5px;
-            }
-        }
-    }
-    
-    ion-card-title {
-        text-align: center;
-    }
-    
-    ion-card-content {
-        padding: 1rem 0rem 0rem 0rem;
-    }
-}
-
-ion-card.compact {
+ion-card {
+    border-radius: 5px;
 
     ion-card-content {
         padding: 0;
@@ -64,59 +9,68 @@ ion-card.compact {
             flex-direction: row;
     
             div.image-container {
-                height: 125px;
+                height: 130px;
                 width: 150px;
                 min-width: 150px;
-                margin-right: 0.5rem;
     
                 img {
                     height: 100%;
                     width: 100%;
                     object-fit: cover;
-                    border-top-right-radius: 75px;
-                    border-bottom-right-radius: 75px;
+                    border-top-right-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                    box-shadow: 5px 0px 5px 0px rgb(0 0 0 / 16%), 0 3px 5px rgb(0 0 0 / 23%);
                 }
             }
             
             div.information-container {
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
-                padding: 0.5rem;
+                justify-content: space-between;
+                padding: 0.5rem 1rem;
+                width: 100%;
+
+                div.title-section {
+                    display: flex;
+                    flex-direction: column;
+                    
+                    div.parent-platforms {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        margin: 0.5rem 0;
+                
+                        img {
+                            height: 13px;
+                            margin: 0px 5px;
+                        }
+                    }
+                
+                    div.title {
+                
+                        ion-label {
+                            font-size: 1rem;
+                            font-weight: 500;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 2;
+                            -webkit-box-orient: vertical;
+                        }
+                    }
+                }
+
+                div.status-section {
+
+                    div.status {
+                        display: flex;
+                        flex-direction: row;
+                        margin: 0.5rem 0;
         
-                div.parent-platforms {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    margin: 0.5rem 0;
-            
-                    img {
-                        height: 13px;
-                        margin: 0px 5px;
-                    }
-                }
-            
-                div.title {
-            
-                    ion-label {
-                        font-size: 1rem;
-                        font-weight: 500;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        display: -webkit-box;
-                        -webkit-line-clamp: 2;
-                        -webkit-box-orient: vertical;
-                    }
-                }
-    
-                div.status {
-                    display: flex;
-                    flex-direction: row;
-                    margin: 0.5rem 0;
-    
-                    ion-icon {
-                        margin-right: 0.5rem;
-                        font-size: 1rem;
+                        ion-icon {
+                            margin-right: 0.5rem;
+                            font-size: 1rem;
+                        }
                     }
                 }
             }

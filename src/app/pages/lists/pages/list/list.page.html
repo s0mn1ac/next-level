@@ -9,9 +9,6 @@
     <ion-title> {{ list?.name }} </ion-title>
 
     <ion-buttons slot="end">
-      <ion-button (click)="onClickChangeVisualization(!isCompactVisualizationSelected)">
-        <ion-icon slot="icon-only" [name]="isCompactVisualizationSelected ? 'copy-outline' : 'duplicate-outline'"></ion-icon>
-      </ion-button>
       <ion-button id="side-button">
         <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
       </ion-button>
@@ -57,8 +54,7 @@
           (click)="onClickNavigateToGame(game.id)"
           (press)="onClickSelectGames()"
           [game]="game"
-          [isStatusBarVisible]="true"
-          [isCompactVisualizationSelected]="isCompactVisualizationSelected">
+          [isStatusBarVisible]="true">
         </app-game-card>
 
         <div class="checkbox-container" *ngIf="isInEditMode">

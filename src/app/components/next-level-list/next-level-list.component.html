@@ -1,11 +1,11 @@
 <ion-card>
+
+  <ion-card-header>
+    <ion-card-title> {{ list?.name }} </ion-card-title>
+    <ion-icon color="warning" name="star" *ngIf="list?.isFavorite"></ion-icon>
+  </ion-card-header>
   
   <ion-card-content>
-
-    <div class="next-level-list-header">
-      <ion-label> {{ list?.name }} </ion-label>
-      <ion-icon color="warning" name="star" *ngIf="list?.isFavorite"></ion-icon>
-    </div>
 
     <div class="next-level-list-container">
 

@@ -1,9 +1,8 @@
-div.next-level-list-header {
+ion-card-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
 }
 
 div.next-level-list-container {
@@ -11,7 +10,6 @@ div.next-level-list-container {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-top: 1rem;
 
     div.game-container {
         height: 75px;
@@ -22,6 +20,7 @@ div.next-level-list-container {
             width: 100%;
             object-fit: cover;
             border-radius: 5px;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.16), 0 3px 5px rgba(0,0,0,0.23);
         }
     }
 

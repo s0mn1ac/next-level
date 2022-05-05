@@ -1,30 +1,14 @@
 ion-label.role {
-    
-    div.role-pill {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        padding: 0.3rem;
-        width: 5rem;
-        border-radius: 1rem;
 
-        label {
-            font-size: 12px;
-            line-height: 12px;
-            font-weight: bold;
-        }
+    &.user {
+        color: #75C965;
+    }
 
-        &.user {
-            background-color: #75C965;
-        }
+    &.pro {
+        color: #FFC100;
+    }
 
-        &.pro {
-            background-color: #FFC100;
-        }
-
-        &.admin {
-            background-color: #E86465;
-        }
+    &.admin {
+        color: #E86465;
     }
 }

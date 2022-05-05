@@ -6,10 +6,8 @@
 
         <ion-item *ngFor="let user of allUsers" [routerLink]="'/administration/' + user?.uid">
             <ion-label> {{ user?.displayName }} </ion-label>
-            <ion-label class="role" slot="end">
-                <div class="role-pill" [ngClass]="user?.role.toLowerCase()">
-                    <label> {{ user?.role.toLowerCase() }} </label>
-                </div>
+            <ion-label class="role" slot="end" [ngClass]="user?.role.toLowerCase()">
+                {{ t('administration.userAdministration.role.' + user?.role.toLowerCase()) }}
             </ion-label>
         </ion-item>
         

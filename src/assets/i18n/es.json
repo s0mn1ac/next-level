@@ -157,6 +157,7 @@
             "addToFavorites": "Añadir a favoritos",
             "removeFromFavorites": "Eliminar de favoritos",
             "selectGames": "Seleccionar juegos",
+            "stopSelecting": "Dejar de seleccionar",
             "delete": "Borrar lista",
             "deleteList": {
                 "deleteListHeader": "¿Quieres eliminar la lista?",

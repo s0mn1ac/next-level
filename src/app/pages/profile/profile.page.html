@@ -50,7 +50,7 @@
 
     </ion-list>
 
-    <ion-modal mode="md" [breakpoints]="breakpoints" [initialBreakpoint]="initialBreakpoint" trigger="trigger-delete-accoount-modal">
+    <ion-modal #deleteModal mode="md" [breakpoints]="breakpoints" [initialBreakpoint]="initialBreakpoint" trigger="trigger-delete-accoount-modal">
         
         <ng-template>
 
@@ -61,7 +61,9 @@
                         <ion-icon slot="start" name="trash-outline" size="large" color="danger"></ion-icon>
                         <h2> {{ t('profile.deleteAccount.deleteAccountHeader') }} </h2>
                         <p> {{ t('profile.deleteAccount.deleteAccountBody') }} </p>
-                        <ion-button mode="ios" size="large" expand="block" color="danger"> {{ t('buttons.delete') }} </ion-button>
+                        <ion-button mode="ios" size="large" expand="block" color="danger" (click)="onClickDeleteButton(deleteModal)">
+                            {{ t('buttons.delete') }}
+                        </ion-button>
                     </ion-label>
                 </ion-item>
 

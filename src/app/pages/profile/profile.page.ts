@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IonModal, LoadingController } from '@ionic/angular';
+import { IonModal } from '@ionic/angular';
 import { TranslocoService } from '@ngneat/transloco';
 import { Subscription } from 'rxjs';
 import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
-import { User } from 'src/app/shared/interfaces/user.interface';
 import { FileUpload } from 'src/app/shared/models/file-upload.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
@@ -26,7 +25,6 @@ export class ProfilePage implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private translocoService: TranslocoService,
     private loadingService: LoadingService
   ) { }
 
@@ -42,6 +40,11 @@ export class ProfilePage implements OnInit, OnDestroy {
   public onClickLogOutButton(logOutModal: IonModal): void {
     logOutModal.dismiss();
     this.authService.signOut();
+  }
+
+  public onClickDeleteButton(deleteModal: IonModal): void {
+    deleteModal.dismiss();
+    this.authService.delete();
   }
 
   public selectFile(event): void {

@@ -1,9 +1,8 @@
 import { Injectable, NgZone, OnDestroy } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore, AngularFirestoreDocument, DocumentSnapshot } from '@angular/fire/compat/firestore';
+import { AngularFirestore, DocumentSnapshot } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { User } from '../interfaces/user.interface';
 import { DatabaseService } from './database.service';
 import { FileUpload } from '../models/file-upload.model';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
@@ -40,7 +39,6 @@ export class AuthService implements OnDestroy {
     private angularFireAuth: AngularFireAuth,
     private angularFireStorage: AngularFireStorage,
     private router: Router,
-    private ngZone: NgZone,
     private databaseService: DatabaseService,
     private listService: ListService,
     private userService: UserService,
@@ -81,6 +79,15 @@ export class AuthService implements OnDestroy {
       this.listService.setUserId(result.user.uid);
       this.initListsSubscription();
     }).catch((error) => this.toastService.throwErrorToast(error.code));
+  }
+
+  public async delete(): Promise<void> {
+    const currentUser: firebase.User = await this.angularFireAuth.currentUser;
+    await currentUser.delete()
+      .then( async () => {
+        await this.deleteUserStructure(currentUser.uid);
+        await this.signOut();
+      });
   }
 
   public async signOut(): Promise<void> {
@@ -164,6 +171,10 @@ export class AuthService implements OnDestroy {
 
   private generateUserStructure(uid: string, name: string, email: string): void {
     this.databaseService.generateUserStructure(this.getNewUserStructure(uid, name, email));
+  }
+
+  private deleteUserStructure(uid: string): void {
+    this.databaseService.deleteUserStructure(uid);
   }
 
   private getNewUserStructure(uid: string, displayName: string, email: string): UserStructure {

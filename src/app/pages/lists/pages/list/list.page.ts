@@ -27,6 +27,7 @@ export class ListPage implements OnInit, OnDestroy {
   public deleteListModalOptions: NextLevelModalOptions;
 
   public isInEditMode = false;
+  public hasDataToShow = false;
 
   private params$: Subscription;
   private lists$: Subscription;
@@ -56,6 +57,10 @@ export class ListPage implements OnInit, OnDestroy {
 
   public onClickNavigateToGame(gameId: number): void {
     this.router.navigate([`/game/${gameId}`]);
+  }
+
+  public onClickNavigateToLibrary(): void {
+    this.router.navigate(['/library']);
   }
 
   public async onClickChangeListName(): Promise<void> {
@@ -165,6 +170,7 @@ export class ListPage implements OnInit, OnDestroy {
 
   private loadList(lists: List[], listId: string): void {
     this.list = lists?.find((list: List) => list.id === listId);
+    this.hasDataToShow = this.list?.games !== undefined && this.list?.games?.length > 0;
   }
 
   private cancelParamsSubscription(): void {

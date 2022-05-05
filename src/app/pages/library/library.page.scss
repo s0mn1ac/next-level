@@ -13,3 +13,10 @@ ion-item.modal-item ion-label {
         margin-bottom: 20px;
     }
 }
+
+:host ::ng-deep ion-infinite-scroll-content {
+
+    ion-spinner {
+        color: var(--ion-color-primary);
+    }
+}

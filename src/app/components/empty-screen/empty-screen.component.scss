@@ -1,0 +1,54 @@
+div.empty-screen-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+
+    div.empty-screen-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        text-align: center;
+        padding: 0 2rem;
+
+        div.icon-container {
+            position: relative;
+            height: 100px;
+            width: 100px;
+            margin-bottom: 1rem;
+
+            ion-icon.folder {
+                height: 100%;
+                width: 100%;
+            }
+
+            ion-icon.chatbubble {
+                position: absolute;
+                top: -20px;
+                right: -20px;
+                height: 25px;
+                width: 25px;
+            }
+        }
+
+        label.title {
+            font-size: xx-large;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        label.description {
+            font-size: large;
+            color: var(--ion-color-step-600);
+        }
+
+        ion-button {
+            margin-top: 2rem;
+        }
+    }
+}

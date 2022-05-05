@@ -26,7 +26,7 @@ export class BoardPage implements OnInit, OnDestroy {
   public deleteListModalOptions: NextLevelModalOptions;
 
   public isInEditMode = false;
-  public isAnyListAvailable = false;
+  public hasDataToShow = false;
 
   private lists$: Subscription;
 
@@ -135,7 +135,7 @@ export class BoardPage implements OnInit, OnDestroy {
   private async loadLists(lists: List[]): Promise<void> {
     this.lists = lists?.filter((list: List) => list.type === ListTypeEnum.unset);
     this.board = lists?.filter((list: List) => list.type === ListTypeEnum.board)?.sort((a: List, b: List) => a.position - b.position);
-    this.isAnyListAvailable = (this.lists !== undefined || this.lists?.length > 0) && (this.board !== undefined || this.board?.length > 0);
+    this.hasDataToShow = (this.lists !== undefined && this.lists?.length > 0) || (this.board !== undefined && this.board?.length > 0);
     await this.loadingService.hide();
   }
 

@@ -2,7 +2,7 @@
 
 <ion-content *transloco="let t">
 
-  <ion-grid>
+  <ion-grid *ngIf="hasDataToShow">
 
     <ion-row>
 
@@ -16,13 +16,18 @@
 
   </ion-grid>
 
-  <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)">
+  <app-empty-screen *ngIf="!hasDataToShow"
+      [icon]="'search-outline'"
+      [title]="t('library.emptyScreen.title')"
+      [description]="t('library.emptyScreen.description')"
+      [showButton]="false">
+  </app-empty-screen>
+
+  <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)" *ngIf="hasDataToShow">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <!-- TODO: Hacer el spinner más bonito -->
-
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadNextValues($event)">
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadNextValues($event)" *ngIf="hasDataToShow">
     <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 

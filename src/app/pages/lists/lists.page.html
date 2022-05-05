@@ -2,13 +2,21 @@
 
 <ion-content *transloco="let t">
 
-    <ion-list>
+    <ion-list *ngIf="hasDataToShow">
 
       <app-next-level-list [routerLink]="list?.id" [list]="list" *ngFor="let list of lists"></app-next-level-list>
         
     </ion-list>
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <app-empty-screen *ngIf="!hasDataToShow"
+        [icon]="'list-outline'"
+        [title]="t('lists.emptyScreen.title')"
+        [description]="t('lists.emptyScreen.description')"
+        [buttonLabel]="t('lists.emptyScreen.buttonLabel')"
+        (clickEventEmitter)="onClickAddButton()">
+    </app-empty-screen>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="hasDataToShow">
 
       <ion-fab-button (click)="onClickAddButton()">
         <ion-icon name="add"></ion-icon>

@@ -18,12 +18,13 @@ export class ListsPage implements OnInit, OnDestroy {
 
   public lists: List[] = [];
 
+  public hasDataToShow: boolean;
+
   private lists$: Subscription;
 
   constructor(
     private translocoService: TranslocoService,
     private loadingService: LoadingService,
-    private databaseService: DatabaseService,
     private listService: ListService,
     private alertController: AlertController
   ) { }
@@ -75,6 +76,7 @@ export class ListsPage implements OnInit, OnDestroy {
 
   private loadLists(lists: List[]): void {
     this.lists = lists;
+    this.hasDataToShow = this.lists !== undefined && this.lists?.length > 0;
   }
 
   private async initData(): Promise<void> {

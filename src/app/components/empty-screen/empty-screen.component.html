@@ -1,0 +1,16 @@
+<div class="empty-screen-layout">
+
+  <div class="empty-screen-container">
+
+    <div class="icon-container">
+      <ion-icon [name]="icon" color="primary" class="folder"></ion-icon>
+      <ion-icon name="chatbubble-ellipses-outline" color="primary" class="chatbubble"></ion-icon>
+    </div>
+
+    <label class="title"> {{ title }} </label>
+    <label class="description"> {{ description }} </label>
+    <ion-button mode="ios" (click)="onClick()" expand="block" *ngIf="showButton"> {{ buttonLabel }} </ion-button>
+
+  </div>
+
+</div>

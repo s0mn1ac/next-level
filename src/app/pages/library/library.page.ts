@@ -26,6 +26,8 @@ export class LibraryPage implements OnInit, OnDestroy {
 
   public lastSearchValue: string;
 
+  public hasDataToShow: boolean;
+
   private lists$: Subscription;
 
   private actionSheet: HTMLIonActionSheetElement;
@@ -79,6 +81,8 @@ export class LibraryPage implements OnInit, OnDestroy {
     this.games = responseData.results;
     this.nextUrl = responseData.next;
     // await this.loadingService.hide();
+
+    this.hasDataToShow = this.games !== undefined && this.games?.length > 0;
   }
 
   public async loadNextValues(event: any): Promise<void> {
@@ -99,6 +103,7 @@ export class LibraryPage implements OnInit, OnDestroy {
     const responseData: ResponseData = await this.gameService.getLastReleasedGames();
     this.games = responseData.results;
     this.nextUrl = responseData.next;
+    this.hasDataToShow = this.games !== undefined && this.games?.length > 0;
   }
 
   private async initData(): Promise<void> {

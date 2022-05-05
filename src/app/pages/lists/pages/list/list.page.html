@@ -30,7 +30,7 @@
             <ion-item (click)="onClickRemoveFromFavorites()" *ngIf="list?.isFavorite">
               <ion-label slot="end"> {{ t('lists.list.removeFromFavorites') }} </ion-label>
             </ion-item>
-            <ion-item (click)="onClickSelectGames()">
+            <ion-item (click)="onClickSelectGames()" *ngIf="hasDataToShow">
               <ion-label slot="end" *ngIf="!isInEditMode"> {{ t('lists.list.selectGames') }} </ion-label>
               <ion-label slot="end" *ngIf="isInEditMode"> {{ t('lists.list.stopSelecting') }} </ion-label>
             </ion-item>
@@ -48,7 +48,7 @@
 
 <ion-content *transloco="let t">
 
-  <ion-grid>
+  <ion-grid *ngIf="hasDataToShow">
 
     <ion-row>
 
@@ -68,18 +68,19 @@
         
       </ion-col>
 
-      <ion-col size="12" size-xl="3" size-lg="3" size-md="4" size-sm="6">
-        <div class="add-games-container" routerLink="/library">
-          <ion-icon name="add" color="primary"></ion-icon>
-          <ion-label color="primary"> Añade juegos a la lista </ion-label>
-        </div>
-      </ion-col>
-
     </ion-row>
 
   </ion-grid>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="gamesToDelete?.length !== 0">
+  <app-empty-screen *ngIf="!hasDataToShow"
+      [icon]="'game-controller-outline'"
+      [title]="t('lists.list.emptyScreen.title')"
+      [description]="t('lists.list.emptyScreen.description')"
+      [buttonLabel]="t('lists.list.emptyScreen.buttonLabel')"
+      (clickEventEmitter)="onClickNavigateToLibrary()">
+  </app-empty-screen>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="gamesToDelete?.length !== 0 && hasDataToShow">
 
     <ion-fab-button color="danger" (click)="onClickShowNextLevelModal(deleteGamesModalOptions)">
       <ion-icon name="trash-outline"></ion-icon>

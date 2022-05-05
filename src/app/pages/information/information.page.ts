@@ -7,9 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InformationPage implements OnInit {
 
-  constructor() { }
+  public twitterUrl: string;
+  public facebookUrl: string;
+  public instagramUrl: string;
+
+  constructor() {
+    this.twitterUrl = 'https://twitter.com/appnextlevel';
+    this.instagramUrl = 'https://www.instagram.com/appnextlevel/';
+  }
 
   ngOnInit() {
+  }
+
+  public openUrl(url: string): void {
+    if (url === undefined) {
+      return;
+    }
+    window.open(url, '_blank');
   }
 
 }

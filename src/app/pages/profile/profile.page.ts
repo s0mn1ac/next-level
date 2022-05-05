@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IonModal } from '@ionic/angular';
-import { TranslocoService } from '@ngneat/transloco';
 import { Subscription } from 'rxjs';
 import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
 import { FileUpload } from 'src/app/shared/models/file-upload.model';

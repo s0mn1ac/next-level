@@ -17,11 +17,11 @@
                 <h2> {{ t('information.doYouLikeTheApp.title') }} </h2>
                 <ion-label> {{ t('information.doYouLikeTheApp.firstParagraph') }}  </ion-label>
                 <ion-label> {{ t('information.doYouLikeTheApp.secondParagraph') }}  </ion-label>
-                <ion-button mode="ios" expand="block" color="kofi">
+                <ion-button mode="ios" [disabled]="true" expand="block" color="kofi">
                     <ion-icon slot="start" name="cafe"></ion-icon>
                     {{ t('information.supportMeOnKofi') }}
                 </ion-button>
-                <ion-button mode="ios" expand="block" color="paypal">
+                <ion-button mode="ios" [disabled]="true" expand="block" color="paypal">
                     <ion-icon slot="start" name="logo-paypal"></ion-icon>
                     {{ t('information.donateWithPaypal') }}
                 </ion-button>
@@ -35,16 +35,16 @@
                 <h2> {{ t('information.contact.title') }} </h2>
                 <ion-label> {{ t('information.contact.firstParagraph') }}  </ion-label>
                 <div class="buttons-container">
-                    <ion-button mode="ios" expand="block" color="twitter">
+                    <ion-button mode="ios" expand="block" color="twitter" (click)="openUrl(twitterUrl)">
                         <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
                     </ion-button>
-                    <ion-button mode="ios" expand="block" color="facebook">
+                    <ion-button mode="ios" [disabled]="true" expand="block" color="facebook" (click)="openUrl(facebookUrl)">
                         <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
                     </ion-button>
-                    <ion-button mode="ios" expand="block" color="instagram">
+                    <ion-button mode="ios" expand="block" color="instagram" (click)="openUrl(instagramUrl)">
                         <ion-icon slot="icon-only" name="logo-instagram"></ion-icon>
                     </ion-button>
-                    <ion-button mode="ios" expand="block" color="primary">
+                    <ion-button mode="ios" expand="block" color="primary" href="mailto:contact.nextlevelapp@gmail.com" target="_blank">
                         <ion-icon slot="icon-only" name="mail-outline"></ion-icon>
                     </ion-button>
                 </div>

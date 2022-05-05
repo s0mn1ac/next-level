@@ -10,8 +10,9 @@ ion-content {
                 height: 100%;
                 width: 100%;
                 object-fit: cover;
-                border-bottom-left-radius: 50%;
-                border-bottom-right-radius: 50%;
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+                box-shadow: 0 5px 5px rgba(0,0,0,0.16), 0 3px 5px rgba(0,0,0,0.23);
             }
         }
 
@@ -46,23 +47,26 @@ ion-content {
                 margin-top: 0.5rem;
                 padding: 0.5rem;
                 width: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
                 border-radius: 0.5rem;
 
                 div.status-bar-first-row {
                     display: flex;
                     flex-direction: row;
-                    justify-content: center;
+                    justify-content: space-between;
                     align-items: center;
+                    padding: 0 0.5rem;
     
                     div.user-score {
                         display: flex;
                         flex-direction: row;
                         align-items: center;
                         margin-right: 0.5rem;
+
+                        label {
+                            margin: 0 0.5rem;
+                        }
     
                         div.score {
-                            margin-left: 0.5rem;
                             min-width: 32px;
                             display: inline-block;
                             box-sizing: border-box;
@@ -182,7 +186,3 @@ ion-content {
     color: #fc4b37;
     border-color: rgba(252, 75, 55, 0.4) !important;
 }
-
-// :host ::ng-deep div.swiper-wrapper {
-//     align-items: center;
-// }

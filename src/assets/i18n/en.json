@@ -184,7 +184,8 @@
         "playing": "Playing",
         "addNote": "Add a note",
         "saveNote": "Save note",
-        "yourNoteHere": "Yout note here..."
+        "yourNoteHere": "Yout note here...",
+        "myScore": "My score:"
     },
 
     "settings": {

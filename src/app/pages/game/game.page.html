@@ -34,13 +34,10 @@
 
           <div class="user-score" (click)="onClickChangeUserScore()">
             <ion-icon name="person"></ion-icon>
+            <label> {{ t('game.myScore') }} </label>
             <div class="score" [ngClass]="game?.score.color"> {{ game?.score.value ?? '-' }} </div>
           </div>
-  
-          <ion-fab-button size="small" color="warning">
-            <ion-icon name="document-outline"></ion-icon>
-          </ion-fab-button>
-  
+
           <ion-chip [ngClass]="game?.status" id="statusTrigger">
             <ion-icon [name]="'play-outline'" *ngIf="game?.status === statusEnum.playing" color="light"></ion-icon>
             <ion-icon [name]="'pause-outline'" *ngIf="game?.status === statusEnum.paused" color="light"></ion-icon>

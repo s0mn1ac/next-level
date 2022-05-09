@@ -158,14 +158,14 @@ export class ListPage implements OnInit, OnDestroy {
   }
 
   private initParamsSubscription(): void {
-    this.params$ = this.activatedRoute.params.subscribe((params: Params) => {
+    this.params$ = this.activatedRoute.params?.subscribe((params: Params) => {
       this.cancelListsSubscription();
       this.initListsSubscription(params?.id);
     });
   }
 
   private initListsSubscription(listId: string): void {
-    this.lists$ = this.listService.listsObservable.subscribe((lists: List[]) => this.loadList(lists, listId));
+    this.lists$ = this.listService.listsObservable?.subscribe((lists: List[]) => this.loadList(lists, listId));
   }
 
   private loadList(lists: List[], listId: string): void {

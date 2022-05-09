@@ -105,7 +105,7 @@ export class GamePage implements OnInit, OnDestroy {
   }
 
   private initParamsSubscription(): void {
-    this.paramsSubscription$ = this.activatedRoute.params.subscribe((params: Params) => {
+    this.paramsSubscription$ = this.activatedRoute.params?.subscribe((params: Params) => {
       this.initData(params?.id);
     });
   }

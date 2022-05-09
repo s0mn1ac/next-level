@@ -53,7 +53,7 @@ export class UserAdministrationPage implements OnInit, OnDestroy {
   }
 
   private initForm(): void {
-    this.userAdministrationForm = this.formBuilder.group({
+    this.userAdministrationForm = new FormGroup({
       displayName: new FormControl(null, Validators.compose([Validators.required, Validators.nullValidator, Validators.maxLength(75)])),
       uid: new FormControl({ value: null, disabled: true }, Validators.compose([Validators.required, Validators.nullValidator])),
       email: new FormControl({ value: null, disabled: true }, Validators.compose([Validators.required, Validators.email]))
@@ -61,7 +61,7 @@ export class UserAdministrationPage implements OnInit, OnDestroy {
   }
 
   private initParamsSubscription(): void {
-    this.params$ = this.activatedRoute.params.subscribe((params: Params) => {
+    this.params$ = this.activatedRoute.params?.subscribe((params: Params) => {
       this.setDisabledStatus(params?.id);
       this.loadUser(params?.id);
     });

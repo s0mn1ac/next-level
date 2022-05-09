@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { LoadingController } from '@ionic/angular';
-import { TranslocoService } from '@ngneat/transloco';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,32 +12,26 @@ export class SignUpPage implements OnInit {
 
   public signUpForm: FormGroup;
 
-  private loading: HTMLIonLoadingElement;
-
   constructor(
-    private formBuilder: FormBuilder,
     private authService: AuthService,
-    private loadingController: LoadingController,
-    private translocoService: TranslocoService
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
     this.initForm();
-    this.initLoadingScreen();
   }
 
   public async onClickSignUpButton(): Promise<void> {
-    await this.initLoadingScreen();
-    this.loading.present();
+    await this.loadingService.show('signingUp');
     const name: string = this.signUpForm.get('name').value;
     const email: string = this.signUpForm.get('email').value;
     const password: string = this.signUpForm.get('password').value;
     await this.authService.signUp(email, password, name);
-    this.loading.dismiss();
+    await this.loadingService.hide();
   }
 
   private initForm(): void {
-    this.signUpForm = this.formBuilder.group({
+    this.signUpForm = new FormGroup({
       name: new FormControl(null, Validators.compose([Validators.required])),
       email: new FormControl(null, Validators.compose([Validators.required, Validators.email])),
       password: new FormControl(null, Validators.compose([Validators.required, Validators.minLength(8)])),
@@ -52,12 +45,6 @@ export class SignUpPage implements OnInit {
 
   private validateMatchingPasswords(formControl: FormControl): any {
     return formControl.value === this.signUpForm?.get('password')?.value ? null : { notMatchingPasswords: false };
-  }
-
-  private async initLoadingScreen(): Promise<void> {
-    this.loading = await this.loadingController.create({
-      message: this.translocoService.translate('loadingScreens.signingUp')
-    });
   }
 
 }

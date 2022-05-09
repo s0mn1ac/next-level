@@ -14,11 +14,11 @@ import { ComponentsModule } from 'src/app/shared/modules/components.module';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule,
     UserAdministrationPageRoutingModule,
     TranslocoModule,
-    ComponentsModule,
-    ReactiveFormsModule
+    ComponentsModule
   ],
   declarations: [UserAdministrationPage]
 })

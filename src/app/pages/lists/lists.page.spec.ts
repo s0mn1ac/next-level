@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import { AlertController, IonicModule } from '@ionic/angular';
+import { TranslocoService } from '@ngneat/transloco';
+import { ListService } from 'src/app/shared/services/list.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 import { ListsPage } from './lists.page';
 
@@ -10,7 +13,13 @@ describe('ListsPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ListsPage ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot()],
+      providers: [
+        { provide: TranslocoService, useValue: { } },
+        { provide: LoadingService, useValue: { } },
+        { provide: ListService, useValue: { } },
+        { provide: AlertController, useValue: { } }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ListsPage);

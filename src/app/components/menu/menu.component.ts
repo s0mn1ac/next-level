@@ -58,7 +58,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   private initListsSubscription(): void {
-    this.lists$ = this.listService.listsObservable.subscribe((lists: List[]) => this.loadLists(lists));
+    this.lists$ = this.listService.listsObservable?.subscribe((lists: List[]) => this.loadLists(lists));
   }
 
   private loadLists(lists: List[]): void {
@@ -67,7 +67,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   private async buildMenuItems(lists?: List[]): Promise<void> {
-    const menuItems: MenuItem[] = await this.menuService.getMenuItems();
+    const menuItems: MenuItem[] = await this.menuService?.getMenuItems();
     this.menuItems = [];
     menuItems?.forEach((menuItem: MenuItem, index) => {
       if (index === 2) {
@@ -82,7 +82,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       }
       this.menuItems.push(menuItem);
     });
-    if (this.userStructure.role === RoleEnum.admin) {
+    if (this.userStructure?.role === RoleEnum.admin) {
       this.menuItems.push({
         disabled: false,
         icon: 'podium-outline',

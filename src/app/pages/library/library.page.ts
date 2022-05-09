@@ -113,7 +113,7 @@ export class LibraryPage implements OnInit, OnDestroy {
   }
 
   private initListsSubscription(): void {
-    this.lists$ = this.listService.listsObservable.subscribe((lists: List[]) => this.loadLists(lists));
+    this.lists$ = this.listService.listsObservable?.subscribe((lists: List[]) => this.loadLists(lists));
   }
 
   private loadLists(lists: List[]): void {

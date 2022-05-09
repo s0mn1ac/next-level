@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, LoadingController } from '@ionic/angular';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 import { SignInPage } from './sign-in.page';
 
@@ -10,7 +12,12 @@ describe('SignInPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ SignInPage ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot()],
+      providers: [
+        { provide: AuthService, useValue: { } },
+        { provide: LoadingService, useValue: { } },
+        { provide: LoadingController, useValue: { } }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SignInPage);

@@ -13,10 +13,10 @@ import { TranslocoModule } from '@ngneat/transloco';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     IonicModule,
     SignInPageRoutingModule,
-    TranslocoModule,
-    ReactiveFormsModule
+    TranslocoModule
   ],
   declarations: [SignInPage]
 })

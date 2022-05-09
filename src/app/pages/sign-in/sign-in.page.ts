@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
 import { TranslocoService } from '@ngneat/transloco';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,39 +14,27 @@ export class SignInPage implements OnInit {
 
   public signInForm: FormGroup;
 
-  private loading: HTMLIonLoadingElement;
-
   constructor(
-    private formBuilder: FormBuilder,
     private authService: AuthService,
-    private loadingController: LoadingController,
-    private translocoService: TranslocoService
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
     this.initForm();
-    this.initLoadingScreen();
   }
 
   public async onClickSignInButton(): Promise<void> {
-    this.loading.present();
+    await this.loadingService.show('signingUp');
     const email: string = this.signInForm.get('email').value;
     const password: string = this.signInForm.get('password').value;
     await this.authService.signIn(email, password);
-    this.loading.dismiss();
+    await this.loadingService.hide();
   }
 
   private initForm(): void {
-    this.signInForm = this.formBuilder.group({
+    this.signInForm = new FormGroup({
       email: new FormControl(null, Validators.compose([Validators.required, Validators.email])),
       password: new FormControl(null, Validators.compose([Validators.required, Validators.minLength(8)]))
-    });
-  }
-
-  private async initLoadingScreen(): Promise<void> {
-    this.loading = await this.loadingController.create({
-      message: this.translocoService.translate('loadingScreens.signingIn'),
-      mode: 'ios'
     });
   }
 

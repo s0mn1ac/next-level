@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
@@ -15,7 +15,6 @@ export class UserPage implements OnInit {
   public changeUserForm: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder,
     private userService: UserService,
     private loadingService: LoadingService,
     private toastService: ToastService
@@ -35,7 +34,7 @@ export class UserPage implements OnInit {
   private initForm(): void {
     const userStructure: UserStructure = JSON.parse(localStorage.getItem('next-level-user'));
     const validators = [Validators.required, Validators.nullValidator, Validators.maxLength(75)];
-    this.changeUserForm = this.formBuilder.group({
+    this.changeUserForm = new FormGroup({
       name: new FormControl(userStructure?.displayName ?? null, Validators.compose(validators))
     });
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 
@@ -13,7 +13,6 @@ export class EmailPage implements OnInit {
   public changeEmailForm: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder,
     private authService: AuthService,
     private loadingService: LoadingService
   ) { }
@@ -31,7 +30,7 @@ export class EmailPage implements OnInit {
   }
 
   private initForm(): void {
-    this.changeEmailForm = this.formBuilder.group({
+    this.changeEmailForm = new FormGroup({
       newEmailAddress: new FormControl(null, Validators.compose([Validators.required, Validators.email])),
       confirmPassword: new FormControl(null, Validators.compose([Validators.required, Validators.minLength(8)]))
     });

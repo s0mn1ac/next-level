@@ -129,7 +129,7 @@ export class BoardPage implements OnInit, OnDestroy {
   }
 
   private initListsSubscription(): void {
-    this.lists$ = this.listService.listsObservable.subscribe((lists: List[]) => this.loadLists(lists));
+    this.lists$ = this.listService.listsObservable?.subscribe((lists: List[]) => this.loadLists(lists));
   }
 
   private async loadLists(lists: List[]): Promise<void> {

@@ -10,6 +10,9 @@
     background-color: var(--ion-background-color);
     height: 100%;
     width: 100%;
+}
 
-
+ion-toolbar ion-title {
+    font-family: 'Lobster', cursive;
+    font-size: 30px;
 }

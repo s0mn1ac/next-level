@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { TranslocoModule } from '@ngneat/transloco';
-import { GameCardComplexComponent } from 'src/app/components/game-card-complex/game-card-complex.component';
 import { GameCardComponent } from 'src/app/components/game-card/game-card.component';
 import { NextLevelListComponent } from 'src/app/components/next-level-list/next-level-list.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
@@ -22,7 +21,6 @@ import { LegalComponent } from 'src/app/components/legal/legal.component';
     MenuComponent,
     ListComponent,
     GameCardComponent,
-    GameCardComplexComponent,
     NextLevelListComponent,
     NextLevelPrimaryListComponent,
     NextLevelSecondaryListComponent,
@@ -36,7 +34,6 @@ import { LegalComponent } from 'src/app/components/legal/legal.component';
     MenuComponent,
     ListComponent,
     GameCardComponent,
-    GameCardComplexComponent,
     NextLevelListComponent,
     NextLevelPrimaryListComponent,
     NextLevelSecondaryListComponent,

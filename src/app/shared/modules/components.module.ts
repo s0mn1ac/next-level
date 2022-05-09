@@ -14,6 +14,7 @@ import { NextLevelPrimaryListComponent } from 'src/app/components/next-level-pri
 import { NextLevelSecondaryListComponent } from 'src/app/components/next-level-secondary-list/next-level-secondary-list.component';
 import { NextLevelNoteModalComponent } from 'src/app/components/next-level-note-modal/next-level-note-modal.component';
 import { EmptyScreenComponent } from 'src/app/components/empty-screen/empty-screen.component';
+import { LegalComponent } from 'src/app/components/legal/legal.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { EmptyScreenComponent } from 'src/app/components/empty-screen/empty-scre
     NextLevelSecondaryListComponent,
     NextLevelModalComponent,
     NextLevelNoteModalComponent,
-    EmptyScreenComponent
+    EmptyScreenComponent,
+    LegalComponent
   ],
   exports: [
     HeaderComponent,
@@ -40,7 +42,8 @@ import { EmptyScreenComponent } from 'src/app/components/empty-screen/empty-scre
     NextLevelSecondaryListComponent,
     NextLevelModalComponent,
     NextLevelNoteModalComponent,
-    EmptyScreenComponent
+    EmptyScreenComponent,
+    LegalComponent
   ],
   imports: [
     CommonModule,

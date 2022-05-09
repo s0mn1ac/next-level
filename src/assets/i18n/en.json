@@ -242,7 +242,73 @@
             "email": "Send me an email"
         },
         "legal": {
-            "title": "Legal notice"
+            "title": "Legal notice",
+            "terms": {
+                "title": "1. Terms of Use",
+                "first": "The use of this application grants you the condition of User, and implies full acceptance of all the clauses and conditions of use included in the sections:",
+                "second": "Legal Notice",
+                "third": "Privacy Policy",
+                "fourth": "Cookie Policy",
+                "fifth": "If you do not agree with each and every one of these clauses and conditions, refrain from using this application.",
+                "sixth": "Access to this application does not imply, in any way, the beginning of a commercial relationship with the Owner.",
+                "seventh": "Through this application, the Owner facilitates the access and use of various contents that the Owner or his collaborators have published through the Internet.",
+                "eighth": "To this end, you are obliged and committed NOT to use any of the contents of the application for illicit purposes or effects, prohibited in this Legal Notice or by current legislation, harmful to the rights and interests of third parties, or that in any way may damage, disable, overload, deteriorate or prevent the normal use of the content, computer equipment or documents, files and all kinds of content stored in any computer equipment owned or contracted by the Holder, from other users or any Internet user."
+            },
+            "security": {
+                "title": "2. Security measures",
+                "first": "The personal data that you provide to the Owner may be stored in automated databases or not, whose ownership corresponds exclusively to the Owner, who assumes all technical, organizational and security measures that guarantee confidentiality, integrity and quality of the information contained therein in accordance with the provisions of current regulations on data protection.",
+                "second": "However, you must be aware that the security measures of computer systems on the Internet are not entirely reliable and that, therefore, the Owner cannot guarantee the absence of viruses or other elements that may cause alterations in the computer systems (software and hardware) of the User or in their electronic documents and files contained therein, although the Holder puts all the necessary means and takes the appropriate security measures to avoid the presence of these harmful elements."
+            },
+            "staff": {
+                "title": "3. Personal data",
+                "first": "You can consult all the information related to the processing of personal data collected by the Owner in the Privacy Policy section."
+            },
+            "contents": {
+                "title": "4. Contents",
+                "first": "The Owner has obtained the information, multimedia content and materials included in the application from sources that it considers reliable, but, although it has taken all reasonable measures to ensure that the information contained is correct, the Owner does not guarantees that it is accurate, complete or updated. The Owner expressly declines any responsibility for errors or omissions in the information contained in the sections of this application.",
+                "second": "It is prohibited to transmit or send through the application any illegal or illicit content, computer viruses, or messages that, in general, affect or violate the rights of the Owner or third parties.",
+                "third": "The contents of the application are for informational purposes only and under no circumstances should they be used or considered as an offer to sell, a request for an offer to buy or a recommendation to carry out any other operation, unless expressly indicated." ,
+                "fourth": "The Owner reserves the right to modify, suspend, cancel or restrict the content of the application, the links or the information obtained through the application, without prior notice.",
+                "fifth": "The Owner is not responsible for any damages that may arise from the use of the information in the application or that contained in the Owner's social networks."
+            },
+            "cookies": {
+                "title": "5. Cookie Policy",
+                "first": "In this section you can consult all the information related to the cookie collection and treatment policy.",
+                "second": "The Owner only obtains and keeps the following information about the users of the application:",
+                "third": "The provider's domain name (PSI) and/or IP address that gives them access to the network",
+                "fourth": "The date and time of access to the application",
+                "fifth": "The number of daily visitors to each section",
+                "sixth": "The information obtained is completely anonymous, and in no case can it be associated with a specific and identified User"
+            },
+            "links": {
+                "title": "6. Links of interest to other websites",
+                "first": "The Owner can provide you with access to third-party websites through links in order to inform about the existence of other sources of information on the Internet where you can expand the data offered in the application.",
+                "second": "These links to other websites do not imply in any case a suggestion or recommendation for you to visit the destination web pages, which are beyond the control of the Owner, so the Owner is not responsible for the content of the sites linked websites or the result you get from following the links.",
+                "third": "Likewise, the Owner is not responsible for the links located on the linked websites to which it provides access.",
+                "fourth": "The establishment of the link does not imply in any case the existence of relations between the Owner and the owner of the site where the link is established, nor the acceptance or approval by the Owner of its contents or services.",
+                "fifth": "If you access an external website from a link you find in the application you should read the website's own privacy policy which may be different from that of this application."
+            },
+            "property": {
+                "title": "7. Intellectual and industrial property",
+                "first": "All rights reserved.",
+                "second": "All access to this application is subject to the following conditions: the reproduction, permanent storage and dissemination of the contents or any other use that has a public or commercial purpose is expressly prohibited without the express prior written consent of Headline."
+            },
+            "limited": {
+                "title": "8. Limitation of liability",
+                "first": "The information and services included or available through this application may include inaccuracies or typographical errors. Periodically, the Owner incorporates improvements and/or changes to the information contained and/or the Services that may be introduced at any time .",
+                "second": "The Owner does not declare or guarantee that the services or content will be interrupted or free of errors, that defects will be corrected, or that the service or the server that makes it available are free of viruses or other components harmful notwithstanding that the Holder makes every effort to avoid this type of incident.",
+                "third": "Holder declines any responsibility in the event of interruptions or a malfunction of the Services or contents offered on the Internet, whatever their cause. Likewise, the Holder is not responsible for network outages, loss of business as a result of such falls, temporary power outages or any other type of indirect damage that may be caused by causes beyond the control of the Holder.",
+                "fourth": "Before making decisions and/or actions based on the information included in the application, the Owner recommends that you check and contrast the information received with other sources."
+            },
+            "jurisdiction": {
+                "title": "9. Jurisdiction",
+                "first": "This Legal Notice is fully governed by Spanish law.",
+                "second": "As long as there is no rule that obliges otherwise, for any questions that arise about the interpretation, application and compliance with this Legal Notice, as well as the claims that may arise from its use, the parties agree to submit to the Judges and Courts of the province of Santa Cruz de Tenerife, expressly waiving any other jurisdiction that may correspond to them."
+            },
+            "contact": {
+                "title": "10. Contact",
+                "first": "In case you have any questions about these Legal Conditions or want to make any comments about this website, you can send an email to contact.nextlevelapp@gmail.com"
+            }
         }
     },
 

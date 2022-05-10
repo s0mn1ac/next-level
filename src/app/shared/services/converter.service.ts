@@ -36,7 +36,6 @@ export class ConverterService {
             const listData: any = listSnapshot.data();
             list.id = listSnapshot.id;
             list.name = listData.name;
-            list.isPublic = listData.isPublic;
             list.games = [];
             for await (const gameDocumentReference of listData.games) {
                 await gameDocumentReference.get().then((gameSnapshot: DocumentSnapshot<Game>) => {

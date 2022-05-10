@@ -94,7 +94,6 @@ export class ListService {
     for await (const reportItem of report) {
       const list: List = new List();
       list.id = reportItem.id;
-      list.isPublic = reportItem.isPublic;
       list.isFavorite = reportItem.isFavorite;
       list.name = reportItem.name;
       list.type = reportItem.type;

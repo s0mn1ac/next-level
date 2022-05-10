@@ -83,7 +83,7 @@ export class BoardPage implements OnInit, OnDestroy {
           text: this.translocoService.translate('buttons.create'),
           handler: async (event: any) => {
             await this.loadingService.show('creatingList');
-            await this.listService.addList({ name: event.name, isPublic: false, isFavorite: false, games: [], type: ListTypeEnum.unset });
+            await this.listService.addList({ name: event.name, isFavorite: false, games: [], type: ListTypeEnum.unset });
             await this.loadingService.hide();
           }
         }

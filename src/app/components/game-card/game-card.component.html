@@ -13,7 +13,7 @@
         <div class="title-section">
 
           <div class="parent-platforms">
-            <img [src]="parentPlatform.image" *ngFor="let parentPlatform of game?.parentPlatforms" [alt]="parentPlatform.name" />
+            <img [src]="isDarkModeEnabled ? parentPlatform.image + '.svg' : parentPlatform.image + '-light.svg'" *ngFor="let parentPlatform of game?.parentPlatforms" [alt]="parentPlatform.name" />
           </div>
 
           <div class="title">

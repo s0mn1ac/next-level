@@ -22,8 +22,8 @@ div.sign-up-container {
             font-family: 'Lobster', cursive;
 
             label {
+                color: var(--ion-color-primary);
                 padding: 0.5rem 1rem;
-                font-weight: bold;
                 font-size: 50px;
             }
         }

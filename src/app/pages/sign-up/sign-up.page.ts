@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
 
@@ -13,12 +14,14 @@ export class SignUpPage implements OnInit {
   public signUpForm: FormGroup;
 
   constructor(
+    private router: Router,
     private authService: AuthService,
     private loadingService: LoadingService
   ) { }
 
   ngOnInit() {
     this.initForm();
+    this.checkIsLoggedIn();
   }
 
   public async onClickSignUpButton(): Promise<void> {
@@ -45,6 +48,14 @@ export class SignUpPage implements OnInit {
 
   private validateMatchingPasswords(formControl: FormControl): any {
     return formControl.value === this.signUpForm?.get('password')?.value ? null : { notMatchingPasswords: false };
+  }
+
+  private checkIsLoggedIn(): void {
+    if (this.authService.isLoggedIn) {
+      this.router.navigate(['/board']);
+      return;
+    }
+    this.loadingService.hideLoadingScreen();
   }
 
 }

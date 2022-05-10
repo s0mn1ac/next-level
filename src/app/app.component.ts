@@ -22,7 +22,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.setInitialData();
-    this.initSubscriptions();
+    this.initUserSubscription();
   }
 
   ngOnDestroy(): void {
@@ -30,6 +30,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private setInitialData(): void {
+    console.log('Powered by RAWG: https://rawg.io/apidocs');
     const userStructure: UserStructure = JSON.parse(localStorage.getItem('next-level-user'));
     this.setUserStructure(userStructure);
   }
@@ -42,7 +43,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
-  private initSubscriptions(): void {
+  private initUserSubscription(): void {
     this.user$ = this.userService.userObservable.subscribe((value: UserStructure) => this.setUserStructure(value));
   }
 

@@ -5,11 +5,13 @@ import { TranslocoService } from '@ngneat/transloco';
 import { Subscription } from 'rxjs';
 import { NextLevelNoteModalComponent } from 'src/app/components/next-level-note-modal/next-level-note-modal.component';
 import { StatusEnum } from 'src/app/shared/enums/status.enum';
+import { UserStructure } from 'src/app/shared/interfaces/user-structure.interface';
 import { Game } from 'src/app/shared/models/game.model';
 import { UserScore } from 'src/app/shared/models/user-score.model';
 import { GameService } from 'src/app/shared/services/game.service';
 import { ListService } from 'src/app/shared/services/list.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-game',
@@ -29,8 +31,10 @@ export class GamePage implements OnInit, OnDestroy {
 
   public isGameDataLoaded = false;
   public isStatusBarVisible = false;
+  public isDarkModeEnabled: boolean;
 
-  private paramsSubscription$: Subscription;
+  private params$: Subscription;
+  private user$: Subscription;
 
   private selectedNoteIndex: number = null;
 
@@ -40,15 +44,18 @@ export class GamePage implements OnInit, OnDestroy {
     private loadingService: LoadingService,
     private listService: ListService,
     private gameService: GameService,
-    private pickerController: PickerController
+    private pickerController: PickerController,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
     this.initParamsSubscription();
+    this.initUserSubscription();
   }
 
   ngOnDestroy(): void {
     this.cancelParamsSubscription();
+    this.cancelUserSubscription();
   }
 
   public async onClickUpdateGameStatus(status: StatusEnum): Promise<void> {
@@ -105,9 +112,20 @@ export class GamePage implements OnInit, OnDestroy {
   }
 
   private initParamsSubscription(): void {
-    this.paramsSubscription$ = this.activatedRoute.params?.subscribe((params: Params) => {
+    this.params$ = this.activatedRoute.params?.subscribe((params: Params) => {
       this.initData(params?.id);
     });
+  }
+
+  private initUserSubscription(): void {
+    this.user$ = this.userService.userObservable.subscribe((value: UserStructure) => this.setIsDarkModeEnabled(value));
+  }
+
+  private setIsDarkModeEnabled(userStructure: UserStructure): void {
+    if (userStructure == null) {
+      return;
+    }
+    this.isDarkModeEnabled = userStructure.mode === 'dark';
   }
 
   private async initData(gameId: string): Promise<void> {
@@ -128,7 +146,11 @@ export class GamePage implements OnInit, OnDestroy {
   }
 
   private cancelParamsSubscription(): void {
-    this.paramsSubscription$?.unsubscribe();
+    this.params$?.unsubscribe();
+  }
+
+  private cancelUserSubscription(): void {
+    this.user$?.unsubscribe();
   }
 
 }

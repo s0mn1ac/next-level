@@ -30,6 +30,7 @@
     "@ngneat/transloco": "^3.1.4",
     "ajv": "^6.12.6",
     "firebase": "^9.6.7",
+    "firebase-tools": "^9.23.3",
     "moment": "^2.29.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",

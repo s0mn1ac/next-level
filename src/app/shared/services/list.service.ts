@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, DocumentSnapshot } from '@angular/fire/compat/firestore';
+import { AngularFirestore, DocumentData, DocumentSnapshot } from '@angular/fire/compat/firestore';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { ConverterService } from 'src/app/shared/services/converter.service';
@@ -87,6 +87,10 @@ export class ListService {
     await this.angularFirestore.collection('users').doc(this.uid).collection('lists').doc(listId).update({
       games: arrayRemove(doc(getFirestore(), `users/${this.uid}/games`, `${gameId}`))
     });
+  }
+
+  public getGamesSubscription(): Observable<DocumentData[]> {
+   return this.angularFirestore.collection('users').doc(this.uid).collection('games').valueChanges();
   }
 
   private async updateLists(report: any): Promise<void> {

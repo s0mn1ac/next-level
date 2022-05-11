@@ -31,6 +31,7 @@ export class ListPage implements OnInit, OnDestroy {
 
   private params$: Subscription;
   private lists$: Subscription;
+  private games$: Subscription;
 
   constructor(
     private router: Router,
@@ -44,11 +45,13 @@ export class ListPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.initOptions();
     this.initParamsSubscription();
+    this.initGamesSubscription();
   }
 
   ngOnDestroy(): void {
     this.cancelParamsSubscription();
     this.cancelListsSubscription();
+    this.cancelGamesSubscription();
   }
 
   public onClickShowNextLevelModal(nextLevelModalOptions: NextLevelModalOptions): void {
@@ -164,6 +167,10 @@ export class ListPage implements OnInit, OnDestroy {
     });
   }
 
+  private initGamesSubscription(): void {
+    this.games$ = this.listService.getGamesSubscription()?.subscribe(report => this.loadGames(report));
+  }
+
   private initListsSubscription(listId: string): void {
     this.lists$ = this.listService.listsObservable?.subscribe((lists: List[]) => this.loadList(lists, listId));
   }
@@ -173,12 +180,25 @@ export class ListPage implements OnInit, OnDestroy {
     this.hasDataToShow = this.list?.games !== undefined && this.list?.games?.length > 0;
   }
 
+  private async loadGames(report: any): Promise<void> {
+    this.list?.games?.forEach((game: Game) => {
+      const foundGame: Game = report?.find((reportItem: any) => reportItem.id === game.id);
+      if (foundGame) {
+        game.status = foundGame.status;
+      }
+    });
+  }
+
   private cancelParamsSubscription(): void {
     this.params$?.unsubscribe();
   }
 
   private cancelListsSubscription(): void {
     this.lists$?.unsubscribe();
+  }
+
+  private cancelGamesSubscription(): void {
+    this.games$?.unsubscribe();
   }
 
 }

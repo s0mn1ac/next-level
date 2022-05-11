@@ -25,7 +25,7 @@ export class SignInPage implements OnInit {
   }
 
   public async onClickSignInButton(): Promise<void> {
-    await this.loadingService.show('signingUp');
+    await this.loadingService.show('signingIn');
     const email: string = this.signInForm.get('email').value;
     const password: string = this.signInForm.get('password').value;
     await this.authService.signIn(email, password);

@@ -16,7 +16,7 @@
 
   </ion-grid>
 
-  <app-empty-screen *ngIf="!hasDataToShow"
+  <app-empty-screen *ngIf="!hasDataToShow && !isLoading"
       [icon]="'search-outline'"
       [title]="t('library.emptyScreen.title')"
       [description]="t('library.emptyScreen.description')"

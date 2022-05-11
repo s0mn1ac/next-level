@@ -1,5 +1,4 @@
 import { RoleEnum } from '../enums/role.enum';
-import { VisualizationEnum } from '../enums/visualization.enum';
 
 export interface UserStructure {
     uid?: string;
@@ -10,5 +9,4 @@ export interface UserStructure {
     mode?: string;
     theme?: string;
     language?: string;
-    visualization?: VisualizationEnum;
 }

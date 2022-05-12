@@ -23,7 +23,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.setInitialData();
-    this.initSubscriptions();
+    this.initUserSubscription();
   }
 
   ngOnDestroy(): void {
@@ -42,7 +42,7 @@ export class SettingsPage implements OnInit, OnDestroy {
     this.userService.modifyUser('theme', event?.detail?.value);
   }
 
-  private initSubscriptions(): void {
+  private initUserSubscription(): void {
     this.user$ = this.userService.userObservable?.subscribe((value: UserStructure) => this.setUserStructure(value));
   }
 

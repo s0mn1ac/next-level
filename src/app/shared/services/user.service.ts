@@ -16,9 +16,7 @@ export class UserService {
 
   private uid: string;
 
-  constructor(
-    private angularFirestore: AngularFirestore
-  ) { }
+  constructor(private angularFirestore: AngularFirestore) { }
 
   public setUserId(uid: string): void {
     this.uid = uid;

@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-information',
   templateUrl: './information.page.html',
   styleUrls: ['./information.page.scss'],
 })
-export class InformationPage implements OnInit {
+export class InformationPage {
 
   public twitterUrl: string;
   public facebookUrl: string;
@@ -14,9 +14,6 @@ export class InformationPage implements OnInit {
   constructor() {
     this.twitterUrl = 'https://twitter.com/appnextlevel';
     this.instagramUrl = 'https://www.instagram.com/appnextlevel/';
-  }
-
-  ngOnInit() {
   }
 
   public openUrl(url: string): void {

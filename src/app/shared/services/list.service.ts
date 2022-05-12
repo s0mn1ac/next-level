@@ -5,7 +5,7 @@ import { distinctUntilChanged } from 'rxjs/operators';
 import { ConverterService } from 'src/app/shared/services/converter.service';
 import { Game } from '../models/game.model';
 import { List } from '../models/list.model';
-import { doc, updateDoc, arrayUnion, arrayRemove, getFirestore } from 'firebase/firestore';
+import { doc, arrayUnion, arrayRemove, getFirestore } from 'firebase/firestore';
 import { LoadingService } from './loading.service';
 
 @Injectable({

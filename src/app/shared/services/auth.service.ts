@@ -96,17 +96,6 @@ export class AuthService implements OnDestroy {
     });
   }
 
-  public async forgotPassword(passwordResetEmail: string): Promise<void> {
-    return this.angularFireAuth
-      .sendPasswordResetEmail(passwordResetEmail)
-      .then(() => {
-        window.alert('Password reset email sent, check your inbox.'); // TODO: Cambiar las alertas por TOAST
-      })
-      .catch((error) => {
-        window.alert(error); // TODO: Cambiar las alertas por TOAST
-      });
-  }
-
   public async updateEmail(email: string, password: string): Promise<void> {
     const currentUser: firebase.User = await this.angularFireAuth.currentUser;
     await this.angularFireAuth.signInWithEmailAndPassword(currentUser.email, password).then( async () => {
@@ -210,7 +199,6 @@ export class AuthService implements OnDestroy {
   private initUserFilterListRef(): void {
     const user: any = JSON.parse(localStorage.getItem('next-level-user'));
     if (user != null) {
-      this.databaseService.setUserId(user.uid);
       this.listService.setUserId(user.uid);
       this.userService.setUserId(user.uid);
       this.initListsSubscription();

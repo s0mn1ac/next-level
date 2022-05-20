@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { StatusEnum } from 'src/app/shared/enums/status.enum';
 import { List } from 'src/app/shared/models/list.model';
 
 @Component({
@@ -9,6 +10,8 @@ import { List } from 'src/app/shared/models/list.model';
 export class NextLevelPrimaryListComponent implements OnInit {
 
   @Input() list: List;
+
+  public statusEnum: typeof StatusEnum = StatusEnum;
 
   constructor() { }
 

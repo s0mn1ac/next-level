@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { NextLevelModalComponent } from 'src/app/components/next-level-modal/next-level-modal.component';
 import { ListTypeEnum } from 'src/app/shared/enums/list-type.enum';
 import { NextLevelModalOptions } from 'src/app/shared/interfaces/next-level-modal-options.interface';
+import { Game } from 'src/app/shared/models/game.model';
 import { List } from 'src/app/shared/models/list.model';
 import { ListService } from 'src/app/shared/services/list.service';
 import { LoadingService } from 'src/app/shared/services/loading.service';
@@ -29,6 +30,7 @@ export class BoardPage implements OnInit, OnDestroy {
   public hasDataToShow = false;
 
   private lists$: Subscription;
+  private games$: Subscription;
 
   private actionSheet: HTMLIonActionSheetElement;
 
@@ -49,10 +51,12 @@ export class BoardPage implements OnInit, OnDestroy {
     await this.loadingService.show('updatingBoard');
     this.initOptions();
     this.initListsSubscription();
+    this.initGamesSubscription();
   }
 
   ngOnDestroy(): void {
-    this.lists$?.unsubscribe();
+    this.cancelListsSubscription();
+    this.cancelGamesSubscription();
   }
 
   public onClickChangeEditMode(): void {
@@ -132,6 +136,10 @@ export class BoardPage implements OnInit, OnDestroy {
     this.lists$ = this.listService.listsObservable?.subscribe((lists: List[]) => this.loadLists(lists));
   }
 
+  private initGamesSubscription(): void {
+    this.games$ = this.listService.getGamesSubscription()?.subscribe(report => this.loadGames(report));
+  }
+
   private async loadLists(lists: List[]): Promise<void> {
     this.lists = lists?.filter((list: List) => list.type === ListTypeEnum.unset);
     this.board = lists?.filter((list: List) => list.type === ListTypeEnum.board)?.sort((a: List, b: List) => a.position - b.position);
@@ -148,6 +156,25 @@ export class BoardPage implements OnInit, OnDestroy {
     await this.listService.modifyList(listId, 'position', this.board?.length);
     await this.listService.modifyList(listId, 'type', ListTypeEnum.board);
     this.updateListsPosition();
+  }
+
+  private async loadGames(report: any): Promise<void> {
+    this.board?.forEach((list: List) => {
+      list?.games?.forEach((game: Game) => {
+        const foundGame: Game = report?.find((reportItem: any) => reportItem.id === game.id);
+        if (foundGame) {
+          game.status = foundGame.status;
+        }
+      });
+    });
+  }
+
+  private cancelListsSubscription(): void {
+    this.lists$?.unsubscribe();
+  }
+
+  private cancelGamesSubscription(): void {
+    this.games$?.unsubscribe();
   }
 
 }

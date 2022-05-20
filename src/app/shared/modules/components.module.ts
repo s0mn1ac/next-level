@@ -10,7 +10,6 @@ import { ListComponent } from 'src/app/components/list/list.component';
 import { MenuComponent } from 'src/app/components/menu/menu.component';
 import { NextLevelModalComponent } from 'src/app/components/next-level-modal/next-level-modal.component';
 import { NextLevelPrimaryListComponent } from 'src/app/components/next-level-primary-list/next-level-primary-list.component';
-import { NextLevelSecondaryListComponent } from 'src/app/components/next-level-secondary-list/next-level-secondary-list.component';
 import { NextLevelNoteModalComponent } from 'src/app/components/next-level-note-modal/next-level-note-modal.component';
 import { EmptyScreenComponent } from 'src/app/components/empty-screen/empty-screen.component';
 import { LegalComponent } from 'src/app/components/legal/legal.component';
@@ -23,7 +22,6 @@ import { LegalComponent } from 'src/app/components/legal/legal.component';
     GameCardComponent,
     NextLevelListComponent,
     NextLevelPrimaryListComponent,
-    NextLevelSecondaryListComponent,
     NextLevelModalComponent,
     NextLevelNoteModalComponent,
     EmptyScreenComponent,
@@ -36,7 +34,6 @@ import { LegalComponent } from 'src/app/components/legal/legal.component';
     GameCardComponent,
     NextLevelListComponent,
     NextLevelPrimaryListComponent,
-    NextLevelSecondaryListComponent,
     NextLevelModalComponent,
     NextLevelNoteModalComponent,
     EmptyScreenComponent,

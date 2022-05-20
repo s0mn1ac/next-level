@@ -7,7 +7,12 @@
   <div class="next-level-list-container">
 
     <div class="game-container" [routerLink]="'/game/' + game.id" *ngFor="let game of list?.games">
-      <img [src]="game?.image" [alt]="game.name" />
+      <img class="game-background-image" [src]="game?.image" [alt]="game.name" />
+      <div class="status-container">
+        <ion-icon name="play" color="danger" *ngIf="game?.status === statusEnum.playing"></ion-icon>
+        <ion-icon name="pause" color="warning" *ngIf="game?.status === statusEnum.paused"></ion-icon>
+        <ion-icon name="checkmark" color="success" *ngIf="game?.status === statusEnum.completed"></ion-icon>
+      </div>
     </div>
 
   </div>

@@ -79,7 +79,18 @@ ion-content {
                     }
     
                     ion-chip {
-                        border-width: 1px;
+
+                        &.playing {
+                            border: 1px solid var(--ion-color-primary);
+                        }
+
+                        &.paused {
+                            border: 1px solid var(--ion-color-warning);
+                        }
+
+                        &.completed {
+                            border: 1px solid var(--ion-color-success);
+                        }
     
                         ion-icon {
                             margin: 0;
@@ -163,19 +174,4 @@ ion-content {
 
 .ion-text-break-spaces {
     white-space: break-spaces !important;
-}
-
-.score-green {
-    color: #6dc849;
-    border-color: rgba(109, 200, 73, 0.4) !important;
-}
-
-.score-yellow {
-    color: #fdca52;
-    border-color: rgba(253, 202, 82, 0.4) !important;
-}
-
-.score-red {
-    color: #fc4b37;
-    border-color: rgba(252, 75, 55, 0.4) !important;
 }

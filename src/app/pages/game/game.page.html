@@ -1,20 +1,12 @@
-<ion-header *transloco="let t">
-
-  <ion-toolbar color="primary">
-    
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/library"></ion-back-button>
-    </ion-buttons>
-
-    <ion-title> {{ game?.name }} </ion-title>
-    
-  </ion-toolbar>
-
-</ion-header>
-
 <ion-content *transloco="let t">
 
   <div class="header-container">
+
+    <ion-fab vertical="top" horizontal="start">
+      <ion-fab-button size="small" color="light">
+        <ion-back-button defaultHref="/library" icon="close"></ion-back-button>
+      </ion-fab-button>
+    </ion-fab>
 
     <div class="background-image-container">
       <img [src]="game?.image" [alt]="game?.name" *ngIf="isGameDataLoaded" />

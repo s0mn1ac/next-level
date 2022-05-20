@@ -202,6 +202,28 @@
         "myScore": "Mi valoración:"
     },
 
+    "genres": {
+        "action": "Acción",
+        "indie": "Indie",
+        "adventure": "Aventuras",
+        "role-playing-games-rpg": "RGP",
+        "strategy": "Estrategia",
+        "shooter": "Disparos",
+        "casual": "Casual",
+        "simulation": "Simulación",
+        "puzzle": "Puzles",
+        "arcade": "Arcade",
+        "platformer": "Plataformas",
+        "racing": "Carreras",
+        "massively-multiplayer": "Multijugador masivo",
+        "sports": "Deportes",
+        "fighting": "Lucha",
+        "family": "Familiar",
+        "board-games": "Juego de mesa",
+        "educational": "Educación",
+        "card": "Juego de cartas"
+    },
+
     "settings": {
         "title": "Ajustes",
         "appColor": "Color principal de la aplicación",
